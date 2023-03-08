@@ -1,0 +1,85 @@
+.services{
+	position: relative;
+	overflow-y: scroll;
+}
+
+.floating-btn{
+	background: var(--color-active);
+	color: var(--text-active);
+	border-radius: 50%;
+	position: fixed;
+	height: 56px;
+	width: 56px;
+	right: 15px;
+	bottom: 15px;
+	font-size: 40px;
+	text-align: center;
+	box-shadow: 0 0 10px #000;
+	transition: .3s;
+	line-height: 56px;
+	cursor: pointer;
+	&:hover{
+		box-shadow: none;
+	}
+	&:active{
+		box-shadow: inset 0 0 10px #000;
+	}
+}
+
+.add-service-containre{
+	margin: 15px;
+	border-radius: var(--card-border-radius);
+	background: var(--color-normal);
+	color: var(--text-normal);
+	padding: 10px 10px 0 10px;
+	box-shadow: 0 0 8px #000;
+	position: absolute;
+	width: calc(100% - 45px);
+	top: 50%;
+	transform: translateY(calc(-50% - 20px));
+	h2{
+		padding: 16px 16px 8px;
+		font-size: 30px;
+	}
+	p{
+		font-size: 16px;
+	}
+	.input-container{
+		padding-bottom: 8px;
+	}
+	.input-data{
+		padding: 0 16px;
+		position: relative;
+		label{
+			position: absolute;
+			left: 16px;
+		}
+		input{
+			width: calc(100% - 32px);
+		}
+	}
+	input{
+		background: var(--color-normal);
+		color: var(--text-normal);
+	}
+}
+
+.service-item-container{
+	list-style: none;
+	margin: 15px;
+	border-radius: 10px;
+	background: var(--color-normal);
+	color: var(--text-normal);
+	padding: 10px 10px 0 10px;
+	box-shadow: 0 0 8px #000;
+	min-height: 120px;
+	font-size: 24px;
+	h5{
+		padding: 16px 16px 8px;
+		font-size: 30px;
+	}
+	p{
+		font-size: 16px;
+		padding: 0 16px;
+	}
+}

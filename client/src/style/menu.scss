@@ -1,0 +1,104 @@
+.top-menu{
+	height: 60px;
+	width: 100%;
+	background: var(--color-base);
+	box-shadow: 0 0 10px #000;
+	z-index: map-get($z-index, navigation-top);
+	position: fixed;
+	top: 0;
+	left: 0;
+	.menu-button{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 60px;
+		height: 60px;
+		transition: .5s;
+		i{
+			width: 100%;
+			height: 100%;
+			font-size: 24px;
+			color: var(--text-base);
+			text-align: center;
+			line-height: 60px;
+		}
+		&.active{
+			background: var(--color-active);
+		}
+	}
+	h1{
+		color: var(--text-base);
+		line-height: 60px;
+		margin-left: 100px;
+	}
+}
+
+.navigation{
+	z-index: map-get($z-index, navigation);
+	top: 60px;
+	position: fixed;
+	width: 60px;
+	height: calc(100% - 60px);
+	background: var(--color-base);
+	box-shadow: 0 0 10px #000;
+	transition: 0.5s;
+	overflow: hidden;
+	@media (max-width: 720px){
+		width: 0;
+		overflow-y: scroll;
+	}
+	@media (min-width: 720px){
+		&:hover{
+			width: 300px;
+		}
+	}
+	&.active{
+		width: 300px;
+		@media (max-width: 720px){
+			width: 100%;
+		}
+	}
+	ul{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		li{
+			position: relative;
+			width: 100%;
+			list-style: none;
+			a, .falseLink{
+				position: relative;
+				display: block;
+				width: 100%;
+				display: flex;
+				text-decoration: none;
+				color: var(--text-base);
+				&:hover, &.active{
+					background: var(--color-active);
+				}
+				.icon{
+					position: relative;
+					display: block;
+					min-width: 60px;
+					height: 60px;
+					line-height: 60px;
+					text-align: center;
+					.fas, .far{
+						font-size: 24px;
+					}
+				}
+				.title{
+					position: relative;
+					display: block;
+					padding: 0 10px;
+					height: 60px;
+					line-height: 60px;
+					text-align: start;
+					white-space: nowrap;
+				}
+			}
+		}
+	}
+
+}
