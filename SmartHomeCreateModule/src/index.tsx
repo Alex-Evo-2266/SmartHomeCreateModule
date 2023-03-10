@@ -6,12 +6,19 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import {store} from './store'
 
-// const electron = window.require('electron');
-// const ipcRenderer  = electron.ipcRenderer;
+
+const close = async ()=>{
+  window.electronAPI.closeApp()
+}
 
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
+      <div id="drag-bar">
+        <div className='bar-eptyblock'></div>
+        <div id="drag"></div>
+        <button id="close-btn" className='btn btn-square' onClick={close}>x</button>
+      </div>
       <App />
     </React.StrictMode>
   </Provider>,

@@ -17,3 +17,34 @@ code {
   padding: 0;
   font-family: "Roboto";
 }
+
+#drag-bar{
+  height: 60px;
+  width: 100%;
+  background: var(--color-base);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  box-shadow: 0 0 10px #000;
+}
+
+#drag-bar .bar-eptyblock{
+  width: 60px;
+}
+
+#drag-bar #drag{
+  -webkit-app-region: drag;
+  width: calc(100% - 60px);
+  height: 60px;
+  z-index: 10;
+}
+
+#close-btn{
+  font-size: 24px;
+  background: red;
+}
+
+#app-content{
+  position: relative;
+}

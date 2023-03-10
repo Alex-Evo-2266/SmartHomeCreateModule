@@ -1,16 +1,18 @@
 // Модули для управления приложением и создания окна
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path');
 const url = require('url');
-// require('./ipcmain');
 
 function createWindow () {
   // Создаем окно браузера.
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    title: "create modules",
+    frame: false,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      preload: path.join(__dirname, 'preload.js')
     }
   })
 
@@ -24,7 +26,11 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
   });
-  console.log(startUrl)
+
+  ipcMain.on('app-close', (event, arg) => {
+    app.quit()
+  })
+  
   mainWindow.loadURL(startUrl);
   // mainWindow.loadURL('http://localhost:3000');
 

@@ -1,8 +1,7 @@
 .top-menu{
 	height: 60px;
-	width: 100%;
+	width: 60px;
 	background: var(--color-base);
-	box-shadow: 0 0 10px #000;
 	z-index: map-get($z-index, navigation-top);
 	position: fixed;
 	top: 0;

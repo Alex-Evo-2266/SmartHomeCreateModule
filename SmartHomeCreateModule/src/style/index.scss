@@ -131,6 +131,11 @@ body{
       filter: brightness(90%);
     }
   }
+  &.btn-square{
+    height: 45px;
+    width: 45px;
+    margin: 6px;
+  }
 }
 
 .input-data{
