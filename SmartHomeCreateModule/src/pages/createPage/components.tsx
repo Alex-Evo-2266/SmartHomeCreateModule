@@ -1,5 +1,6 @@
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import { IType, TypeComponent } from "../../store/reducers/moduleReducer";
+import { Button } from "./components/buton";
 import { Card } from "./components/card";
 import { Cards } from "./components/cards";
 import { Columns } from "./components/columns";
@@ -16,6 +17,10 @@ export const CreatePageComponents:React.FC<Props> = ({item, update, index}:Props
 	if (item.type === TypeComponent.TEXT)
 		return(
 			<Text item={item} update={update}/>
+		)
+	if (item.type === TypeComponent.LINK || item.type === TypeComponent.BUTTON)
+		return(
+			<Button item={item} update={update}/>
 		)
 	if (item.type === TypeComponent.CARD)
 		return(

@@ -15,6 +15,7 @@ export enum TypeComponent {
 	FORM = "FORM",
 	IMAGE = "IMAGE",
 	BUTTON = "BUTTON",
+	LINK = "LINK",
 	COLUMNS = "COLUMNS"
 }
 
@@ -77,7 +78,7 @@ export interface IImage{
 }
 
 export interface IButton{
-	type: TypeComponent.BUTTON
+	type: TypeComponent.BUTTON | TypeComponent.LINK
 	title: string
 	action_url: string
 	option?: IOption
