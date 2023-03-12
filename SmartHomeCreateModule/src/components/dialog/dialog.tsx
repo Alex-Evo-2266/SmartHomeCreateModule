@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useTypeSelector } from "../../hooks/useTypeSelector";
 import { DialogType, DialogTypeAction } from "../../store/reducers/dialogReducer";
 import { AlertDialog } from "./alertDialog";
+import { HTMLDialog } from "./castomDialog";
 import { ConfirmationDialog } from "./confirmationDialog";
 import { TextDialog } from "./textDialog";
 
@@ -21,6 +22,8 @@ export const DialogMessage:React.FC = () =>{
 				<ConfirmationDialog/>:
 				(dialog.type === DialogType.TEXT)?
 				<TextDialog/>:
+				(dialog.type === DialogType.CASTOM)?
+				<HTMLDialog/>:
 				<AlertDialog/>
 			}
 		</div>

@@ -1,7 +1,8 @@
 export enum DialogType {
 	ALERT = "ALERT",
 	TEXT = "TEXT",
-	CONFIRMATION = "CONFIRMATION"
+	CONFIRMATION = "CONFIRMATION",
+	CASTOM = "CASTOM"
 }
 
 export enum DialogTypeAction {
@@ -16,6 +17,7 @@ export interface IDialogData{
 	callback?: (data: any)=>void
 	cancel?: ()=>void
 	items?: any[]
+	html?: React.ReactNode
 }
 
 interface IItem{
@@ -31,11 +33,12 @@ interface IDialogState{
 	cancel?: ()=>void
 	items?: IItem[]
 	visible: boolean
+	html?: React.ReactNode
 }
 
 interface IAction {
 	type: DialogTypeAction
-	payload:IDialogData
+	payload?:IDialogData
 }
 
 const initialSate:IDialogState = {
@@ -55,3 +58,6 @@ export const dialogReducer = (state:IDialogState = initialSate, action:IAction):
 			return state
 	}
 }
+
+export const showDialog = (payload: IDialogData) => ({type: DialogTypeAction.DIALOG_SHOW, payload})
+export const hideDialog = () => ({type: DialogTypeAction.DIALOG_HIDE})

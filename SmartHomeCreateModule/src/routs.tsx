@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-import { CreatePage } from "./pages/createPage"
+import { CreatePage } from "./pages/createPage/createPage"
 import { MainPage } from "./pages/mainPage"
 import { RootComponents } from "./pages/rootComponents"
 

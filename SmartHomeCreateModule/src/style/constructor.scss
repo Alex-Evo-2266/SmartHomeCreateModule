@@ -1,0 +1,47 @@
+
+
+.constructor-container{
+	position: relative;
+	margin: 0 0 0 60px;
+	min-height: calc(100vh - 60px);
+	width: calc(100% - 60px);
+	@media (max-width: 720px){
+		margin: 60px 0 0 0;
+		width: 100%;
+	}
+	.root-container{
+		position: relative;
+		border: 2px solid transparent;
+		margin: 2px;
+		border-radius: 4px;
+		width: calc(100% - 6px);
+		height: calc(100% - 6px);
+	}
+	&.active{
+		div[data-el='container']:hover{
+		border: 2px solid var(--color-active);
+		background: #aaa5;
+		}
+	}
+}
+
+.component-text{
+	background: var(--color-normal);
+	padding: 5px;
+	margin: 10px;
+	min-height: 50px;
+	line-height: 40px;
+}
+
+.columns-container{
+	display: flex;
+	flex-direction: row;
+	.col-container{
+		position: relative;
+		border: 2px dashed var(--color-base);
+		margin: 2px;
+		border-radius: 4px;
+		width: calc(100% - 6px);
+		min-height: 100px;
+	}
+}

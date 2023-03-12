@@ -27,6 +27,7 @@ code {
   justify-content: space-between;
   position: relative;
   box-shadow: 0 0 10px #000;
+  z-index: 50;
 }
 
 #drag-bar .bar-eptyblock{
@@ -47,4 +48,8 @@ code {
 
 #app-content{
   position: relative;
+}
+
+body{
+  background: url("./img/fon-base.jpg");
 }

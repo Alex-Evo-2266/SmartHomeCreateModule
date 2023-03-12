@@ -1,0 +1,33 @@
+import React, { PropsWithChildren, useEffect, useState } from "react";
+import { IType, TypeComponent } from "../../store/reducers/moduleReducer";
+import { Card } from "./components/card";
+import { Cards } from "./components/cards";
+import { Columns } from "./components/columns";
+import { Text } from "./components/text";
+
+export interface Props {
+	item: IType
+	update: (data:IType)=>void
+	index: string
+}
+
+export const CreatePageComponents:React.FC<Props> = ({item, update, index}:Props) =>{
+
+	if (item.type === TypeComponent.TEXT)
+		return(
+			<Text item={item} update={update}/>
+		)
+	if (item.type === TypeComponent.CARD)
+		return(
+			<Card item={item} update={update}/>
+		)
+	if (item.type === TypeComponent.CARDS)
+		return(
+			<Cards item={item} update={update}/>
+		)
+	if (item.type === TypeComponent.COLUMNS)
+		return(
+			<Columns item={item} update={update} index={index}/>
+		)
+	return null
+}

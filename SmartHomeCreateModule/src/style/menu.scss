@@ -41,20 +41,26 @@
 	background: var(--color-base);
 	box-shadow: 0 0 10px #000;
 	transition: 0.5s;
-	overflow: hidden;
+	// overflow: hidden;
 	@media (max-width: 720px){
 		width: 0;
 		overflow-y: scroll;
 	}
 	@media (min-width: 720px){
-		&:hover{
-			width: 300px;
-		}
+		// &:hover{
+		// 	width: 300px;
+		// 	.dop-menu{
+		// 		left: 300px;
+		// 	}
+		// }
 	}
 	&.active{
 		width: 300px;
 		@media (max-width: 720px){
 			width: 100%;
+		}
+		.dop-menu{
+			left: 300px;
 		}
 	}
 	ul{
@@ -62,6 +68,7 @@
 		top: 0;
 		left: 0;
 		width: 100%;
+		overflow: hidden;
 		li{
 			position: relative;
 			width: 100%;
@@ -99,5 +106,15 @@
 			}
 		}
 	}
-
+	.dop-menu{
+		position: absolute;
+		transition: 0.5s;
+		overflow: hidden;
+		width: 0;
+		background: var(--color-base-v2);
+		left: 60px;
+		&.active{
+			width: 300px;
+		}
+	}
 }

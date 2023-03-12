@@ -2,28 +2,124 @@ export enum ModuleTypesActions {
 	SET_MODULE = "SET_MODULE"
 }
 
-interface IPayload{
-	name?: string
+export enum TypeContent {
+	TEXT = "TEXT",
+	LOAD = "LOAD"
 }
+
+export enum TypeComponent {
+	CARD = "CARD",
+	CARDS = "CARDS",
+	TABLE = "TABLE",
+	TEXT = "TEXT",
+	FORM = "FORM",
+	IMAGE = "IMAGE",
+	BUTTON = "BUTTON",
+	COLUMNS = "COLUMNS"
+}
+
+export interface IOption{
+	borderRadius?: number
+	color?: string
+	fountSize?: number
+	width?: number
+	height?: number
+}
+
+export interface ICards{
+	type: TypeComponent.CARDS
+	src: string
+	title: string
+	text: string
+	buttons: IButton[]
+	option?: IOption
+}
+
+export interface ICard{
+	type: TypeComponent.CARD
+	src: string
+	title: string
+	text: string
+	buttons: IButton[]
+	option?: IOption
+}
+
+export interface ITableCol{
+	title: string
+	type: string
+}
+
+export interface ITable{
+	type: TypeComponent.TABLE
+	src: string
+	col: ITableCol[]
+	items: [any]
+	option?: IOption
+}
+
+export interface ITextField{
+	type: TypeComponent.TEXT
+	type_content: TypeContent
+	value: string
+	option?: IOption
+}
+
+export interface IForm{
+	type: TypeComponent.FORM
+	title: string
+	option?: IOption
+}
+
+export interface IImage{
+	type: TypeComponent.IMAGE
+	src: string
+	option?: IOption
+}
+
+export interface IButton{
+	type: TypeComponent.BUTTON
+	title: string
+	action_url: string
+	option?: IOption
+}
+
+export interface IColumnElement{
+	indexCol: number
+	value: IType
+}
+
+export interface IColumns{
+	type: TypeComponent.COLUMNS
+	value: IColumnElement[]
+	count: number
+	option?: IOption
+}
+
+
+export type IType = ITextField | ITable | ICard | ICards | IForm | IImage | IButton | IColumns
 
 export interface IModuleState{
 	name: string
+	module: IType[]
 }
 
 interface IAction {
 	type: ModuleTypesActions
-	payload:IPayload
+	payload:IModuleState
 }
 
 const initialSate:IModuleState = {
-	name: ""
+	name: "",
+	module: []
 }
 
 export const moduleReducer = (state:IModuleState = initialSate, action:IAction):IModuleState => {
 	switch (action.type){
-		case "SET_MODULE":
+		case ModuleTypesActions.SET_MODULE:
 			return {...state, name: action.payload.name || ""}
 		default:
 			return state
 	}
 }
+
+export const set_module = (payload:IModuleState) => ({type:ModuleTypesActions.SET_MODULE, payload})
