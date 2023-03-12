@@ -26,11 +26,11 @@
 }
 
 .component-text{
+	color: var(--text-normal);
 	background: var(--color-normal);
 	padding: 5px;
 	margin: 10px;
-	min-height: 50px;
-	line-height: 40px;
+	min-height: 40px;
 }
 
 .columns-container{

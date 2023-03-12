@@ -2,9 +2,11 @@ import React, { PropsWithChildren, useCallback, useEffect, useRef, useState } fr
 import { useDispatch } from "react-redux";
 import { useTypeSelector } from "../../../hooks/useTypeSelector";
 import { set_type } from "../../../store/reducers/choiseTypeReducer";
+import { DialogType, showDialog } from "../../../store/reducers/dialogReducer";
 import { ICard, ICards, IColumns, ITextField, IType, set_module, TypeComponent, TypeContent } from "../../../store/reducers/moduleReducer";
 import { CreatePageComponents } from "../components";
 import { getNewData } from "../utils";
+import { ColumnsConfig } from "./componentConfig/colummnsConfig";
 
 interface Props {
 	item: IColumns
@@ -37,11 +39,17 @@ export const Columns:React.FC<Props> = ({item, update, index}:Props) =>{
     const clickContainer = (e:any, index2: number) => {
 		if (!searchType.type) return
         if (e.target.dataset.container !== `columns-${index}`) return
-		dispatch(set_type({type: null}))
 		let newData = item.value
 		newData.push({indexCol: index2, value: getNewData(searchType.type)})
+        dispatch(set_type({type: null}))
 		update({...item, value:newData})
 	}
+
+    const configDialog = useCallback((e: any) => {
+        if (e.target.dataset.container !== `columns-${index}`) return false
+        dispatch(showDialog({type: DialogType.CASTOM, title: "edit component", html: <ColumnsConfig update={update} item={item}/>}))
+        return false
+    },[item])
 
     const updateChild = (data: IType, index: number) => {
         let newData = item.value
@@ -76,7 +84,7 @@ export const Columns:React.FC<Props> = ({item, update, index}:Props) =>{
     },[columns.current, setStyle])
 
 	return(
-        <div ref={columns} className="columns-container" style={flexStyle}>
+        <div ref={columns} className="columns-container" data-container={`columns-${index}`} style={flexStyle} onContextMenu={configDialog}>
             {
                 new Array(item.count).fill(0).map((_, index1)=>(
                     <div key={index1} className="col-container" data-el="container" data-container={`columns-${index}`} onClick={(e)=>clickContainer(e, index1)}>

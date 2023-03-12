@@ -19,22 +19,19 @@ export const CreatePage:React.FC = () =>{
 	},[module])
 
 	const clickContainer = (e:any, typeContainer:string) => {
-		console.log(e.target)
 		if (!searchType.type) return
-		dispatch(set_type({type: null}))
 		if(e.target?.dataset?.container === "root")
 		{
 			let newData = module.module
 			newData.push(getNewData(searchType.type))
+			dispatch(set_type({type: null}))
 			dispatch(set_module({...module, module: newData}))
 		}
 	}
 
 	const update = (data: IType, index: number)=>{
 		let newData =  module.module
-		console.log(data, index)
 		newData[index] = data
-		console.log(data, index)
 		dispatch(set_module({...module, module: newData}))
 	}
 

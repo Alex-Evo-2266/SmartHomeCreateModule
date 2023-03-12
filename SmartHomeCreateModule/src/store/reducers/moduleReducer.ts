@@ -21,7 +21,7 @@ export enum TypeComponent {
 export interface IOption{
 	borderRadius?: number
 	color?: string
-	fountSize?: number
+	fontSize?: number
 	width?: number
 	height?: number
 }

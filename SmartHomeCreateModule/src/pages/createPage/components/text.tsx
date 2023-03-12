@@ -17,16 +17,32 @@ export const Text:React.FC<Props> = ({item, update}:Props) =>{
         dispatch(showDialog({type: DialogType.CASTOM, title: "edit component", html: <TextConfig update={update} item={item}/>}))
     },[item])
 
+    const getStyle = (item: ITextField) => {
+        let data: React.CSSProperties = {
+            fontSize: item.option?.fontSize ?? 20,
+            borderRadius: item.option?.borderRadius ?? 0
+        }
+        return data
+    }
+
+    const getText = (text: string) => {
+        return text.split('\n')
+    }
+
 	if (item.type_content === TypeContent.TEXT)
 		return(
-			<div className="component-text" onClick={configDialog}>
-				<p>{item.value}</p>
+			<div className="component-text" onClick={configDialog} style={getStyle(item)}>
+                {
+                    getText(item.value).map((item, index) => (
+				        <p key={index}>{item}</p>
+                    ))
+                }
 			</div>
 		)
     else if (item.type_content === TypeContent.LOAD)
         return(
-            <div className="component-text" onClick={configDialog}>
-                <p>data in api {item.value}</p>
+            <div className="component-text" onClick={configDialog} style={getStyle(item)}>
+                <p>data in api: {item.value}</p>
             </div>
         )
 	return null
