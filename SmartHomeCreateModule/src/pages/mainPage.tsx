@@ -21,7 +21,8 @@ export const MainPage:React.FC = () =>{
 				<input className="color-normal-v2" required type="text" name="name_module" onChange={changeName} value={module.name}/>
 				<label>Title</label>
 			</div>
-            <Link className="btn" to="/createPage">create</Link>
+            <Link className="btn" to="/pages">Pages</Link>
+            <Link className="btn" to="/api">API</Link>
 			<button className="btn" onClick={()=>{}}>save</button>
         </div>
 	)

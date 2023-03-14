@@ -45,3 +45,6 @@ export const alertReducer = (state:IAlertState = initialSate, action:IAction):IA
 			return state
 	}
 }
+
+export const show_alert = (payload: IAlertData) => ({type:AlertTypeAction.ALERT_SHOW, payload})
+export const hide_alert = () => ({type:AlertTypeAction.ALERT_HIDE})

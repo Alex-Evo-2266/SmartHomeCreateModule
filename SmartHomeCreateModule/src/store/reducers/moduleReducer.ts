@@ -100,9 +100,16 @@ export interface IColumns{
 
 export type IType = ITextField | ITable | ICard | ICards | IForm | IImage | IButton | IColumns
 
+export interface IPage{
+	page: IType[]
+	url: string
+	name: string
+}
+
 export interface IModuleState{
 	name: string
-	module: IType[]
+	pages: IPage[]
+	api: IAPI[]
 }
 
 interface IAction {
@@ -110,15 +117,27 @@ interface IAction {
 	payload:IModuleState
 }
 
+export enum TypeRequest {
+	GET = "GET",
+	POST = "POST"
+}
+
+export interface IAPI{
+	name: string
+	url: string
+	type: TypeRequest
+}
+
 const initialSate:IModuleState = {
 	name: "",
-	module: []
+	pages: [],
+	api: []
 }
 
 export const moduleReducer = (state:IModuleState = initialSate, action:IAction):IModuleState => {
 	switch (action.type){
 		case ModuleTypesActions.SET_MODULE:
-			return {...state, name: action.payload.name || "", module: action.payload.module}
+			return {...state, name: action.payload.name || "", pages: action.payload.pages, api: action.payload.api}
 		default:
 			return state
 	}

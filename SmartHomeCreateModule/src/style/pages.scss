@@ -1,0 +1,51 @@
+.pages{
+    background: var(--color-normal);
+    color: var(--text-normal);
+    font-size: 24px;
+    position: relative;
+    padding: 10px 0;
+    table{
+        position: relative;
+        width: 100%;
+        tbody{
+            tr{
+                input{
+                    width: calc(100% - 50px);
+                    margin: 20px;
+                    font-size: 20px;
+                    background: var(--color-normal);
+                    color: var(--text-normal);
+                    box-shadow: none;
+		            border: none;
+                    outline: none;
+                    border-bottom: 2px solid var(--color-normal-v2);
+                    padding: 0 10px;
+                    &:focus{
+                        border-bottom: 2px solid var(--color-active);
+                    }
+                    &.fail{
+                        border-bottom: 2px solid red;
+                    }
+                }
+                select{
+                    width: calc(100% - 50px);
+                    margin: 20px;
+                    font-size: 20px;
+                    background: var(--color-normal);
+                    color: var(--text-normal);
+                    box-shadow: none;
+		            border: none;
+                    outline: none;
+                    border-bottom: 2px solid var(--color-normal-v2);
+                    padding: 0 10px;
+                    &:focus{
+                        border-bottom: 2px solid var(--color-active);
+                    }
+                    &.fail{
+                        border-bottom: 2px solid red;
+                    }
+                }
+            }
+        }
+    }
+}
