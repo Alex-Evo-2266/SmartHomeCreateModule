@@ -5,9 +5,10 @@ import { IColumns, IOption, ITextField, TypeContent } from "../../../../store/re
 interface Props {
 	item: IColumns
 	update: (data:IColumns)=>void
+	del: ()=>void
 }
 
-export const ColumnsConfig:React.FC<Props> = ({item, update}) => {
+export const ColumnsConfig:React.FC<Props> = ({item, update, del}) => {
 
 	const [count, setCount] = useState<number>(item.count)
 
@@ -22,6 +23,7 @@ export const ColumnsConfig:React.FC<Props> = ({item, update}) => {
 				<input className="color-normal-v2" required type="number" min={1} max={10} name="name_module" onChange={changeCount} value={Number(count)}/>
                 <label>count column</label>
 			</div>
+			<button className="btn red" style={{background: "red"}} onClick={()=>del()}>delete</button>
 		</div>
 	)
 }

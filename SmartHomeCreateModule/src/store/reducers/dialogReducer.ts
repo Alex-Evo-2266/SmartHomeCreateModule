@@ -29,8 +29,8 @@ interface IDialogState{
 	type: DialogType
 	title: string
 	text?: string
-	callback?: (data: any)=>void
-	cancel?: ()=>void
+	callback: (data: any)=>void
+	cancel: ()=>void
 	items?: IItem[]
 	visible: boolean
 	html?: React.ReactNode
@@ -45,7 +45,9 @@ const initialSate:IDialogState = {
 	type: DialogType.ALERT,
 	title: "",
 	visible: false,
-	text: ""
+	text: "",
+	callback: ()=>{},
+	cancel: ()=>{}
 }
 
 export const dialogReducer = (state:IDialogState = initialSate, action:IAction):IDialogState => {
@@ -59,5 +61,7 @@ export const dialogReducer = (state:IDialogState = initialSate, action:IAction):
 	}
 }
 
-export const showDialog = (payload: IDialogData) => ({type: DialogTypeAction.DIALOG_SHOW, payload})
+type IShowDialog = (payload:IDialogData)=>IAction
+
+export const showDialog: IShowDialog = (payload: IDialogData) => ({type: DialogTypeAction.DIALOG_SHOW, payload:{callback:()=>{}, cancel:()=>{}, ...payload}})
 export const hideDialog = () => ({type: DialogTypeAction.DIALOG_HIDE})

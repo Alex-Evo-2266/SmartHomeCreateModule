@@ -5,9 +5,10 @@ import { IOption, ITextField, TypeContent } from "../../../../store/reducers/mod
 interface Props {
 	item: ITextField
 	update: (data:ITextField)=>void
+	del: ()=>void
 }
 
-export const TextConfig:React.FC<Props> = ({item, update}) => {
+export const TextConfig:React.FC<Props> = ({item, update, del}) => {
 
 	const [value, setValue] = useState<string>(item.value ?? "")
 	const [option, setOption] = useState<IOption>(item.option ?? {})
@@ -67,9 +68,10 @@ export const TextConfig:React.FC<Props> = ({item, update}) => {
 					<option value={26}>26</option>
 				</select>
 			</div>
-			<div className="input-data">
+			<div className="input-data area">
 				<textarea className="color-normal-v2" required name="name_module" onChange={changeLabel} placeholder="Label" value={value}/>
 			</div>
+			<button className="btn red" style={{background: "red"}} onClick={()=>del()}>delete</button>
 		</div>
 	)
 }

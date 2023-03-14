@@ -8,14 +8,19 @@ import { TextConfig } from "./componentConfig/textConfig";
 interface Props {
 	item: IButton
 	update: (data:IButton)=>void
+	del: ()=>void
 }
 
-export const Button:React.FC<Props> = ({item, update}:Props) =>{
+export const Button:React.FC<Props> = ({item, update, del}:Props) =>{
 
 	const dispatch = useDispatch()
 
 	const configDialog = useCallback(() => {
-		dispatch(showDialog({type: DialogType.CASTOM, title: "edit component", html: <ButtonConfig update={update} item={item}/>}))
+		dispatch(showDialog({type: DialogType.CASTOM, title: "edit component", html: <ButtonConfig update={update} item={item} del={()=>{
+			dispatch(showDialog({type: DialogType.ALERT, title: "delete component", callback: ()=>{
+				del()
+			}}))
+		}}/>}))
 	},[item])
 
 	const getStyle = (item: IButton) => {

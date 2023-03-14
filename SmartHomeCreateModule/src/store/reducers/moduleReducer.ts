@@ -9,6 +9,7 @@ export enum TypeContent {
 
 export enum TypeComponent {
 	CARD = "CARD",
+	DEVICE_CARD = "DEVICE_CARD",
 	CARDS = "CARDS",
 	TABLE = "TABLE",
 	TEXT = "TEXT",
@@ -117,7 +118,7 @@ const initialSate:IModuleState = {
 export const moduleReducer = (state:IModuleState = initialSate, action:IAction):IModuleState => {
 	switch (action.type){
 		case ModuleTypesActions.SET_MODULE:
-			return {...state, name: action.payload.name || ""}
+			return {...state, name: action.payload.name || "", module: action.payload.module}
 		default:
 			return state
 	}

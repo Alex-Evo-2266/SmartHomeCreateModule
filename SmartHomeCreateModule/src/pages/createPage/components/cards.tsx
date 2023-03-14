@@ -4,9 +4,10 @@ import { ICard, ICards, ITextField, IType, TypeComponent, TypeContent } from "..
 interface Props {
 	item: ICards
     update: (data:ITextField)=>void
+	del: ()=>void
 }
 
-export const Cards:React.FC<Props> = ({item}:Props) =>{
+export const Cards:React.FC<Props> = ({item, del}:Props) =>{
 
 	return(
 	    <div className={`base-card-container card-container `}>

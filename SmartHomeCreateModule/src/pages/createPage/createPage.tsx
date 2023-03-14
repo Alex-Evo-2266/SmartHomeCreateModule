@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import { Menu } from "../../components/menu";
 import { useTypeSelector } from "../../hooks/useTypeSelector";
 import { set_type } from "../../store/reducers/choiseTypeReducer";
-import { ITextField, IType, set_module, TypeComponent } from "../../store/reducers/moduleReducer";
+import { IModuleState, ITextField, IType, set_module, TypeComponent } from "../../store/reducers/moduleReducer";
 import { CreatePageComponents } from "./components";
 import { getNewData } from "./utils";
 
@@ -32,8 +32,15 @@ export const CreatePage:React.FC = () =>{
 	const update = (data: IType, index: number)=>{
 		let newData =  module.module
 		newData[index] = data
+		console.log(newData, module.module, data, index)
 		dispatch(set_module({...module, module: newData}))
 	}
+
+	const deleteChild = (index:number) => {
+        let newData = module.module.filter((_, index2)=>index2!==index)
+		dispatch(set_module({...module, module: newData}))
+    }
+
 
 	return(
 		<>
@@ -42,7 +49,7 @@ export const CreatePage:React.FC = () =>{
 				<div className="root-container" data-el="container" data-container="root" onClick={(e)=>clickContainer(e, "root")}>
 				{
 					module.module.map((item, index)=>(
-						<CreatePageComponents key={index} item={item} update={(data:IType)=>update(data, index)} index={String(index)}/>
+						<CreatePageComponents key={index} item={item} update={(data:IType)=>update(data, index)} index={String(index)} del={()=>deleteChild(index)}/>
 					))
 				}
 				</div>

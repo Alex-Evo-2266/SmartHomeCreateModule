@@ -12,6 +12,7 @@ interface Props {
 	item: IColumns
     update: (data:IColumns)=>void
     index: string
+    del:()=>void
 }
 
 interface ColItem {
@@ -28,7 +29,7 @@ const normalWidth: React.CSSProperties = {
     flexDirection: "row"
 }
 
-export const Columns:React.FC<Props> = ({item, update, index}:Props) =>{
+export const Columns:React.FC<Props> = ({item, update, index, del}:Props) =>{
 
     const dispatch = useDispatch()
 	const searchType = useTypeSelector(state=>state.searchType)
@@ -47,7 +48,11 @@ export const Columns:React.FC<Props> = ({item, update, index}:Props) =>{
 
     const configDialog = useCallback((e: any) => {
         if (e.target.dataset.container !== `columns-${index}`) return false
-        dispatch(showDialog({type: DialogType.CASTOM, title: "edit component", html: <ColumnsConfig update={update} item={item}/>}))
+        dispatch(showDialog({type: DialogType.CASTOM, title: "edit component", html: <ColumnsConfig update={update} item={item} del={()=>{
+			dispatch(showDialog({type: DialogType.ALERT, title: "delete component", callback: ()=>{
+				del()
+			}}))
+		}}/>}))
         return false
     },[item])
 
@@ -76,6 +81,11 @@ export const Columns:React.FC<Props> = ({item, update, index}:Props) =>{
         }
     },[columns.current])
 
+    const deleteChild = (index:number) => {
+        let newData = item.value.filter((_, index2)=>index2!==index)
+        update({...item, value: newData})
+    }
+
     useEffect(()=>{
         window.addEventListener("resize", setStyle)
         return ()=>{
@@ -90,7 +100,7 @@ export const Columns:React.FC<Props> = ({item, update, index}:Props) =>{
                     <div key={index1} className="col-container" data-el="container" data-container={`columns-${index}`} onClick={(e)=>clickContainer(e, index1)}>
                     {
                         getContent(index1).map((item2, index2)=>(
-                            <CreatePageComponents key={index2} item={item2.item} update={(data)=>updateChild(data, item2.index)} index={`${index}-${String(item2.index)}`}/>
+                            <CreatePageComponents key={index2} item={item2.item} update={(data)=>updateChild(data, item2.index)} index={`${index}-${String(item2.index)}`} del={()=>deleteChild(item2.index)}/>
                         ))
                     }
                     </div>

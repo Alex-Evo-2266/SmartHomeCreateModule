@@ -45,13 +45,19 @@ export const Menu:React.FC = () =>{
 				<li>
 					<div className={`falseLink`} onClick={()=>setType(TypeComponent.CARDS)}>
 						<span className="icon"><i className="fas fa-window-restore"></i></span>
-						<span className="title">cards</span>
+						<span className="title">device cards</span>
 					</div>
 				</li>
 				<li>
 					<div className={`falseLink`} onClick={()=>setType(TypeComponent.CARD)}>
 						<span className="icon"><i className="fas fa-window-maximize"></i></span>
 						<span className="title">card</span>
+					</div>
+				</li>
+				<li>
+					<div className={`falseLink`} onClick={()=>setType(TypeComponent.DEVICE_CARD)}>
+						<span className="icon"><i className="fas fa-window-maximize"></i></span>
+						<span className="title">device card</span>
 					</div>
 				</li>
 				<li>

@@ -43,6 +43,7 @@ body{
 @import "card.scss";
 @import "home.scss";
 @import "constructor.scss";
+@import "runText.scss";
 
 .root-container{
   position: relative;
@@ -146,6 +147,9 @@ body{
 			border-bottom: 2px solid var(--color-active);
 		}
 	}
+  &.area{
+    height: auto;
+  }
 	input:focus ~ label,
 	input:valid ~ label{
 		transform: translateY($top);

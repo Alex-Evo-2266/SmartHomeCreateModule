@@ -7,14 +7,19 @@ import { TextConfig } from "./componentConfig/textConfig";
 interface Props {
 	item: ITextField
     update: (data:ITextField)=>void
+    del: ()=>void
 }
 
-export const Text:React.FC<Props> = ({item, update}:Props) =>{
+export const Text:React.FC<Props> = ({item, update, del}:Props) =>{
 
     const dispatch = useDispatch()
 
     const configDialog = useCallback(() => {
-        dispatch(showDialog({type: DialogType.CASTOM, title: "edit component", html: <TextConfig update={update} item={item}/>}))
+        dispatch(showDialog({type: DialogType.CASTOM, title: "edit component", html: <TextConfig update={update} item={item} del={()=>{
+			dispatch(showDialog({type: DialogType.ALERT, title: "delete component", callback: ()=>{
+				del()
+			}}))
+		}}/>}))
     },[item])
 
     const getStyle = (item: ITextField) => {

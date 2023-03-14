@@ -19,3 +19,25 @@ export const Card:React.FC = () =>{
 		</div>
 	)
 }
+
+interface Props{
+	children?:React.ReactNode,
+	className?: string,
+	onClick?: (e?:React.MouseEvent<HTMLDivElement, MouseEvent>)=>void,
+	onContextMenu?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>)=> (boolean | void)
+	
+}
+
+export const BaseCard:React.FC<Props> = ({children, className, onClick, onContextMenu})=>{
+
+  const click = (e:React.MouseEvent<HTMLDivElement, MouseEvent>)=>{
+    if(typeof(onClick)==="function")
+      onClick(e)
+  }
+  
+  return(
+    <div onClick={click} onContextMenu={onContextMenu} className={`base-card-container card-container ${className}`}>
+    	{children}
+    </div>
+  )
+}
