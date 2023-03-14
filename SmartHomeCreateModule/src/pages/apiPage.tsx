@@ -43,6 +43,11 @@ export const APIPage:React.FC = () =>{
 		dispatch(set_module({...module, api: newPages}))
 	}
 
+	const del = (index:number) => {
+		let newPages = module.api.filter((_, index2)=>index2!==index)
+		dispatch(set_module({...module, api: newPages}))
+	}
+
 	return(
 		<div className="pages">
 			<Link className="btn" style={{background: "gray"}} to="/home">back</Link>
@@ -52,6 +57,7 @@ export const APIPage:React.FC = () =>{
 						<th>name</th>
 						<th>url</th>
 						<th>type</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -66,6 +72,7 @@ export const APIPage:React.FC = () =>{
 									<option value={TypeRequest.POST}>POST</option>
 								</select>
 							</td>
+							<td><button className="btn" style={{background: "red"}} onClick={()=>del(index)}>delete</button></td>
 						</tr>
 					))
 				}

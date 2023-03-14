@@ -44,6 +44,11 @@ export const Pages:React.FC = () =>{
 		}}))
 	}
 
+	const del = (index:number) => {
+		let newPages = module.pages.filter((_, index2)=>index2!==index)
+		dispatch(set_module({...module, pages: newPages}))
+	}
+
 	return(
 		<div className="pages">
 			<Link className="btn" style={{background: "gray"}} to="/home">back</Link>
@@ -53,15 +58,17 @@ export const Pages:React.FC = () =>{
 						<th>name</th>
 						<th>url</th>
 						<th>page</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 				{
 					module.pages.map((item, index)=>(
 						<tr>
-							<th><input className={`${(item.name === "")?"fail":""}`} type="type" value={item.name} onChange={(e)=>changeName(e, index)}/></th>
-							<th><input type="type" value={item.url} onChange={(e)=>changeURL(e, index)}/></th>
-							<th><Link className="btn" to={`/pages/createPage/${item.name}`}>edit</Link></th>
+							<td><input className={`${(item.name === "")?"fail":""}`} type="type" value={item.name} onChange={(e)=>changeName(e, index)}/></td>
+							<td><input type="type" value={item.url} onChange={(e)=>changeURL(e, index)}/></td>
+							<td><Link className="btn" to={`/pages/createPage/${item.name}`}>edit</Link></td>
+							<td><button className="btn" style={{background: "red"}} onClick={()=>del(index)}>delete</button></td>
 						</tr>
 					))
 				}
