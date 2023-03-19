@@ -27,7 +27,7 @@ code {
   justify-content: space-between;
   position: relative;
   box-shadow: 0 0 10px #000;
-  z-index: 50;
+  z-index: 1000;
 }
 
 #drag-bar .bar-eptyblock{

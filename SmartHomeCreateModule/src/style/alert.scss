@@ -36,7 +36,7 @@
 	z-index: map-get($z-index, alert);
 	.alert_item{
 		z-index: 3;
-		top: 0;
+		top: 60px;
 		position: fixed;
 		display: flex;
 		padding: 25px 50px;

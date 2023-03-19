@@ -2,10 +2,13 @@ import React, { DOMElement, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import { Menu } from "../components/menu";
-import { useTypeSelector } from "../hooks/useTypeSelector";
-import { DialogType, showDialog } from "../store/reducers/dialogReducer";
-import { set_module, TypeRequest } from "../store/reducers/moduleReducer";
+import { Menu } from "../../components/menu";
+import { useTypeSelector } from "../../hooks/useTypeSelector";
+import { AlertType, show_alert } from "../../store/reducers/alertReducer";
+import { DialogType, showDialog } from "../../store/reducers/dialogReducer";
+import { set_module, TypeRequest } from "../../store/reducers/moduleReducer";
+import { validURL } from "../../utils";
+import { APIItem } from "./apiItem";
 
 export const APIPage:React.FC = () =>{
 
@@ -14,6 +17,11 @@ export const APIPage:React.FC = () =>{
 
 	const addAPI = (e:React.MouseEvent<HTMLButtonElement>) => {
 		dispatch(showDialog({type:DialogType.TEXT, title:"create api", text: "url entered", callback:(data)=>{
+			if (!validURL(data))
+			{
+				dispatch(show_alert({type: AlertType.ERROR, title: "invalid data", text:"invalid data"}))
+				return
+			}
 			let newapi = module.api
 			newapi.push({
 				name: String(data),
@@ -57,23 +65,14 @@ export const APIPage:React.FC = () =>{
 						<th>name</th>
 						<th>url</th>
 						<th>type</th>
+						<th>use</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 				{
 					module.api.map((item, index)=>(
-						<tr key={index}>
-							<td><input className={`${(item.name === "")?"fail":""}`} type="type" value={item.name} onChange={(e)=>changeName(e, index)}/></td>
-							<td><input type="type" value={item.url} onChange={(e)=>changeURL(e, index)}/></td>
-							<td>
-								<select value={item.type} onChange={(e)=>changeType(e, index)}>
-									<option value={TypeRequest.GET}>GET</option>
-									<option value={TypeRequest.POST}>POST</option>
-								</select>
-							</td>
-							<td><button className="btn" style={{background: "red"}} onClick={()=>del(index)}>delete</button></td>
-						</tr>
+						<APIItem item={item} index={index} key={index} changeName={changeName} changeType={changeType} changeURL={changeURL} del={del}/>
 					))
 				}
 				</tbody>

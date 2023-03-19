@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-import { APIPage } from "./pages/apiPage"
+import { APIPage } from "./pages/apiPage/apiPage"
 import { CreatePage } from "./pages/createPage/createPage"
 import { MainPage } from "./pages/mainPage"
 import { Pages } from "./pages/pages"

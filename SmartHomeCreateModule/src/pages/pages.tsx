@@ -8,6 +8,7 @@ import { useTypeSelector } from "../hooks/useTypeSelector";
 import { AlertType, show_alert } from "../store/reducers/alertReducer";
 import { DialogType, showDialog } from "../store/reducers/dialogReducer";
 import { set_module } from "../store/reducers/moduleReducer";
+import { validURL } from "../utils";
 
 export const Pages:React.FC = () =>{
 
@@ -66,7 +67,7 @@ export const Pages:React.FC = () =>{
 					module.pages.map((item, index)=>(
 						<tr>
 							<td><input className={`${(item.name === "")?"fail":""}`} type="type" value={item.name} onChange={(e)=>changeName(e, index)}/></td>
-							<td><input type="type" value={item.url} onChange={(e)=>changeURL(e, index)}/></td>
+							<td><input type="type" className={`${(validURL(item.url))?"":"fail"}`} value={item.url} onChange={(e)=>changeURL(e, index)}/></td>
 							<td><Link className="btn" to={`/pages/createPage/${item.name}`}>edit</Link></td>
 							<td><button className="btn" style={{background: "red"}} onClick={()=>del(index)}>delete</button></td>
 						</tr>
