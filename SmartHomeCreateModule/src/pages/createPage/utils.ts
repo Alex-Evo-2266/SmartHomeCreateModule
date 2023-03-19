@@ -26,6 +26,14 @@ export const getNewData = (type:TypeComponent) => {
 			text: "",
 			buttons: []
 		}
+	else if (type === TypeComponent.DEVICE_CARD)
+		res = {
+			type: TypeComponent.DEVICE_CARD,
+			src: "",
+			title: "",
+			text: "",
+			buttons: []
+		}
 	else if (type === TypeComponent.CARDS)
 		res = {
 			type: TypeComponent.CARDS,

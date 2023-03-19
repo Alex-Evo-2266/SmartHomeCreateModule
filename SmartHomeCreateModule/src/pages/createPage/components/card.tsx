@@ -5,12 +5,13 @@ import { IContextItem } from "../../../components/contextMenu/contextMenuElement
 import { DopMenu } from "../../../components/contextMenu/dopMenu";
 import { RunText } from "../../../components/runText";
 import { DialogType, showDialog } from "../../../store/reducers/dialogReducer";
-import { ICard, ITextField, IType, TypeComponent, TypeContent } from "../../../store/reducers/moduleReducer";
+import { ICard, IDeviceCard, ITextField, IType, TypeComponent, TypeContent } from "../../../store/reducers/moduleReducer";
 import { CardConfig } from "./componentConfig/cardConfig";
+import { DeviceCardConfig } from "./componentConfig/deviceCardConfig";
 
 interface Props {
-	item: ICard
-    update: (data:ICard)=>void
+	item: ICard | IDeviceCard
+    update: (data:ICard | IDeviceCard)=>void
 	del: ()=>void
 }
 
@@ -19,11 +20,22 @@ export const Card:React.FC<Props> = ({item, update, del}:Props) =>{
 	const dispatch = useDispatch()
 
 	const configDialog = useCallback(() => {
-		dispatch(showDialog({type: DialogType.CASTOM, title: "edit component", html: <CardConfig update={update} item={item} del={()=>{
-			dispatch(showDialog({type: DialogType.ALERT, title: "delete component", callback: ()=>{
-				del()
-			}}))
-		}}/>}))
+		if (item.type === TypeComponent.CARD)
+		{
+			dispatch(showDialog({type: DialogType.CASTOM, title: "edit component", html: <CardConfig update={update} item={item} del={()=>{
+				dispatch(showDialog({type: DialogType.ALERT, title: "delete component", callback: ()=>{
+					del()
+				}}))
+			}}/>}))
+		}
+		else if (item.type === TypeComponent.DEVICE_CARD)
+		{
+			dispatch(showDialog({type: DialogType.CASTOM, title: "edit component", html: <DeviceCardConfig update={update} item={item} del={()=>{
+				dispatch(showDialog({type: DialogType.ALERT, title: "delete component", callback: ()=>{
+					del()
+				}}))
+			}}/>}))
+		}
 	},[item])
 
 
@@ -40,7 +52,7 @@ export const Card:React.FC<Props> = ({item, update, del}:Props) =>{
 			<DopMenu buttons={getButtons()} style={{right: "0"}}/>
 			<div className='card-content'>
 				<div className='device-card-title'>
-					<RunText text={item.title} id={item.title}/>
+					<RunText text={item.title ?? ""} id={item.title ?? "1"}/>
 				</div>
 				<p>{item.text}</p>
 			</div>

@@ -37,6 +37,15 @@ export interface ICards{
 	option?: IOption
 }
 
+export interface IDeviceCard{
+	type:TypeComponent.DEVICE_CARD
+	src: string
+	title?: string
+	text?: string
+	buttons?: IButton[]
+	option?: IOption
+}
+
 export interface ICard{
 	type: TypeComponent.CARD
 	src: string
@@ -98,7 +107,7 @@ export interface IColumns{
 }
 
 
-export type IType = ITextField | ITable | ICard | ICards | IForm | IImage | IButton | IColumns
+export type IType = ITextField | ITable | ICard | IDeviceCard | ICards | IForm | IImage | IButton | IColumns
 
 export interface IPage{
 	page: IType[]

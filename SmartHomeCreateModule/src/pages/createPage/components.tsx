@@ -27,6 +27,10 @@ export const CreatePageComponents:React.FC<Props> = ({item, update, index, del}:
 		return(
 			<Card item={item} update={update} del={del}/>
 		)
+	if (item.type === TypeComponent.DEVICE_CARD)
+		return(
+			<Card item={item} update={update} del={del}/>
+		)
 	if (item.type === TypeComponent.CARDS)
 		return(
 			<Cards item={item} update={update} del={del}/>
