@@ -137,6 +137,7 @@ body{
 	width: 100%;
 	position: relative;
 	$top: -20px;
+  padding-bottom: 2px;
 	input{
 		height: 100%;
 		width: 100%;
@@ -229,4 +230,28 @@ body{
 .color-normal-v2{
   background: var(--color-normal-v2);
   color: var(--text-normal)
+}
+
+input.fail{
+  border-bottom: 2px solid red;
+}
+
+.input-data.radio{
+  display: flex;
+  padding-bottom: 10px;
+  height: auto;
+  .radio-container{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    p{
+      text-align: center;
+    }
+    input[type="radio"]{
+      width: 30px;
+      height: 30px;
+    }
+  }
 }

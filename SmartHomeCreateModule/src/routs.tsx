@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import { APIPage } from "./pages/apiPage/apiPage"
 import { CreatePage } from "./pages/createPage/createPage"
 import { MainPage } from "./pages/mainPage"
-import { Pages } from "./pages/pages"
+import { Pages } from "./pages/pages/pages"
 import { RootComponents } from "./pages/rootComponents"
 
 

@@ -4,23 +4,26 @@ import { BaseCard } from "../../../components/card/card";
 import { IContextItem } from "../../../components/contextMenu/contextMenuElement";
 import { DopMenu } from "../../../components/contextMenu/dopMenu";
 import { RunText } from "../../../components/runText";
+import { useURL } from "../../../hooks/useURL.hook";
 import { DialogType, showDialog } from "../../../store/reducers/dialogReducer";
 import { ICard, IDeviceCard, ITextField, IType, TypeComponent, TypeContent } from "../../../store/reducers/moduleReducer";
 import { CardConfig } from "./componentConfig/cardConfig";
 import { DeviceCardConfig } from "./componentConfig/deviceCardConfig";
 
 interface Props {
-	item: ICard
-    update: (data:ICard)=>void
+	item: IDeviceCard
+    update: (data:IDeviceCard)=>void
 	del: ()=>void
 }
 
-export const Card:React.FC<Props> = ({item, update, del}:Props) =>{
+export const DeviceCard:React.FC<Props> = ({item, update, del}:Props) =>{
 
 	const dispatch = useDispatch()
+	const {getFullURL} = useURL()
+
 
 	const configDialog = useCallback(() => {
-		dispatch(showDialog({type: DialogType.CASTOM, title: "edit component", html: <CardConfig update={update} item={item} del={()=>{
+		dispatch(showDialog({type: DialogType.CASTOM, title: "edit component", html: <DeviceCardConfig update={update} item={item} del={()=>{
 			dispatch(showDialog({type: DialogType.ALERT, title: "delete component", callback: ()=>{
 				del()
 			}}))
@@ -31,7 +34,6 @@ export const Card:React.FC<Props> = ({item, update, del}:Props) =>{
 	const getButtons = ()=>{
 		let btns: IContextItem[] = [
 			{title:"test", type:"base"},
-			{title:"test", type:"base"}
 		]
 		return (btns)
 	}
@@ -43,12 +45,18 @@ export const Card:React.FC<Props> = ({item, update, del}:Props) =>{
 				<br/>
 				<br/>
 				<div className='device-card-title'>
-					<RunText text={item.title ?? ""} id={item.title ?? "1"}/>
+					<RunText text={(item.src)?`src url - ${getFullURL(item.src)} | src.name or srs[].name`:""} id={item.title ?? "1"}/>
 				</div>
-				<p>{item.text}</p>
+				<p>src.information</p>
 			</div>
 			<div className='dividers'></div>
 			<div className='card-content'>
+                {`src.fields = [{
+                    name: string,
+                    value: string,
+                    type?: string,
+                    url_send?: string
+                }]`}
 			</div>
 			<div className='card-btn-container'>
 			</div>

@@ -1,8 +1,8 @@
 
 import React, { useCallback, useEffect, useState } from "react"
 import { useTypeSelector } from "../../../../hooks/useTypeSelector"
+import { useURL } from "../../../../hooks/useURL.hook"
 import { IButton, ICard, IDeviceCard, IOption, ITextField, TypeContent } from "../../../../store/reducers/moduleReducer"
-import { getFullURL } from "../../../../utils"
 
 interface Props {
 	item: IDeviceCard
@@ -12,12 +12,13 @@ interface Props {
 
 export const DeviceCardConfig:React.FC<Props> = ({item, update, del}) => {
 
-	const [title, setTytle] = useState<string>(item.title ?? "")
+	const [url, setURL] = useState<string>(item.src ?? "")
 	const [option, setOption] = useState<IOption>(item.option ?? {})
     const module = useTypeSelector(state=>state.module)
+	const {getFullURL} = useURL()
 
 	const changeSrc = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
-		setTytle(event.target.value)
+		setURL(event.target.value)
 		update({...item, src: event.target.value, option:option})
 	},[item, option])
 
@@ -26,7 +27,7 @@ export const DeviceCardConfig:React.FC<Props> = ({item, update, del}) => {
 	return(
 		<div>
             <div className="input-data">
-				<select value={item.src} onChange={changeSrc}>
+				<select value={url} onChange={changeSrc}>
                     <option value={""}></option>
                     {
                         module.api.map((item2, index2)=>(

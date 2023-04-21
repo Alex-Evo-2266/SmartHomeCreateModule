@@ -4,16 +4,17 @@ import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { Menu } from "../../components/menu";
 import { useTypeSelector } from "../../hooks/useTypeSelector";
+import { useURL } from "../../hooks/useURL.hook";
 import { AlertType, show_alert } from "../../store/reducers/alertReducer";
 import { DialogType, showDialog } from "../../store/reducers/dialogReducer";
 import { set_module, TypeRequest } from "../../store/reducers/moduleReducer";
-import { validURL } from "../../utils";
 import { APIItem } from "./apiItem";
 
 export const APIPage:React.FC = () =>{
 
 	const dispatch = useDispatch()
 	const module = useTypeSelector(state=>state.module)
+	const {validURL} = useURL()
 
 	const addAPI = (e:React.MouseEvent<HTMLButtonElement>) => {
 		dispatch(showDialog({type:DialogType.TEXT, title:"create api", text: "url entered", callback:(data)=>{

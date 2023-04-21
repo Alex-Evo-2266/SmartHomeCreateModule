@@ -2,19 +2,21 @@ import React, { DOMElement, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import { Menu } from "../components/menu";
-import { usePage } from "../hooks/usePage";
-import { useTypeSelector } from "../hooks/useTypeSelector";
-import { AlertType, show_alert } from "../store/reducers/alertReducer";
-import { DialogType, showDialog } from "../store/reducers/dialogReducer";
-import { set_module } from "../store/reducers/moduleReducer";
-import { validURL } from "../utils";
+import { Menu } from "../../components/menu";
+import { usePage } from "../../hooks/usePage";
+import { useTypeSelector } from "../../hooks/useTypeSelector";
+import { useURL } from "../../hooks/useURL.hook";
+import { AlertType, show_alert } from "../../store/reducers/alertReducer";
+import { DialogType, showDialog } from "../../store/reducers/dialogReducer";
+import { set_module } from "../../store/reducers/moduleReducer";
+import { PageItem } from "./PageItem";
 
 export const Pages:React.FC = () =>{
 
 	const dispatch = useDispatch()
 	const module = useTypeSelector(state=>state.module)
 	const pages = usePage()
+	const {validURL} = useURL()
 
 	const changeName = (e:React.ChangeEvent<HTMLInputElement>, index: number) => {
 		let newPages = module.pages
@@ -65,12 +67,7 @@ export const Pages:React.FC = () =>{
 				<tbody>
 				{
 					module.pages.map((item, index)=>(
-						<tr>
-							<td><input className={`${(item.name === "")?"fail":""}`} type="type" value={item.name} onChange={(e)=>changeName(e, index)}/></td>
-							<td><input type="type" className={`${(validURL(item.url))?"":"fail"}`} value={item.url} onChange={(e)=>changeURL(e, index)}/></td>
-							<td><Link className="btn" to={`/pages/createPage/${item.name}`}>edit</Link></td>
-							<td><button className="btn" style={{background: "red"}} onClick={()=>del(index)}>delete</button></td>
-						</tr>
+						<PageItem index={index} item={item} del={del} changeName={changeName} changeURL={changeURL}/>
 					))
 				}
 				</tbody>

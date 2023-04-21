@@ -4,6 +4,7 @@ import { Button } from "./components/buton";
 import { Card } from "./components/card";
 import { Cards } from "./components/cards";
 import { Columns } from "./components/columns";
+import { DeviceCard } from "./components/devoiceCard";
 import { Text } from "./components/text";
 
 export interface Props {
@@ -29,7 +30,7 @@ export const CreatePageComponents:React.FC<Props> = ({item, update, index, del}:
 		)
 	if (item.type === TypeComponent.DEVICE_CARD)
 		return(
-			<Card item={item} update={update} del={del}/>
+			<DeviceCard item={item} update={update} del={del}/>
 		)
 	if (item.type === TypeComponent.CARDS)
 		return(

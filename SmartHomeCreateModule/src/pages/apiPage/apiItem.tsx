@@ -1,8 +1,8 @@
 import React, { DOMElement, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useTypeSelector } from "../../hooks/useTypeSelector";
+import { useURL } from "../../hooks/useURL.hook";
 import { IAPI, set_module, TypeRequest } from "../../store/reducers/moduleReducer";
-import { getFullURL, validURL } from "../../utils";
 
 interface Props{
     item: IAPI
@@ -18,6 +18,8 @@ export const APIItem:React.FC<Props> = ({item, index, changeName, changeType, ch
 	const dispatch = useDispatch()
 	const module = useTypeSelector(state=>state.module)
     const [fokus, setFocus] = useState<boolean>(false)
+	const {validURL, getFullURL} = useURL()
+
 
 	return(
 		<tr>

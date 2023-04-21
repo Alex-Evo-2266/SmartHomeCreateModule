@@ -15,10 +15,16 @@ export const MainPage:React.FC = () =>{
 		dispatch(set_module({...module, name:event.target.value}))
 	}
 
+	const nameValid = (name:string):boolean => {
+		if (name === '')
+			return false
+		return true
+	}
+
 	return(
 		<div className="home_container">
 			<div className="input-data">
-				<input className="color-normal-v2" required type="text" name="name_module" onChange={changeName} value={module.name}/>
+				<input className={`${(nameValid(module.name))?"":"fail"} color-normal-v2`} required type="text" name="name_module" onChange={changeName} value={module.name}/>
 				<label>Title</label>
 			</div>
             <Link className="btn" to="/pages">Pages</Link>

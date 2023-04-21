@@ -131,9 +131,17 @@ export enum TypeRequest {
 	POST = "POST"
 }
 
+export enum UseElement {
+	BUTTON = "BUTTON",
+	TABLE = "TABLE",
+	CARDS = "CARDS"
+}
+
 export interface IAPI{
 	name: string
 	url: string
+	use?: UseElement
+	useDitail?: string
 	type: TypeRequest
 }
 
