@@ -140,7 +140,7 @@ export enum UseElement {
 export interface IAPI{
 	name: string
 	url: string
-	use?: UseElement
+	use?: UseElement | undefined
 	useDitail?: string
 	type: TypeRequest
 }

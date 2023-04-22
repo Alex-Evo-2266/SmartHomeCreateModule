@@ -1,6 +1,10 @@
 
 import React, { useCallback, useEffect, useState } from "react"
-import { IButton, IOption, ITextField, TypeContent } from "../../../../store/reducers/moduleReducer"
+import { SelectAPI } from "../../../../components/apiComponent"
+import { useAPI } from "../../../../hooks/useAPI.hook"
+import { useTypeSelector } from "../../../../hooks/useTypeSelector"
+import { useURL } from "../../../../hooks/useURL.hook"
+import { IButton, IOption, ITextField, TypeComponent, TypeContent, UseElement } from "../../../../store/reducers/moduleReducer"
 
 interface Props {
 	item: IButton
@@ -10,11 +14,18 @@ interface Props {
 
 export const ButtonConfig:React.FC<Props> = ({item, update, del}) => {
 
+	type TypeC = TypeComponent.BUTTON | TypeComponent.LINK
+
 	const [url, setUrl] = useState<string>(item.action_url ?? "")
 	const [title, setTytle] = useState<string>(item.title ?? "")
 	const [option, setOption] = useState<IOption>(item.option ?? {})
+	const [type, setType] = useState<TypeC>(item.type ?? TypeComponent.BUTTON)
 
-	const changeUrl = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+	const module = useTypeSelector(state=>state.module)
+	const {getFullURL} = useURL()
+	const {getAPITypeGet, getAPI} = useAPI()
+
+	const changeUrl = useCallback((event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
 		setUrl(event.target.value)
 		update({...item, title: title, action_url: event.target.value, option:option})
 	},[item, option, title])
@@ -31,6 +42,26 @@ export const ButtonConfig:React.FC<Props> = ({item, update, del}) => {
 		update({...item, option: option_data, action_url: url, title: title})
 	},[item, option, url, title])
 
+	const changeLink = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+		if (event.target.value === "link")
+		{
+			const oldURL = getAPI(item.action_url)
+        	if(oldURL)
+        	{
+            	oldURL.data.use = undefined
+            	oldURL.save()
+        	}
+			setType(TypeComponent.LINK)
+			setUrl("")
+			update({...item, option: option, action_url: "", title: title, type: TypeComponent.LINK})
+		}
+		else{
+			setType(TypeComponent.BUTTON)
+			setUrl("")
+			update({...item, option: option, action_url: "", title: title, type: TypeComponent.BUTTON})
+		}
+	},[item, option, url, title])
+
 	const changeSize = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
 		let option_data: IOption = option ?? {}
 		option_data.fontSize = Number(event.target.value)
@@ -43,6 +74,16 @@ export const ButtonConfig:React.FC<Props> = ({item, update, del}) => {
 			<div className="">
 				<p>border radius {option.borderRadius}</p>
 				<input className="color-normal-v2" required type="range" min={0} max={10} name="name_module" onChange={changeRadius} value={Number(option.borderRadius ?? 0)}/>
+			</div>
+			<div className="input-data radio">
+				<div className="radio-container">
+					<p>link</p>
+					<input type="radio" name="typeAction" value="link" onChange={changeLink} checked={type===TypeComponent.LINK}/>
+				</div>
+				<div className="radio-container">
+					<p>button</p>
+					<input type="radio" name="typeAction" value="btn" onChange={changeLink} checked={type===TypeComponent.BUTTON}/>
+				</div>
 			</div>
 			<div className="input-data">
 				<span>font-size  </span>
@@ -62,10 +103,16 @@ export const ButtonConfig:React.FC<Props> = ({item, update, del}) => {
 				<input className="color-normal-v2" type="text" required name="name_module" onChange={changeTitle} placeholder="Label" value={title}/>
 				<label>title</label>
 			</div>
-			<div className="input-data">
-				<input className="color-normal-v2" type="text" required name="name_module" onChange={changeUrl} placeholder="Label" value={url}/>
-				<label>url</label>
-			</div>
+			{
+				(type === TypeComponent.LINK)?
+				<div className="input-data">
+					<input className="color-normal-v2" type="text" required name="name_module" onChange={changeUrl} placeholder="Label" value={url}/>
+					<label>url</label>
+				</div>:
+				<div className="input-data">
+					<SelectAPI value={url} onChange={changeUrl} typeUse={UseElement.BUTTON}/>
+				</div>
+			}
 			<button className="btn red" style={{background: "red"}} onClick={()=>del()}>delete</button>
 		</div>
 	)
