@@ -7,7 +7,7 @@ import { useTypeSelector } from "../../hooks/useTypeSelector";
 import { useURL } from "../../hooks/useURL.hook";
 import { AlertType, show_alert } from "../../store/reducers/alertReducer";
 import { DialogType, showDialog } from "../../store/reducers/dialogReducer";
-import { set_module, TypeRequest } from "../../store/reducers/moduleReducer";
+import { set_module, TypeComponent, TypeRequest } from "../../store/reducers/moduleReducer";
 import { APIItem } from "./apiItem";
 
 export const APIPage:React.FC = () =>{
@@ -53,8 +53,17 @@ export const APIPage:React.FC = () =>{
 	}
 
 	const del = (index:number) => {
-		let newPages = module.api.filter((_, index2)=>index2!==index)
-		dispatch(set_module({...module, api: newPages}))
+		let newAPI = module.api.filter((_, index2)=>index2!==index)
+		const newPages = module.pages.map(
+			item=>({...item, page: item.page.map(
+				item2=>{
+					if(item2.type === TypeComponent.BUTTON && item2.action_url === module.api[index].url)
+						return {...item2, action_url: ""}
+					return item2
+				}
+			)})
+		)
+		dispatch(set_module({...module, api: newAPI}))
 	}
 
 	return(

@@ -2,7 +2,7 @@ import React, { DOMElement, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useTypeSelector } from "../../hooks/useTypeSelector";
 import { useURL } from "../../hooks/useURL.hook";
-import { IAPI, set_module, TypeRequest } from "../../store/reducers/moduleReducer";
+import { IAPI, set_module, TypeRequest, UseElement } from "../../store/reducers/moduleReducer";
 
 interface Props{
     item: IAPI
@@ -31,7 +31,17 @@ export const APIItem:React.FC<Props> = ({item, index, changeName, changeType, ch
 					<option value={TypeRequest.POST}>POST</option>
 				</select>
 			</td>
-    		<td></td>
+    		<td>
+				{
+					(item.use === UseElement.BUTTON)?
+					<i className="fa fa-hand-pointer"></i>:
+					(item.use === UseElement.TABLE)?
+					<i className="fa fa-table"></i>:
+					(item.use === UseElement.CARDS)?
+					<i className="fa fa-cards">s</i>:
+					null
+				}
+			</td>
     		<td><button className="btn" style={{background: "red"}} onClick={()=>del(index)}>delete</button></td>
 		</tr>
 	)
