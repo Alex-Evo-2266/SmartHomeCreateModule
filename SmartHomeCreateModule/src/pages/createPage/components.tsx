@@ -5,6 +5,7 @@ import { Card } from "./components/card";
 import { Cards } from "./components/cards";
 import { Columns } from "./components/columns";
 import { DeviceCard } from "./components/devoiceCard";
+import { TableComponent } from "./components/table";
 import { Text } from "./components/text";
 
 export interface Props {
@@ -39,6 +40,10 @@ export const CreatePageComponents:React.FC<Props> = ({item, update, index, del}:
 	if (item.type === TypeComponent.COLUMNS)
 		return(
 			<Columns item={item} update={update} index={index} del={del}/>
+		)
+	if (item.type === TypeComponent.TABLE)
+		return(
+			<TableComponent item={item} update={update} del={del}/>
 		)
 	return null
 }

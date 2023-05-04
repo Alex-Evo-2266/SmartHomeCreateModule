@@ -46,6 +46,7 @@ body{
 @import "runText.scss";
 @import "createAPI.scss";
 @import "pages.scss";
+@import "table.scss";
 
 .root-container{
   position: relative;
@@ -101,6 +102,11 @@ body{
     0px 1px 5px 0px rgba(0, 0, 0, 0.12);
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
   transition: filter 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  &.red,
+  &.delete{
+    background: red;
+    color: #fff;
+  }
   &:hover{
     box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
   }
@@ -112,11 +118,34 @@ body{
     background: transparent;
     border: 2px solid var(--color-active);
     color: var(--color-active);
+    &:hover{
+      background: rgba(var(--color-active), 0.2);
+    }
+    &:active{
+      background: rgba(var(--color-active), 0.5);
+    }
+    &.red,
+    &.delete{
+      &:hover{
+        background: rgba(red, 0.2);
+      }
+      &:active{
+        background: rgba(red, 0.5);
+      }
+      border-color: red;
+      color: red;
+      background: transparent;
+    }
   }
   &.min{
     color: var(--color-active);
     background: transparent;
     box-shadow: none;
+    &.red,
+    &.delete{
+      color: red;
+      background: transparent;
+    }
     &:hover{
       filter: brightness(90%);
     }
@@ -175,11 +204,17 @@ body{
   select{
     font-size: 20px;
     padding: 5px;
+    outline: none;
+    border-bottom: 2px solid var(--color-normal-v2);
   }
   textarea{
     font-size: 20px;
     padding: 5px;
     max-width: 100%;
+  }
+  &.big{
+    height: auto;
+    min-height: 45px;
   }
 }
 

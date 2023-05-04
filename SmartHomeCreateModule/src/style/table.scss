@@ -1,0 +1,110 @@
+.table-box{
+	width: 100%;
+	height: 100%;
+	position: relative;
+	overflow-y: scroll;
+	background: var(--color-normal);
+	color: var(--text-normal);
+	box-shadow: 0 10px 100px #000a;
+  }
+  table{
+	width: 100%;
+	background: var(--color-normal);
+	border-radius: 4px;
+	color: var(--text-normal);
+  }
+  
+  table, th, td{
+	// border: 1px solid var(--color-base-v2);
+	border-collapse: collapse;
+	text-align: start;
+  }
+
+  table, th.center, td.center{
+	text-align: center;
+  }
+  
+  table tr td, table tr th{
+	  padding: 15px;
+	  font-size: 24px;
+  }
+
+  th{
+	background: var(--color-base-v2);
+	color: var(--text-base);
+	position: sticky;
+	top: 0;
+  }
+  
+  tr th.__check{
+	width: 60px;
+	text-align: center;
+	background: var(--color-base)
+  }
+  
+  tr td.__check{
+	width: 60px;
+	text-align: center;
+	background: var(--color-base-v2);
+	color: var(--text-base);
+  }
+
+  table th{
+	background: var(--color-base);
+	color: var(--text-base);
+	text-align: start;
+  }
+
+  table tr{
+	border-bottom: 1px solid var(--color-base);
+  }
+
+  table tr td input,
+  table tr td select{
+	width: 100%;
+	height: 100%;
+	outline: none;
+	color: var(--text-normal);
+	background: transparent;
+	border: none;
+	padding: 15px;
+    font-size: 24px;
+  }
+  table tr td input:-moz-placeholder,
+  table tr td input::placeholder,
+  table tr td input::-webkit-input-placeholder{
+	color: var(--color-normal-v2);
+  }
+  table tr td select{
+	border-radius: 4px;
+  }
+
+  table tr td input:read-only{
+	background-color: #ff000033;
+	border-radius: 4px;
+  }
+
+//   table tr::nth-child(2n+1){
+// 	background-color: var(--color-normal-v2);
+//   }
+  
+//   .column-config-container{
+// 	padding: 10px;
+// 	background: var(--color-base);
+// 	border-radius: 10px;
+// 	.input-data input{
+// 		background: var(--color-base);
+// 	}
+//   }
+
+.create-table{
+	padding: 10px;
+	background: var(--color-normal);
+	margin-top: 10px;
+	border-radius: 4px;
+	.input-data{
+		margin: 10px 0;
+	}
+	table{
+	}
+}

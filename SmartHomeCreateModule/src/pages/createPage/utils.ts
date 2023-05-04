@@ -48,5 +48,15 @@ export const getNewData = (type:TypeComponent) => {
 			count: 2,
 			value: []
 		}
+	else if (type === TypeComponent.TABLE)
+		res = {
+			type: TypeComponent.TABLE,
+			cols: [{
+				title: "name",
+				name: "name"
+			}],
+			title: "",
+			src: ""
+		}
 	return (res)
 }

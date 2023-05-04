@@ -1,3 +1,5 @@
+import { IColTable, IItemTable } from "../../interfaces/table"
+
 export enum ModuleTypesActions {
 	SET_MODULE = "SET_MODULE"
 }
@@ -55,16 +57,12 @@ export interface ICard{
 	option?: IOption
 }
 
-export interface ITableCol{
-	title: string
-	type: string
-}
-
 export interface ITable{
 	type: TypeComponent.TABLE
 	src: string
-	col: ITableCol[]
-	items: [any]
+	cols: IColTable[]
+	title: string
+	items?: IItemTable[]
 	option?: IOption
 }
 

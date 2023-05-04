@@ -35,7 +35,7 @@ export const SelectAPI:React.FC<Props> = ({value, onChange, typeUse}) => {
 
 	return(
         <>
-		<select value={value} onChange={changeUrl} style={{width: "100%"}}>
+		<select className="color-normal" value={value} onChange={changeUrl} style={{width: "100%"}}>
 			<option value={""}></option>
 			{
 			    getAPITypeGet(value).map((item, index)=>(
@@ -43,7 +43,6 @@ export const SelectAPI:React.FC<Props> = ({value, onChange, typeUse}) => {
 				))
 		    }
 		</select>
-		<label>url</label>
         </>
 	)
 }

@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import { alertReducer } from "./reducers/alertReducer";
 import { cardReducer } from "./reducers/cardReducer";
 import { searchTypeReducer } from "./reducers/choiseTypeReducer";
+import { createTableReducer } from "./reducers/createTable";
 import { dialogReducer } from "./reducers/dialogReducer";
 import { menuReducer } from "./reducers/menuReducer";
 import { moduleReducer } from "./reducers/moduleReducer";
@@ -13,7 +14,8 @@ const rootReduser = combineReducers({
     alert: alertReducer,
 	menu: menuReducer,
 	module: moduleReducer,
-	searchType: searchTypeReducer
+	searchType: searchTypeReducer,
+	createTable: createTableReducer
 })
 
 export type RootState = ReturnType<typeof rootReduser>

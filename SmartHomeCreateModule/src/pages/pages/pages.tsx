@@ -67,7 +67,7 @@ export const Pages:React.FC = () =>{
 				<tbody>
 				{
 					module.pages.map((item, index)=>(
-						<PageItem index={index} item={item} del={del} changeName={changeName} changeURL={changeURL}/>
+						<PageItem key={index} index={index} item={item} del={del} changeName={changeName} changeURL={changeURL}/>
 					))
 				}
 				</tbody>
