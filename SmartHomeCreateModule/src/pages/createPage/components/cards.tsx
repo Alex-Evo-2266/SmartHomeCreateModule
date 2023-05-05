@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useEffect, useState } from "react";
-import { ICard, ICards, ITextField, IType, TypeComponent, TypeContent } from "../../../store/reducers/moduleReducer";
+import { ICards, ITextField } from "../../../interfaces/otherComponents";
 
 interface Props {
 	item: ICards

@@ -3,7 +3,8 @@ import React, { useCallback, useEffect, useState } from "react"
 import { useAPI } from "../../../../hooks/useAPI.hook"
 import { useTypeSelector } from "../../../../hooks/useTypeSelector"
 import { useURL } from "../../../../hooks/useURL.hook"
-import { IButton, ICard, IDeviceCard, IOption, ITextField, TypeContent } from "../../../../store/reducers/moduleReducer"
+import { IDeviceCard } from "../../../../interfaces/otherComponents"
+import { IOption } from "../../../../interfaces/componentOption"
 
 interface Props {
 	item: IDeviceCard

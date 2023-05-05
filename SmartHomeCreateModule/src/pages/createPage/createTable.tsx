@@ -5,8 +5,10 @@ import { useDispatch } from "react-redux";
 import { SelectAPI } from "../../components/apiComponent";
 import { IColTable, TypeColumn } from "../../interfaces/table";
 import { hideCreateTablePage } from "../../store/reducers/createTable";
-import { ITable, UseElement } from "../../store/reducers/moduleReducer";
 import { CreateTableCol } from "./createTableCol";
+import { AlertType, show_alert } from "../../store/reducers/alertReducer";
+import { ITable } from "../../interfaces/tableInput";
+import { UseElement } from "../../interfaces/api";
 
 interface Props {
 	table: ITable
@@ -21,55 +23,70 @@ interface Props {
 //         return undefined
 // }
 
+const colsValid =  (cols: IColTable[]) => {
+	for (let i = 0; i < cols.length; i++)
+	{
+		if(cols[i].name == "" || cols[i].title == "")
+			return false
+		for (let j = i + 1; j < cols.length; j++)
+		{
+			if (cols[i].name === cols[j].name)
+				return false
+		}
+	}
+	return true
+}
+
 export const CreateTable:React.FC<Props> = ({table, update, del}) =>{
 
-	const [title, setTytle] = useState<string>(table.title ?? "")
-	const [src, setSrc] = useState<string>(table.src ?? "")
-	const [cols, setCols] = useState<IColTable[]>(table.cols ?? [])
-
 	const dispatch = useDispatch()
+
+	const [colsTable, setColstable] = useState<IColTable[]>(table.cols ?? [])
+	const [title, setTitle] = useState<string>(table.title ?? "")
+	const [tableDataSrc, setTableDataSrc] = useState<string>(table.src ?? "")
 	
 	const changeTitle = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-		setTytle(event.target.value)
-		update({...table, title: event.target.value, src: src, cols:cols})
-	},[table, src, cols, update])
+		setTitle(event.target.value)
+		update({...table, title: event.target.value, src:tableDataSrc, cols: colsTable})
+	},[table, update, tableDataSrc, colsTable])
 
 	const changeSrc = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
-		setSrc(event.target.value)
-		update({...table, title: title, src: event.target.value, cols:cols})
-	},[table, title, cols, update])
+		setTableDataSrc(event.target.value)
+		update({...table, src: event.target.value, title, cols: colsTable})
+	},[table, update, title, colsTable])
 
 	const changeCol = useCallback((data:IColTable, index:number) => {
-		console.log(index, cols)
-		let newdata = cols.slice()
+		let newdata = colsTable.slice()
 		newdata[index] = data
-		console.log(index, cols, newdata)
-		setCols(newdata)
-		update({...table, title: title, src, cols:newdata})
-	},[title, table, cols, src, update])
+		setColstable(newdata)
+		update({...table, src: tableDataSrc, title, cols: newdata})
+	},[table, update, tableDataSrc, colsTable, title])
 
 	const delCol = useCallback((index:number) => {
-		console.log(index, cols)
-		const newdata = cols.slice().filter((item, index1)=>index1 !== index)
-		console.log(index, cols, newdata)
-		setCols(newdata)
-		update({...table, title: title, src:src, cols:newdata})
-	},[title, table, cols, src, update])
+		const newdata = colsTable.slice().filter((item, index1)=>index1 !== index)
+		setColstable(newdata)
+		update({...table, cols:newdata})
+	},[table, update])
 
 	const addCol = useCallback(() => {
-		let newdata = cols.slice()
+		let newdata = colsTable.slice()
 		const newCol:IColTable = {
 			name:"",
 			title:"",
 			type:TypeColumn.BASE
 		}
 		newdata.push(newCol)
-		setCols(newdata)
-		update({...table, title: title, src, cols:newdata})
-	},[title, table, cols, src, update])
+		setColstable(newdata)
+		update({...table, cols:newdata})
+	},[table, update])
 
 	const save = () => {
-		dispatch(hideCreateTablePage())
+		if(!colsValid(colsTable))
+		{
+			dispatch(show_alert({title:"invalid entered data", type: AlertType.ERROR, text: "field uncorected fill"}))
+		}
+		else
+			dispatch(hideCreateTablePage())
 	}
 
 	return(
@@ -82,14 +99,14 @@ export const CreateTable:React.FC<Props> = ({table, update, del}) =>{
 				</div>
 				<h4 className="color-normal">Url</h4>
 				<div className="input-data">
-					<SelectAPI value={src} onChange={changeSrc} typeUse={UseElement.TABLE}/>
+					<SelectAPI value={tableDataSrc} onChange={changeSrc} typeUse={UseElement.TABLE}/>
 				</div>
 				<div className="table-box">
 					<table>
 						<thead>
 							<tr>
 							{
-								cols.map((item, index)=>(
+								colsTable.map((item, index)=>(
 									<th key={index}>{item.title}</th>
 								))
 							}
@@ -98,7 +115,7 @@ export const CreateTable:React.FC<Props> = ({table, update, del}) =>{
 						<tbody>
 							<tr>
 							{
-								cols.map((_, index)=>(
+								colsTable.map((_, index)=>(
 									<td key={index}>test text</td>
 								))
 							}
@@ -112,6 +129,7 @@ export const CreateTable:React.FC<Props> = ({table, update, del}) =>{
 						<thead>
 							<tr>
 								<th>column</th>
+								<th>display name</th>
 								<th>type</th>
 								<th>url</th>
 								<th>delete</th>
@@ -119,7 +137,7 @@ export const CreateTable:React.FC<Props> = ({table, update, del}) =>{
 						</thead>
 						<tbody>
 							{
-								cols.map((item, index)=>(
+								colsTable.map((item, index)=>(
 									<CreateTableCol item={item} key={index} update={(e)=>changeCol(e, index)} del={()=>delCol(index)}/>
 								))
 							}
@@ -129,7 +147,7 @@ export const CreateTable:React.FC<Props> = ({table, update, del}) =>{
 				</div>
 			</div>
 			<button onClick={save} className="btn">save</button>
-			<button onClick={()=>{}} className="btn border delete">delete</button>
+			<button onClick={del} className="btn border delete">delete</button>
 		</div>
 	)
 }

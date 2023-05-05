@@ -7,8 +7,10 @@ import { useTypeSelector } from "../../hooks/useTypeSelector";
 import { useURL } from "../../hooks/useURL.hook";
 import { AlertType, show_alert } from "../../store/reducers/alertReducer";
 import { DialogType, showDialog } from "../../store/reducers/dialogReducer";
-import { set_module, TypeComponent, TypeRequest } from "../../store/reducers/moduleReducer";
 import { APIItem } from "./apiItem";
+import { set_module } from "../../store/reducers/moduleReducer";
+import { TypeRequest } from "../../interfaces/api";
+import { TypeComponent } from "../../interfaces/typesComponent";
 
 export const APIPage:React.FC = () =>{
 

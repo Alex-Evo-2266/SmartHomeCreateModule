@@ -6,9 +6,9 @@ import { DopMenu } from "../../../components/contextMenu/dopMenu";
 import { RunText } from "../../../components/runText";
 import { useURL } from "../../../hooks/useURL.hook";
 import { DialogType, showDialog } from "../../../store/reducers/dialogReducer";
-import { ICard, IDeviceCard, ITextField, IType, TypeComponent, TypeContent } from "../../../store/reducers/moduleReducer";
 import { CardConfig } from "./componentConfig/cardConfig";
 import { DeviceCardConfig } from "./componentConfig/deviceCardConfig";
+import { IDeviceCard } from "../../../interfaces/otherComponents";
 
 interface Props {
 	item: IDeviceCard

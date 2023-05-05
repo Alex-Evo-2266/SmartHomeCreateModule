@@ -1,10 +1,13 @@
 
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useState } from "react"
 import { SelectAPI } from "../../../../components/apiComponent"
 import { useAPI } from "../../../../hooks/useAPI.hook"
 import { useTypeSelector } from "../../../../hooks/useTypeSelector"
 import { useURL } from "../../../../hooks/useURL.hook"
-import { IButton, IOption, ITextField, TypeComponent, TypeContent, UseElement } from "../../../../store/reducers/moduleReducer"
+import { IButton } from "../../../../interfaces/otherComponents"
+import { TypeComponent } from "../../../../interfaces/typesComponent"
+import { IOption } from "../../../../interfaces/componentOption"
+import { UseElement } from "../../../../interfaces/api"
 
 interface Props {
 	item: IButton

@@ -1,6 +1,7 @@
 
-import React, { useCallback, useEffect, useState } from "react"
-import { IButton, ICard, IDeviceCard, IOption, ITextField, TypeContent } from "../../../../store/reducers/moduleReducer"
+import React, { useCallback, useState } from "react"
+import { ICard } from "../../../../interfaces/otherComponents"
+import { IOption } from "../../../../interfaces/componentOption"
 
 interface Props {
 	item: ICard

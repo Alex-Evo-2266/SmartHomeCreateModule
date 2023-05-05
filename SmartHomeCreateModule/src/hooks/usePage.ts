@@ -1,8 +1,9 @@
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
-import { IPage, set_module } from "../store/reducers/moduleReducer";
+import { set_module } from "../store/reducers/moduleReducer";
 import { useTypeSelector } from "./useTypeSelector";
+import { IPage } from "../interfaces/page";
 
 
 export const usePage = () => {

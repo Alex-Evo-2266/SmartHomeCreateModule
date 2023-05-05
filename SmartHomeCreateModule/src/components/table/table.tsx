@@ -7,7 +7,7 @@ interface Props {
 	items: IItemTable[]
 }
 
-export const Table = ({col, items}:Props)=>{
+export const Table:React.FC<Props> = ({col, items}:Props)=>{
 
 	// col=[{
 	// 	title: "",
@@ -20,6 +20,7 @@ export const Table = ({col, items}:Props)=>{
 	// 	action: bool,
 	// 	onClick: ()=>{}
 	// }]
+	console.log("p0", col, items)
 
 	if (!Array.isArray(col) || ((typeof col[0] !== 'string') && (!col[0].title || !col[0].name)) || !Array.isArray(items))
 		throw new Error("table: invalid input data")

@@ -1,4 +1,4 @@
-import { ITable } from "./moduleReducer"
+import { ITable } from "../../interfaces/tableInput"
 
 export enum CreateTablePageTypeAction {
 	CREATE_TABLE_PAGE_SHOW = "CREATE_TABLE_PAGE_SHOW",
@@ -8,12 +8,14 @@ export enum CreateTablePageTypeAction {
 export interface ITableData{
 	table?: ITable
     update: (data:ITable)=>void
+	del: ()=>void
 }
 
 interface ITableState{
 	table?: ITable
     visible: boolean
     update: (data:ITable)=>void
+	del: ()=>void
 }
 
 interface IAction {
@@ -24,7 +26,8 @@ interface IAction {
 const initialSate:ITableState = {
 	table: undefined,
 	visible: false,
-	update: (data)=>{}
+	update: (data)=>{},
+	del: ()=>{}
 }
 
 export const createTableReducer = (state:ITableState = initialSate, action:IAction):ITableState => {

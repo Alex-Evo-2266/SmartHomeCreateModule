@@ -1,4 +1,6 @@
-import { ITextField, IType, TypeComponent, TypeContent } from "../../store/reducers/moduleReducer";
+import { TypeContent } from "../../interfaces/otherComponents"
+import { IType } from "../../interfaces/page"
+import { TypeComponent } from "../../interfaces/typesComponent"
 
 export const getNewData = (type:TypeComponent) => {
 	let res: IType = {

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useTypeSelector } from "../../hooks/useTypeSelector";
 import { useURL } from "../../hooks/useURL.hook";
-import { IAPI, IPage, set_module, TypeRequest } from "../../store/reducers/moduleReducer";
+import { IPage } from "../../interfaces/page";
 
 interface Props{
     item: IPage

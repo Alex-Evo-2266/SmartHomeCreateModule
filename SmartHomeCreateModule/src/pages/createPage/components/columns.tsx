@@ -1,24 +1,18 @@
-import React, { PropsWithChildren, useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useTypeSelector } from "../../../hooks/useTypeSelector";
 import { set_type } from "../../../store/reducers/choiseTypeReducer";
 import { DialogType, showDialog } from "../../../store/reducers/dialogReducer";
-import { ICard, ICards, IColumns, ITextField, IType, set_module, TypeComponent, TypeContent } from "../../../store/reducers/moduleReducer";
 import { CreatePageComponents } from "../components";
 import { getNewData } from "../utils";
 import { ColumnsConfig } from "./componentConfig/colummnsConfig";
+import { IColumns, IType } from "../../../interfaces/page";
 
 interface Props {
 	item: IColumns
     update: (data:IColumns)=>void
-    index: string
+    id: string
     del:()=>void
-}
-
-interface ColItem {
-    item: IType
-    index: number
-    indexCol: number
 }
 
 const minWidth: React.CSSProperties = {
@@ -29,7 +23,7 @@ const normalWidth: React.CSSProperties = {
     flexDirection: "row"
 }
 
-export const Columns:React.FC<Props> = ({item, update, index, del}:Props) =>{
+export const Columns:React.FC<Props> = ({item, update, id, del}:Props) =>{
 
     const dispatch = useDispatch()
 	const searchType = useTypeSelector(state=>state.searchType)
@@ -39,7 +33,7 @@ export const Columns:React.FC<Props> = ({item, update, index, del}:Props) =>{
 
     const clickContainer = (e:any, index2: number) => {
 		if (!searchType.type) return
-        if (e.target.dataset.container !== `columns-${index}`) return
+        if (e.target.dataset.container !== `columns-${id}`) return
 		let newData = item.value
 		newData.push({indexCol: index2, value: getNewData(searchType.type)})
         dispatch(set_type({type: null}))
@@ -47,14 +41,14 @@ export const Columns:React.FC<Props> = ({item, update, index, del}:Props) =>{
 	}
 
     const configDialog = useCallback((e: any) => {
-        if (e.target.dataset.container !== `columns-${index}`) return false
+        if (e.target.dataset.container !== `columns-${id}`) return false
         dispatch(showDialog({type: DialogType.CASTOM, title: "edit component", html: <ColumnsConfig update={update} item={item} del={()=>{
 			dispatch(showDialog({type: DialogType.ALERT, title: "delete component", callback: ()=>{
 				del()
 			}}))
 		}}/>}))
         return false
-    },[item])
+    },[item, del, dispatch, id, update])
 
     const updateChild = (data: IType, index: number) => {
         let newData = item.value
@@ -79,7 +73,7 @@ export const Columns:React.FC<Props> = ({item, update, index, del}:Props) =>{
             else
                 setFlexStyle(normalWidth)
         }
-    },[columns.current])
+    },[])
 
     const deleteChild = (index:number) => {
         let newData = item.value.filter((_, index2)=>index2!==index)
@@ -91,16 +85,16 @@ export const Columns:React.FC<Props> = ({item, update, index, del}:Props) =>{
         return ()=>{
             window.removeEventListener("resize", setStyle)
         }
-    },[columns.current, setStyle])
+    },[setStyle])
 
 	return(
-        <div ref={columns} className="columns-container" data-container={`columns-${index}`} style={flexStyle} onContextMenu={configDialog}>
+        <div ref={columns} className="columns-container" data-container={`columns-${id}`} style={flexStyle} onContextMenu={configDialog}>
             {
                 new Array(item.count).fill(0).map((_, index1)=>(
-                    <div key={index1} className="col-container" data-el="container" data-container={`columns-${index}`} onClick={(e)=>clickContainer(e, index1)}>
+                    <div key={index1} className="col-container" data-el="container" data-container={`columns-${id}`} onClick={(e)=>clickContainer(e, index1)}>
                     {
                         getContent(index1).map((item2, index2)=>(
-                            <CreatePageComponents key={index2} item={item2.item} update={(data)=>updateChild(data, item2.index)} index={`${index}-${String(item2.index)}`} del={()=>deleteChild(item2.index)}/>
+                            <CreatePageComponents key={index2} item={item2.item} update={updateChild} index={item2.index} id={`${id}-${String(item2.index)}`} del={deleteChild}/>
                         ))
                     }
                     </div>

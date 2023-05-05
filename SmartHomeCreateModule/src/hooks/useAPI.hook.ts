@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
-import { IAPI, set_module, TypeRequest } from "../store/reducers/moduleReducer";
+import { set_module } from "../store/reducers/moduleReducer";
 import { useTypeSelector } from "./useTypeSelector";
+import { IAPI, TypeRequest } from "../interfaces/api";
 
 
 export const useAPI = () => {

@@ -1,8 +1,8 @@
-import React, { PropsWithChildren, useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { DialogType, showDialog } from "../../../store/reducers/dialogReducer";
-import { ITextField, IType, TypeComponent, TypeContent } from "../../../store/reducers/moduleReducer";
 import { TextConfig } from "./componentConfig/textConfig";
+import { ITextField, TypeContent } from "../../../interfaces/otherComponents";
 
 interface Props {
 	item: ITextField

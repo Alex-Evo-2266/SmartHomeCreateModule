@@ -1,8 +1,8 @@
-import React, { PropsWithChildren, useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { Table } from "../../../components/table/table";
-import { showCreateTablePage } from "../../../store/reducers/createTable";
-import { ITable, ITextField, IType, TypeComponent, TypeContent } from "../../../store/reducers/moduleReducer";
+import { hideCreateTablePage, showCreateTablePage } from "../../../store/reducers/createTable";
+import { ITable } from "../../../interfaces/tableInput";
 
 interface Props {
 	item: ITable
@@ -14,32 +14,22 @@ export const TableComponent:React.FC<Props> = ({item, update, del}:Props) =>{
 
     const dispatch = useDispatch()
 
+    const delTable = useCallback(()=>{
+        dispatch(hideCreateTablePage())
+        del()
+    },[del, dispatch])
+
+    const updatetable = useCallback((data:ITable)=>{
+        update(data)
+    },[update])
+
     const configDialog = useCallback(() => {
-        dispatch(showCreateTablePage({table:item, update:(data:ITable)=>{
-            update(data)
-        }}))
-        // dispatch(showDialog({type: DialogType.CASTOM, title: "edit component", html: <TableConfig update={update} item={item} del={()=>{
-		// 	dispatch(showDialog({type: DialogType.ALERT, title: "delete component", callback: ()=>{
-		// 		del()
-		// 	}}))
-		// }}/>}))
-    },[item])
-
-    const getStyle = (item: ITextField) => {
-        let data: React.CSSProperties = {
-            fontSize: item.option?.fontSize ?? 20,
-            borderRadius: item.option?.borderRadius ?? 0
-        }
-        return data
-    }
-
-    const getText = (text: string) => {
-        return text.split('\n')
-    }
+        dispatch(showCreateTablePage({table:item, update: updatetable, del: delTable}))
+    },[item, dispatch, updatetable, delTable])
 
 	return(
         <div className="component-table" onClick={configDialog} >
-            <Table col={item.cols} items={item.items ?? []}/>
+            <Table col={(item.cols.length === 0)?[{title:"NuN", name:"NuN"}]:item.cols} items={item.items ?? []}/>
         </div>
     )
 }

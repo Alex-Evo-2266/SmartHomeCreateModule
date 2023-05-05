@@ -1,6 +1,6 @@
 
 import React, { useCallback, useEffect, useState } from "react"
-import { IColumns, IOption, ITextField, TypeContent } from "../../../../store/reducers/moduleReducer"
+import { IColumns } from "../../../../interfaces/page"
 
 interface Props {
 	item: IColumns

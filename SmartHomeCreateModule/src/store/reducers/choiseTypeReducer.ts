@@ -1,4 +1,4 @@
-import { TypeComponent } from "./moduleReducer"
+import { TypeComponent } from "../../interfaces/typesComponent"
 
 export enum SearchTypesActions {
 	SET_TYPE = "SET_TYPE"

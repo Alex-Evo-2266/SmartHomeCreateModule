@@ -1,10 +1,8 @@
 
-import React, { useCallback, useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
+import React, { useCallback } from "react"
 import { useAPI } from "../hooks/useAPI.hook"
-import { useTypeSelector } from "../hooks/useTypeSelector"
 import { useURL } from "../hooks/useURL.hook"
-import { IButton, IOption, ITextField, set_module, TypeComponent, TypeContent, UseElement } from "../store/reducers/moduleReducer"
+import { UseElement } from "../interfaces/api"
 
 interface Props {
 	value: string | undefined,
@@ -31,7 +29,7 @@ export const SelectAPI:React.FC<Props> = ({value, onChange, typeUse}) => {
             newURL.save()
         }
         onChange(event)
-	},[])
+	},[getAPI, onChange, typeUse, value])
 
 	return(
         <>

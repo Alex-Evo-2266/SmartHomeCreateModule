@@ -70,9 +70,7 @@
 	padding: 15px;
     font-size: 24px;
   }
-  table tr td input:-moz-placeholder,
-  table tr td input::placeholder,
-  table tr td input::-webkit-input-placeholder{
+  table tr td input::placeholder{
 	color: var(--color-normal-v2);
   }
   table tr td select{

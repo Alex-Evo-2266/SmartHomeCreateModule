@@ -1,8 +1,8 @@
-import React, { DOMElement, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useTypeSelector } from "../../hooks/useTypeSelector";
 import { useURL } from "../../hooks/useURL.hook";
-import { IAPI, set_module, TypeRequest, UseElement } from "../../store/reducers/moduleReducer";
+import { IAPI, TypeRequest, UseElement } from "../../interfaces/api";
 
 interface Props{
     item: IAPI

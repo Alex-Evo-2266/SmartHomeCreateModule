@@ -1,9 +1,9 @@
-import React, { PropsWithChildren, useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { DialogType, showDialog } from "../../../store/reducers/dialogReducer";
-import { IButton, ITextField, IType, TypeComponent, TypeContent } from "../../../store/reducers/moduleReducer";
 import { ButtonConfig } from "./componentConfig/buttonConfig";
-import { TextConfig } from "./componentConfig/textConfig";
+import { IButton } from "../../../interfaces/otherComponents";
+import { TypeComponent } from "../../../interfaces/typesComponent";
 
 interface Props {
 	item: IButton

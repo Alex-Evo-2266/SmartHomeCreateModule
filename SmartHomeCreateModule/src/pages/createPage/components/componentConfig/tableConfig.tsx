@@ -2,8 +2,9 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { SelectAPI } from "../../../../components/apiComponent"
 import { IColTable } from "../../../../interfaces/table"
-import { IOption, ITable, ITextField, TypeContent, UseElement } from "../../../../store/reducers/moduleReducer"
 import { TableColConfig } from "./tableColConfig"
+import { ITable } from "../../../../interfaces/tableInput"
+import { UseElement } from "../../../../interfaces/api"
 
 interface Props {
 	item: ITable

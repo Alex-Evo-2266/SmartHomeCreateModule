@@ -6,7 +6,7 @@ import { useTypeSelector } from "../hooks/useTypeSelector";
 import { IMenuState, MenuTypesActions } from "../store/reducers/menuReducer";
 import { set_type } from "../store/reducers/choiseTypeReducer";
 import {ColumnsSVG} from '../svg/columns'
-import { TypeComponent } from "../store/reducers/moduleReducer";
+import { TypeComponent } from "../interfaces/typesComponent";
 
 export const Menu:React.FC = () =>{
 	const dispatch = useDispatch()

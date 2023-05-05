@@ -1,8 +1,6 @@
 
-import React, { useCallback, useEffect, useState } from "react"
-import { SelectAPI } from "../../../../components/apiComponent"
+import React, { useCallback, useState } from "react"
 import { IColTable, TypeColumn } from "../../../../interfaces/table"
-import { IOption, ITable, ITextField, TypeContent, UseElement } from "../../../../store/reducers/moduleReducer"
 
 interface Props {
 	item: IColTable
