@@ -21,6 +21,11 @@ export const MainPage:React.FC = () =>{
 		return true
 	}
 
+	const save = () => {
+		console.log(module)
+		window.electronAPI.saveModule(module)
+	}
+
 	return(
 		<div className="home_container">
 			<div className="input-data">
@@ -29,7 +34,7 @@ export const MainPage:React.FC = () =>{
 			</div>
             <Link className="btn" to="/pages">Pages</Link>
             <Link className="btn" to="/api">API</Link>
-			<button className="btn" onClick={()=>{}}>save</button>
+			<button className="btn" onClick={save}>save</button>
         </div>
 	)
 }

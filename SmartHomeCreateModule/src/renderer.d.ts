@@ -1,6 +1,8 @@
+import { IModuleState } from "./interfaces/module"
 
 export type IElectronAPI = {
   closeApp: () => void
+  saveModule: (data:IModuleState) => void
 }
 
 declare global {

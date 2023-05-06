@@ -2,6 +2,7 @@
 const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path');
 const url = require('url');
+const Parser = require('./generateModule/moduleParser')
 
 function createWindow () {
   // Создаем окно браузера.
@@ -29,6 +30,10 @@ function createWindow () {
 
   ipcMain.on('app-close', (event, arg) => {
     app.quit()
+  })
+
+  ipcMain.on('save-module', (event, arg) => {
+    Parser(arg)
   })
   
   mainWindow.loadURL(startUrl);

@@ -58,7 +58,8 @@ export const CreateTable:React.FC<Props> = ({table, update, del}) =>{
 		if(tableAPI)
 		{
 			tableAPI.data.useDitail = {
-				cols: colsTable
+				cols: colsTable,
+				title: title
 			}
 			tableAPI.save()
 		}
