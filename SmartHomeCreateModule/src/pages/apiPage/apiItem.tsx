@@ -35,6 +35,8 @@ export const APIItem:React.FC<Props> = ({item, index, changeName, changeType, ch
 				{
 					(item.use === UseElement.BUTTON)?
 					<i className="fa fa-hand-pointer"></i>:
+					(item.use === UseElement.TABLE_BUTTON)?
+					<><i className="fa fa-hand-pointer"></i><i className="fa fa-table"></i></>:
 					(item.use === UseElement.TABLE)?
 					<i className="fa fa-table"></i>:
 					(item.use === UseElement.CARDS)?

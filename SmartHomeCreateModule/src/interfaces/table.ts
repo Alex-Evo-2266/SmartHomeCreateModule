@@ -11,6 +11,7 @@ export interface IColTable {
 	name: string
 	type?: TypeColumn
 	action_url?: string
+	out_value?: string
 }
 
 export type colTable = string | IColTable

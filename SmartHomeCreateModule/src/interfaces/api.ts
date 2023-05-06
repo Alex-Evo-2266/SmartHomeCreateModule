@@ -5,6 +5,7 @@ export enum TypeRequest {
 
 export enum UseElement {
 	BUTTON = "BUTTON",
+	TABLE_BUTTON = "TABLE_BUTTON",
 	TABLE = "TABLE",
 	CARDS = "CARDS",
 	TEXT = "TEXT"

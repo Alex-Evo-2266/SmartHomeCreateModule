@@ -144,6 +144,7 @@ export const CreateTable:React.FC<Props> = ({table, update, del}) =>{
 								<th>display name</th>
 								<th>type</th>
 								<th>url</th>
+								<th>out value</th>
 								<th>delete</th>
 							</tr>
 						</thead>
