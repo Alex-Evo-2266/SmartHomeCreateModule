@@ -2,6 +2,8 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { IOption } from "../../../../interfaces/componentOption"
 import { ITextField, TypeContent } from "../../../../interfaces/otherComponents"
+import { SelectAPI } from "../../../../components/apiComponent"
+import { UseElement } from "../../../../interfaces/api"
 
 interface Props {
 	item: ITextField
@@ -15,7 +17,7 @@ export const TextConfig:React.FC<Props> = ({item, update, del}) => {
 	const [option, setOption] = useState<IOption>(item.option ?? {})
 	const [type, setType] = useState<TypeContent>(item.type_content)
 
-	const changeLabel = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
+	const changeLabel = useCallback((event: React.ChangeEvent<HTMLTextAreaElement | HTMLSelectElement>) => {
 		setValue(event.target.value)
 		update({...item, value: event.target.value, option:option, type_content: type})
 	},[item, option, type, value])
@@ -69,9 +71,15 @@ export const TextConfig:React.FC<Props> = ({item, update, del}) => {
 					<option value={26}>26</option>
 				</select>
 			</div>
-			<div className="input-data area">
-				<textarea className="color-normal-v2" required name="name_module" onChange={changeLabel} placeholder="Label" value={value}/>
-			</div>
+			{
+				(type === TypeContent.TEXT)?
+				<div className="input-data area">
+					<textarea className="color-normal-v2" required name="name_module" onChange={changeLabel} placeholder="Label" value={value}/>
+				</div>:
+				<div className="input-data area">
+				<SelectAPI value={value} onChange={changeLabel} typeUse={UseElement.TEXT}/>
+				</div>
+			}
 			<button className="btn red" style={{background: "red"}} onClick={()=>del()}>delete</button>
 		</div>
 	)

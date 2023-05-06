@@ -8,9 +8,10 @@ interface Props {
 	value: string | undefined,
     onChange: (event:React.ChangeEvent<HTMLSelectElement>)=>void
     typeUse: UseElement
+    disabled? :boolean | undefined
 }
 
-export const SelectAPI:React.FC<Props> = ({value, onChange, typeUse}) => {
+export const SelectAPI:React.FC<Props> = ({value, onChange, typeUse, disabled}) => {
 
 	const {getFullURL} = useURL()
 	const {getAPITypeGet, getAPI} = useAPI()
@@ -33,7 +34,7 @@ export const SelectAPI:React.FC<Props> = ({value, onChange, typeUse}) => {
 
 	return(
         <>
-		<select className="color-normal" value={value} onChange={changeUrl} style={{width: "100%"}}>
+		<select className="color-normal" value={value} onChange={changeUrl} style={{width: "100%"}} disabled={disabled}>
 			<option value={""}></option>
 			{
 			    getAPITypeGet(value).map((item, index)=>(

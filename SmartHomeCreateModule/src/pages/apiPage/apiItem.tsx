@@ -38,7 +38,9 @@ export const APIItem:React.FC<Props> = ({item, index, changeName, changeType, ch
 					(item.use === UseElement.TABLE)?
 					<i className="fa fa-table"></i>:
 					(item.use === UseElement.CARDS)?
-					<i className="fa fa-cards">s</i>:
+					<i className="fas fa-window-maximize"></i>:
+					(item.use === UseElement.TEXT)?
+					<i className="">get text</i>:
 					null
 				}
 			</td>

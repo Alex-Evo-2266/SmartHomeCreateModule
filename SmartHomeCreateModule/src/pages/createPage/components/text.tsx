@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { DialogType, showDialog } from "../../../store/reducers/dialogReducer";
 import { TextConfig } from "./componentConfig/textConfig";
 import { ITextField, TypeContent } from "../../../interfaces/otherComponents";
+import { useURL } from "../../../hooks/useURL.hook";
 
 interface Props {
 	item: ITextField
@@ -13,6 +14,7 @@ interface Props {
 export const Text:React.FC<Props> = ({item, update, del}:Props) =>{
 
     const dispatch = useDispatch()
+    const {getFullURL} = useURL()
 
     const configDialog = useCallback(() => {
         dispatch(showDialog({type: DialogType.CASTOM, title: "edit component", html: <TextConfig update={update} item={item} del={()=>{
@@ -47,7 +49,7 @@ export const Text:React.FC<Props> = ({item, update, del}:Props) =>{
     else if (item.type_content === TypeContent.LOAD)
         return(
             <div className="component-text" onClick={configDialog} style={getStyle(item)}>
-                <p>data in api: {item.value}</p>
+                <p>data in api: {getFullURL(item.value)}</p>
             </div>
         )
 	return null

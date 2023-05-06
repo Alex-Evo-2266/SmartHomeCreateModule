@@ -2,6 +2,8 @@
 
 import React, { useCallback } from "react";
 import { IColTable, TypeColumn } from "../../interfaces/table";
+import { UseElement } from "../../interfaces/api";
+import { SelectAPI } from "../../components/apiComponent";
 
 interface Props {
 	item: IColTable
@@ -20,6 +22,10 @@ export const CreateTableCol:React.FC<Props> = ({item, update, del}) =>{
 
 	const changeHandler = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         update({...item, [event.target.name]: event.target.value})
+	},[item, update])
+
+	const changeActionUrl = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
+        update({...item, action_url: event.target.value})
 	},[item, update])
 
     const changeType = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -44,7 +50,7 @@ export const CreateTableCol:React.FC<Props> = ({item, update, del}) =>{
 	    		</select>
 			</td>
 			<td>
-				<input type="text" name="action_url" onChange={changeHandler} value={item.action_url ?? ""} readOnly={!(item.type === TypeColumn.BUTTON || item.type === TypeColumn.BUTTON_ICON)}/>
+				<SelectAPI value={item.action_url ?? ""} onChange={changeActionUrl} typeUse={UseElement.BUTTON} disabled={!(item.type === TypeColumn.BUTTON || item.type === TypeColumn.BUTTON_ICON)}/>
 			</td>
             <td><button className="btn" style={{background:"red"}} onClick={deleteColumn}>delete</button></td>
         </tr>

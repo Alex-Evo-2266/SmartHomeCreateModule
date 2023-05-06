@@ -6,7 +6,8 @@ export enum TypeRequest {
 export enum UseElement {
 	BUTTON = "BUTTON",
 	TABLE = "TABLE",
-	CARDS = "CARDS"
+	CARDS = "CARDS",
+	TEXT = "TEXT"
 }
 
 export interface IAPI{

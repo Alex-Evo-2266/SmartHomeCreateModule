@@ -9,6 +9,7 @@ import { CreateTableCol } from "./createTableCol";
 import { AlertType, show_alert } from "../../store/reducers/alertReducer";
 import { ITable } from "../../interfaces/tableInput";
 import { UseElement } from "../../interfaces/api";
+import { ExamplesRow } from "./examplesTableRow";
 
 interface Props {
 	table: ITable
@@ -65,8 +66,8 @@ export const CreateTable:React.FC<Props> = ({table, update, del}) =>{
 	const delCol = useCallback((index:number) => {
 		const newdata = colsTable.slice().filter((item, index1)=>index1 !== index)
 		setColstable(newdata)
-		update({...table, cols:newdata})
-	},[table, update])
+		update({...table, src: tableDataSrc, title, cols: newdata})
+	},[table, update, tableDataSrc, colsTable, title])
 
 	const addCol = useCallback(() => {
 		let newdata = colsTable.slice()
@@ -77,8 +78,8 @@ export const CreateTable:React.FC<Props> = ({table, update, del}) =>{
 		}
 		newdata.push(newCol)
 		setColstable(newdata)
-		update({...table, cols:newdata})
-	},[table, update])
+		update({...table, src: tableDataSrc, title, cols: newdata})
+	},[table, update, tableDataSrc, colsTable, title])
 
 	const save = () => {
 		if(!colsValid(colsTable))
@@ -115,8 +116,8 @@ export const CreateTable:React.FC<Props> = ({table, update, del}) =>{
 						<tbody>
 							<tr>
 							{
-								colsTable.map((_, index)=>(
-									<td key={index}>test text</td>
+								colsTable.map((item, index)=>(
+									<ExamplesRow key={index} item={item}/>
 								))
 							}
 							</tr>

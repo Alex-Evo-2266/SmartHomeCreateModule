@@ -5,6 +5,8 @@ import { useTypeSelector } from "../../../../hooks/useTypeSelector"
 import { useURL } from "../../../../hooks/useURL.hook"
 import { IDeviceCard } from "../../../../interfaces/otherComponents"
 import { IOption } from "../../../../interfaces/componentOption"
+import { SelectAPI } from "../../../../components/apiComponent"
+import { UseElement } from "../../../../interfaces/api"
 
 interface Props {
 	item: IDeviceCard
@@ -30,15 +32,7 @@ export const DeviceCardConfig:React.FC<Props> = ({item, update, del}) => {
 	return(
 		<div>
 			<div className="input-data">
-				<select value={url} onChange={changeSrc}>
-					<option value={""}></option>
-					{
-						getAPITypeGet().map((item2, index2)=>(
-							<option key={index2} value={item2.url}>{getFullURL(item2.url)}</option>
-						))
-					}
-				</select>
-				<label>url</label>
+				<SelectAPI value={url} onChange={changeSrc} typeUse={UseElement.CARDS}/>
 			</div>
 			<button className="btn red" style={{background: "red"}} onClick={()=>del()}>delete</button>
 		</div>
