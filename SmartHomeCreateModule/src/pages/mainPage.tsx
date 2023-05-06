@@ -5,6 +5,9 @@ import { Outlet } from "react-router-dom";
 import { Menu } from "../components/menu";
 import { useTypeSelector } from "../hooks/useTypeSelector";
 import { set_module } from "../store/reducers/moduleReducer";
+import { IPage } from "../interfaces/page";
+import { IAPI } from "../interfaces/api";
+import { AlertType, show_alert } from "../store/reducers/alertReducer";
 
 export const MainPage:React.FC = () =>{
 
@@ -21,8 +24,21 @@ export const MainPage:React.FC = () =>{
 		return true
 	}
 
+	const validPageAndAPI = (pages:IPage[] | IAPI[]):boolean => {
+		for(let item of pages)
+		{
+			if(item.name === "" || item.url === "")
+				return false
+		}
+		return true
+	}
+
 	const save = () => {
 		console.log(module)
+		if(!validPageAndAPI(module.api) || !validPageAndAPI(module.pages) || !nameValid(module.name))
+		{
+			return dispatch(show_alert({title: "invalid eterid data", text:"invalid eterid data", type:AlertType.ERROR}))
+		}
 		window.electronAPI.saveModule(module)
 	}
 

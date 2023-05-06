@@ -11,6 +11,7 @@ import { ITable } from "../../interfaces/tableInput";
 import { UseElement } from "../../interfaces/api";
 import { ExamplesRow } from "./examplesTableRow";
 import { useAPI } from "../../hooks/useAPI.hook";
+import { useURL } from "../../hooks/useURL.hook";
 
 interface Props {
 	table: ITable
@@ -43,6 +44,7 @@ export const CreateTable:React.FC<Props> = ({table, update, del}) =>{
 
 	const dispatch = useDispatch()
 	const {getAPI} = useAPI()
+	const {validURL, getFullPageURL} = useURL()
 
 	const [colsTable, setColstable] = useState<IColTable[]>(table.cols ?? [])
 	const [title, setTitle] = useState<string>(table.title ?? "")
@@ -93,7 +95,7 @@ export const CreateTable:React.FC<Props> = ({table, update, del}) =>{
 	},[table, update, tableDataSrc, colsTable, title])
 
 	const save = () => {
-		if(!colsValid(colsTable))
+		if(!colsValid(colsTable) || title === "")
 		{
 			dispatch(show_alert({title:"invalid entered data", type: AlertType.ERROR, text: "field uncorected fill"}))
 		}
@@ -106,7 +108,7 @@ export const CreateTable:React.FC<Props> = ({table, update, del}) =>{
 			<div className="create-table">
 				<h4 className="color-normal">Title</h4>
 				<div className="input-data">
-					<input className="color-normal" type="text" required name="title" onChange={changeTitle} value={title}/>
+					<input className={`color-normal ${(title === "")?"fail":""}`} type="text" required name="title" onChange={changeTitle} value={title}/>
 					<label>title</label>
 				</div>
 				<h4 className="color-normal">Url</h4>
