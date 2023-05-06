@@ -30,7 +30,7 @@ export const CreateTableCol:React.FC<Props> = ({item, update, del}) =>{
 	const changeActionUrl = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
 		if (item.type === TypeColumn.BUTTON || item.type === TypeColumn.BUTTON_ICON)
 		{
-			const API = getAPI(item.action_url)
+			const API = getAPI(event.target.value)
 			if (API)
 			{
 				API.data.useDitail = {
