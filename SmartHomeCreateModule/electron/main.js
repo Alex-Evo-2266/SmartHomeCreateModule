@@ -2,7 +2,7 @@
 const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path');
 const url = require('url');
-const Parser = require('./generateModule/moduleParser')
+const Parser = require('./generateModule/generateModule')
 
 function createWindow () {
   // Создаем окно браузера.
