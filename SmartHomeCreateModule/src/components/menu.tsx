@@ -43,12 +43,6 @@ export const Menu:React.FC = () =>{
 			</ul>
 			<ul className={`dop-menu ${(componentsVisible)?"active":""}`} onClick={()=>setComponentsVisible(false)}>
 				<li>
-					<div className={`falseLink`} onClick={()=>setType(TypeComponent.CARDS)}>
-						<span className="icon"><i className="fas fa-window-restore"></i></span>
-						<span className="title">device cards</span>
-					</div>
-				</li>
-				<li>
 					<div className={`falseLink`} onClick={()=>setType(TypeComponent.CARD)}>
 						<span className="icon"><i className="fas fa-window-maximize"></i></span>
 						<span className="title">card</span>
