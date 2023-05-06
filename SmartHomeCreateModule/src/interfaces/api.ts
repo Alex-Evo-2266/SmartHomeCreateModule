@@ -14,6 +14,6 @@ export interface IAPI{
 	name: string
 	url: string
 	use?: UseElement | undefined
-	useDitail?: string
+	useDitail?: string | object
 	type: TypeRequest
 }

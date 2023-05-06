@@ -10,6 +10,7 @@ import { AlertType, show_alert } from "../../store/reducers/alertReducer";
 import { ITable } from "../../interfaces/tableInput";
 import { UseElement } from "../../interfaces/api";
 import { ExamplesRow } from "./examplesTableRow";
+import { useAPI } from "../../hooks/useAPI.hook";
 
 interface Props {
 	table: ITable
@@ -27,7 +28,7 @@ interface Props {
 const colsValid =  (cols: IColTable[]) => {
 	for (let i = 0; i < cols.length; i++)
 	{
-		if(cols[i].name == "" || cols[i].title == "")
+		if(cols[i].name === "" || cols[i].title === "")
 			return false
 		for (let j = i + 1; j < cols.length; j++)
 		{
@@ -41,6 +42,7 @@ const colsValid =  (cols: IColTable[]) => {
 export const CreateTable:React.FC<Props> = ({table, update, del}) =>{
 
 	const dispatch = useDispatch()
+	const {getAPI} = useAPI()
 
 	const [colsTable, setColstable] = useState<IColTable[]>(table.cols ?? [])
 	const [title, setTitle] = useState<string>(table.title ?? "")
@@ -52,9 +54,17 @@ export const CreateTable:React.FC<Props> = ({table, update, del}) =>{
 	},[table, update, tableDataSrc, colsTable])
 
 	const changeSrc = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
+		const tableAPI = getAPI(event.target.value)
+		if(tableAPI)
+		{
+			tableAPI.data.useDitail = {
+				cols: colsTable
+			}
+			tableAPI.save()
+		}
 		setTableDataSrc(event.target.value)
 		update({...table, src: event.target.value, title, cols: colsTable})
-	},[table, update, title, colsTable])
+	},[table, update, title, colsTable, getAPI])
 
 	const changeCol = useCallback((data:IColTable, index:number) => {
 		let newdata = colsTable.slice()

@@ -22,7 +22,7 @@ export const Text:React.FC<Props> = ({item, update, del}:Props) =>{
 				del()
 			}}))
 		}}/>}))
-    },[item])
+    },[item, dispatch, update, del])
 
     const getStyle = (item: ITextField) => {
         let data: React.CSSProperties = {

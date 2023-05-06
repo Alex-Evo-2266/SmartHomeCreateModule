@@ -21,6 +21,7 @@ export const SelectAPI:React.FC<Props> = ({value, onChange, typeUse, disabled}) 
         if(oldURL)
         {
             oldURL.data.use = undefined
+            oldURL.data.useDitail = undefined
             oldURL.save()
         }
         const newURL = getAPI(event.target.value)

@@ -3,7 +3,7 @@ import { Button } from "./components/buton";
 import { Card } from "./components/card";
 import { Cards } from "./components/cards";
 import { Columns } from "./components/columns";
-import { DeviceCard } from "./components/devoiceCard";
+import { DeviceCard } from "./components/deviceCard";
 import { TableComponent } from "./components/table";
 import { Text } from "./components/text";
 import { IType } from "../../interfaces/page";

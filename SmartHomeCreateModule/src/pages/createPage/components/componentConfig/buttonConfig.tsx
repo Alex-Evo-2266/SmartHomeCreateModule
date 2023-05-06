@@ -51,6 +51,7 @@ export const ButtonConfig:React.FC<Props> = ({item, update, del}) => {
 			const oldURL = getAPI(item.action_url)
         	if(oldURL)
         	{
+				oldURL.data.useDitail = undefined
             	oldURL.data.use = undefined
             	oldURL.save()
         	}

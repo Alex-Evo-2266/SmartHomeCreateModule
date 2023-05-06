@@ -37,6 +37,7 @@ export interface ITextField{
 	type: TypeComponent.TEXT
 	type_content: TypeContent
 	value: string
+	url?: string
 	option?: IOption
 }
 

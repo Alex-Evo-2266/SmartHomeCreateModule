@@ -1,7 +1,5 @@
-import React, { DOMElement, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useTypeSelector } from "../../hooks/useTypeSelector";
 import { useURL } from "../../hooks/useURL.hook";
 import { IPage } from "../../interfaces/page";
 
@@ -16,7 +14,6 @@ interface Props{
 export const PageItem:React.FC<Props> = ({item, index, changeName, changeURL, del}) =>{
 
 	const {validURL, getFullPageURL} = useURL()
-	const module = useTypeSelector(state=>state.module)
     const [fokus, setFocus] = useState<boolean>(false)
 
 	return(

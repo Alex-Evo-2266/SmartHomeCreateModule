@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { BaseCard } from "../../../components/card/card";
 import { IContextItem } from "../../../components/contextMenu/contextMenuElement";
@@ -6,7 +6,6 @@ import { DopMenu } from "../../../components/contextMenu/dopMenu";
 import { RunText } from "../../../components/runText";
 import { useURL } from "../../../hooks/useURL.hook";
 import { DialogType, showDialog } from "../../../store/reducers/dialogReducer";
-import { CardConfig } from "./componentConfig/cardConfig";
 import { DeviceCardConfig } from "./componentConfig/deviceCardConfig";
 import { IDeviceCard } from "../../../interfaces/otherComponents";
 
@@ -28,7 +27,7 @@ export const DeviceCard:React.FC<Props> = ({item, update, del}:Props) =>{
 				del()
 			}}))
 		}}/>}))
-	},[item])
+	},[item, dispatch, del, update])
 
 
 	const getButtons = ()=>{

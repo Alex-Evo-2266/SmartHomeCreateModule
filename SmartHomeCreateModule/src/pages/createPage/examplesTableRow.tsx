@@ -1,6 +1,6 @@
 
 
-import React, { useCallback } from "react";
+import React from "react";
 import { IColTable, TypeColumn } from "../../interfaces/table";
 
 interface Props {

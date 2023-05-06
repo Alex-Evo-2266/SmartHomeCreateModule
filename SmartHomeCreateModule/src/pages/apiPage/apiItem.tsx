@@ -44,6 +44,7 @@ export const APIItem:React.FC<Props> = ({item, index, changeName, changeType, ch
 					null
 				}
 			</td>
+			<td>{JSON.stringify(item.useDitail)}</td>
     		<td><button className="btn" style={{background: "red"}} onClick={()=>del(index)}>delete</button></td>
 		</tr>
 	)
