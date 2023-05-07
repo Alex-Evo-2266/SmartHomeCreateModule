@@ -33,7 +33,7 @@ module.exports = (data) => {
 		let routersFolder = baseFolder.folder(`routers`)
 		routersFolder.file(`${routerFile[1]}.py`, routerFile[0])
 		baseFolder.file("__init__.py", init)
-		let pageFolder = baseFolder.folder(`page`)
+		let pageFolder = baseFolder.folder(`pages`)
 		for(let item of data.pages){
 			pageFolder.file(`${item.name}.json`, JSON.stringify(item))
 		}
@@ -48,19 +48,9 @@ module.exports = (data) => {
             }, ],
 			properties: []
 		}).then(file=>{
-			console.log(file.canceled);
         	if (file.canceled)
             	return
-			var promise = null;
-			console.log();
-			if (JSZip.support.uint8array) {
-				promise = zip.generateAsync({type : "uint8array"});
-			} else {
-				promise = zip.generateAsync({type : "string"});
-			}
-			promise.then(function (blob) {
-				fs.writeFileSync(`${file.filePath.toString()}.zip`, blob)
-			}).catch((err)=>console.error(err))
+			saveZip(zip, file.filePath.toString())
 		}).catch((err)=>console.error(err))
 	} catch (err) {
 		console.error(err)
@@ -68,4 +58,16 @@ module.exports = (data) => {
 	
 }
 
+
+function saveZip(zip, path){
+	var promise = null;
+	if (JSZip.support.uint8array) {
+		promise = zip.generateAsync({type : "uint8array"});
+	} else {
+		promise = zip.generateAsync({type : "string"});
+	}
+	promise.then(function (blob) {
+		fs.writeFileSync(`${path}.zip`, blob)
+	}).catch((err)=>console.error(err))
+}
 
