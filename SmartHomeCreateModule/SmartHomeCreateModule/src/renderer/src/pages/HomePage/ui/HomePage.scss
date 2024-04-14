@@ -1,0 +1,14 @@
+.home-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+    .home-card{
+        min-width: calc(80dvw - 80px);
+        li.home-page-card-item{
+            .header{
+                font-size: 24px;
+            }
+        }
+    }
+}
