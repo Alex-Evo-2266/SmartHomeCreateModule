@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom"
-import { Navigation } from "../../../widgets/Navigation"
 import './rootContainer.scss'
 import { ScreenSize, useScreenSize } from "../../../entites/ScreenSize"
 
@@ -18,7 +17,6 @@ export const RootPage = () => {
 
 	return (
 		<>
-			<Navigation/>
 			<div className={`root-container ${getStyleClass(screen)}`}>
 				<Outlet/>
 			</div>

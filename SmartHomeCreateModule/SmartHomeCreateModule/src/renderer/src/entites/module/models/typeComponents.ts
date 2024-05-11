@@ -1,0 +1,13 @@
+
+export enum TypeComponent {
+	CARD = "CARD",
+	DEVICE_CARD = "DEVICE_CARD",
+	CARDS = "CARDS",
+	TABLE = "TABLE",
+	TEXT = "TEXT",
+	FORM = "FORM",
+	IMAGE = "IMAGE",
+	BUTTON = "BUTTON",
+	LINK = "LINK",
+	COLUMNS = "COLUMNS"
+}

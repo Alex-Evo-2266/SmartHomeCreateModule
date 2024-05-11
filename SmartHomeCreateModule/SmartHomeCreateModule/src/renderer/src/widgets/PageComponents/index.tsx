@@ -1,0 +1,1 @@
+export {PageComponent} from './ui/Component'
