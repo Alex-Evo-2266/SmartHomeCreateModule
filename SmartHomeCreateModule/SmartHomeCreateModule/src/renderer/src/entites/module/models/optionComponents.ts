@@ -5,4 +5,5 @@ export interface IOption{
 	fontSize?: number
 	width?: number
 	height?: number
+	pozition?: "left" | "right" | "center"
 }

@@ -24,14 +24,29 @@ export interface IDeviceCard{
 	option?: IOption
 }
 
-export interface ICard{
+export interface ICardText{
 	type: TypeComponent.CARD
-	src: string
+	type_content: TypeContent.TEXT
+	src?: string
 	title: string
 	text: string
-	buttons: IButton[]
+	buttons?: IButton[]
+	img?: string
 	option?: IOption
 }
+
+export interface ICardLoad{
+	type: TypeComponent.CARD
+	type_content: TypeContent.LOAD
+	src: string
+	title?: string
+	text?: string
+	buttons?: IButton[]
+	img?: string
+	option?: IOption
+}
+
+export type ICard = ICardText | ICardLoad
 
 export interface ITextField{
 	type: TypeComponent.TEXT

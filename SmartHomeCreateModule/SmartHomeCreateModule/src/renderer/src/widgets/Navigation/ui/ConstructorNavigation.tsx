@@ -1,12 +1,12 @@
 import { useAppDispatch, useAppSelector } from "@renderer/shared/lib/hooks/redux"
 import { ScreenSize, useScreenSize } from "../../../entites/ScreenSize"
 
-import {NavigationBar, NavigationDrawer, NavigationRail, NavigationButton as NB} from 'alex-evo-sh-ui-kit'
+import { NavigationBar, NavigationDrawer, NavigationRail, NavigationButton as NB} from 'alex-evo-sh-ui-kit'
 import { Home, Menu, Plus, Pencil } from "lucide-react"
 import { useCallback, useState } from "react"
 import { setEditMode } from "@renderer/entites/module/lib/reducers/editComponentReducer"
 import { AddPageComponentDialog } from "@renderer/features/AddPageComponentDialog"
-import { hideDialog, showDialog } from "@renderer/shared/lib/reducers/dialogReducer"
+import { DialogPortal } from "@renderer/shared/ui"
 
 export const NavigationConstructor = () => {
 
@@ -14,9 +14,10 @@ export const NavigationConstructor = () => {
     const dispatch = useAppDispatch()
     const {mode} = useAppSelector(state=>state.editPageMode)
 	const [visible, setVisible] = useState<boolean>(false)
+	const [addComponentVisible, setAddComponentVisible] = useState<boolean>(false)
 
 	const addComponent = useCallback(()=>{
-        dispatch(showDialog(<AddPageComponentDialog onHide={()=>dispatch(hideDialog())}/>))
+        setAddComponentVisible(true)
     },[dispatch])
 
 	const BarBtn:NB[] = [{
@@ -77,6 +78,13 @@ export const NavigationConstructor = () => {
 				<NavigationBar
 					btns={BarBtn}
 				/>
+				{
+					(addComponentVisible)?
+					<DialogPortal>
+						<AddPageComponentDialog onHide={()=>setAddComponentVisible(false)}/>
+					</DialogPortal>:null
+				}
+				
 			</>
 		)
 
@@ -93,6 +101,12 @@ export const NavigationConstructor = () => {
 			onToggleMenu={()=>setVisible(prev=>!prev)} 
 			mainBtn={getBtn()}
 			/>
+			{
+				(addComponentVisible)?
+				<DialogPortal>
+					<AddPageComponentDialog onHide={()=>setAddComponentVisible(false)}/>
+				</DialogPortal>:null
+			}
 		</>
 		)
 
@@ -104,6 +118,12 @@ export const NavigationConstructor = () => {
 			visible={visible} 
 			mainBtn={getBtn()} 
 			/>
+		{
+			(addComponentVisible)?
+			<DialogPortal>
+				<AddPageComponentDialog onHide={()=>setAddComponentVisible(false)}/>
+			</DialogPortal>:null
+		}
 	</>
 	)
 }

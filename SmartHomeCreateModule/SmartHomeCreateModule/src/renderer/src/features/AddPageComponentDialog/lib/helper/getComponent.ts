@@ -16,6 +16,20 @@ export function getInitComponent(type:TypeComponent):IComponents{
             count: 2,
             value: []
         }
+    if(type === TypeComponent.CARD)
+        return {
+            type: TypeComponent.CARD,
+            type_content: TypeContent.TEXT,
+            text: "",
+            title: "",
+            buttons: []
+        }
+    if(type === TypeComponent.BUTTON)
+        return {
+            type: TypeComponent.BUTTON,
+            title: "btn",
+            action_url: ""
+        }
     return {
         type:TypeComponent.TEXT,
         type_content: TypeContent.TEXT,

@@ -1,6 +1,4 @@
 import { ITextField, TypeContent } from "@renderer/entites/module/models/pageComponents"
-import { useAppDispatch } from "@renderer/shared/lib/hooks/redux"
-import { hideFullScreenDialog } from "@renderer/shared/lib/reducers/dialogReducer"
 import { BaseActionCard, Button, FieldContainer, FullScrinTemplateDialog, SigmentedButton, TextField } from "alex-evo-sh-ui-kit"
 import React, { useCallback, useState } from "react"
 
@@ -8,27 +6,27 @@ export interface EditTextComponentDialogProps{
     data: ITextField
     onChange: (newData: ITextField)=>void
     onDelete: ()=>void
+    onHide:()=>void
 }
 
-export const EditTextComponentDialog:React.FC<EditTextComponentDialogProps> = ({data, onDelete, onChange}) => {
+export const EditTextComponentDialog:React.FC<EditTextComponentDialogProps> = ({data, onDelete, onChange, onHide}) => {
 
-    const dispath = useAppDispatch()
     const [typeContent, setType_content] = useState<TypeContent>(data.type_content)
     const [url, setUrl] = useState<string>(data.url || "")
     const [value, setValue] = useState<string>(data.value)
 
     const save = useCallback(()=>{
         onChange({...data, type_content: typeContent, url:url, value:value})
-        dispath(hideFullScreenDialog())
+        onHide()
     },[data, typeContent, url, value])
 
     const del = useCallback(() => {
-        dispath(hideFullScreenDialog())
+        onHide()
         onDelete()
-    },[onDelete, dispath])
+    },[onDelete])
 
     return(
-    <FullScrinTemplateDialog onSave={save} onHide={()=>dispath(hideFullScreenDialog())} header="Edit Text">
+    <FullScrinTemplateDialog onSave={save} onHide={()=>onHide()} header="Edit Text">
         <FieldContainer header="content">
             <SigmentedButton value={typeContent} onChange={(value)=>setType_content(value[0] as TypeContent)} items={Object.values(TypeContent)}/>
             {

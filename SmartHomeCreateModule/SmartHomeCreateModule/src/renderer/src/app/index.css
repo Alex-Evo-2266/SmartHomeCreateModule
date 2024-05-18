@@ -30,3 +30,8 @@ body{
 input{
   outline: none;
 }
+#modal-root{
+  position: fixed;
+  top: 0;
+  left: 0;
+}

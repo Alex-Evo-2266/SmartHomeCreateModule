@@ -1,4 +1,4 @@
-import { Tally4, Type } from 'lucide-react'
+import { AppWindowMac, MousePointerClick, Tally4, Type } from 'lucide-react'
 import { BasicTemplateDialog, ListContainer, ListItem } from 'alex-evo-sh-ui-kit'
 import './AddPageComponentDialog.scss'
 import { useCallback } from 'react'
@@ -22,6 +22,16 @@ const COMPONENTS:ComponentItem[] = [
         title: "text",
         icon: <Type/>,
         data: TypeComponent.TEXT
+    },
+    {
+        title: "Card",
+        icon: <AppWindowMac/>,
+        data: TypeComponent.CARD
+    },
+    {
+        title: "Button",
+        icon: <MousePointerClick/>,
+        data: TypeComponent.BUTTON
     },
     {
         title: "form",
