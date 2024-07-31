@@ -1,5 +1,5 @@
-import { IAPI } from "./APIModel"
-import { IPage } from "./pageModel"
+import { IAPI } from "./APIModels/API"
+import { IPage } from "./pageModels/pageModel"
 
 
 

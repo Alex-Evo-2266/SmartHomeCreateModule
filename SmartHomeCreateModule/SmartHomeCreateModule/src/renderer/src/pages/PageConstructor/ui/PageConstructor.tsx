@@ -1,10 +1,10 @@
-import { IComponents, IPage } from "@renderer/entites/module/models/pageModel"
+import { IComponents, IPage } from "@renderer/entites/module/models/pageModels/pageModel"
 import { useAppDispatch, useAppSelector } from "@renderer/shared/lib/hooks/redux"
 import React, { useCallback, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import './PageConstructor.scss'
 import { useComponent } from '@renderer/entites/module/lib/hooks/addComponent.hook'
-import { PageComponent } from '@renderer/widgets/PageComponents'
+import { PageComponent } from '@renderer/widgets/PageConstructor/PageComponents'
 import { NavigationConstructor } from "@renderer/widgets/Navigation/ui/ConstructorNavigation"
 import { setEditMode } from "@renderer/entites/module/lib/reducers/editComponentReducer"
 

@@ -1,6 +1,6 @@
-import { IAPI } from "../../models/APIModel"
+import { IAPI } from "../../models/APIModels/API"
 import { IModuleState } from "../../models/module"
-import { IPage } from "../../models/pageModel"
+import { IPage } from "../../models/pageModels/pageModel"
 
 export enum ModuleActionType{
     SET_NAME = "SET_NAME",

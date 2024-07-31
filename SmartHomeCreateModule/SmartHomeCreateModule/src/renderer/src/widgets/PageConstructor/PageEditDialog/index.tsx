@@ -1,0 +1,1 @@
+export {EditComponentDialog} from './EditComponentDialog/ui/EditComponentDialog'

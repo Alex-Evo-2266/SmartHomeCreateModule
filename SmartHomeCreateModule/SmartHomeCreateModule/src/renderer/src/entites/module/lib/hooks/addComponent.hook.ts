@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@renderer/shared/lib/hooks/redux"
-import { IComponents } from "../../models/pageModel"
+import { IComponents } from "../../models/pageModels/pageModel"
 import { useCallback } from "react"
 import { setComponent } from "../reducers/componentReducer"
 
