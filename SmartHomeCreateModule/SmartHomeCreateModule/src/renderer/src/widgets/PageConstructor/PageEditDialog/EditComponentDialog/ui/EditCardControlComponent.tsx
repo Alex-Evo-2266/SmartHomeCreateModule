@@ -1,8 +1,9 @@
-import { TypeAPI, TypeComponent } from "@renderer/entites/module/models/types"
-import { BaseActionCard, Button, FieldContainer, FullScrinTemplateDialog, SigmentedButton, TextField } from "alex-evo-sh-ui-kit"
+import { TypeComponent } from "@renderer/entites/module/models/types"
+import { BaseActionCard, Button, FieldContainer, FullScrinTemplateDialog, TextField } from "alex-evo-sh-ui-kit"
 import React, { useCallback, useState } from "react"
-import { SelectURL } from "@renderer/features/UrlDialogs"
-import { ICardControl, TypeContent } from "@renderer/entites/module/models/pageModels/pageModel"
+import { ICardControl } from "@renderer/entites/module/models/pageModels/pageModel"
+import { EditContent, useEditContent } from "./Blocks/EditContent"
+import { EditControl, useEditControl } from "./Blocks/EditControl"
 
 export interface EditCardComponentDialogProps{
     data: ICardControl
@@ -14,48 +15,44 @@ export interface EditCardComponentDialogProps{
 
 export const EditCardControlComponentDialog:React.FC<EditCardComponentDialogProps> = ({data, onDelete, onChange, onHide}) => {
 
-    const [typeContent, setType_content] = useState<TypeContent>(data.content_type)
     const [title, setTitle] = useState<string>(data.title || "")
     const [text, setText] = useState<string>(data.text || "")
     const [img, setImg] = useState<string>(data.img || "")
     const [name, setName] = useState<string>(data.name)
-    const [target, setTarget] = useState<string>(data.content_target || "")
+
+    const {changeContent, content} = useEditContent(data)
+    const {changeControl, control} = useEditControl(data)
 
     const save = useCallback(()=>{
-        onChange({...data, title: title, text: text, img:img, content_type:typeContent, name: name, content_target:target})
+        onChange({
+            ...data, 
+            ...content,
+            ...control,
+            title, 
+            text, 
+            img, 
+            name, 
+        })
         onHide()
-    },[data, title, text, img, typeContent, name, target])
+    },[onChange, data, title, text, img, content, control, name])
 
-    const del = useCallback(() => {
+    const deleteComponent = useCallback(() => {
         onHide()
         onDelete()
     },[onDelete])
-
-    const urlHandler = (value: string) => {
-        setTarget(value)
-    }
 
     return(
     <FullScrinTemplateDialog onSave={save} onHide={()=>onHide()} header="Edit Card control">
         <FieldContainer header="base">
             <TextField border placeholder="name" value={name} onChange={(e)=>setName(e.target.value)}/>
         </FieldContainer>
-        <FieldContainer header="content">
-            <SigmentedButton value={typeContent} onChange={(value)=>setType_content(value[0] as TypeContent)} items={Object.values(TypeContent)}/>
-            {
-                (typeContent === TypeContent.LOAD)?
-                <>
-                    <SelectURL typeAPI={TypeAPI.CARD_CONTROL} border placeholder="src content" value={target} onChange={urlHandler}/>
-                    <TextField border placeholder="img url" value={img} onChange={(e)=>setImg(e.target.value)}/>
-                </>:
-                <>
-                    <TextField border placeholder="title" value={title} onChange={(e)=>setTitle(e.target.value)}/>
-                    <TextField border placeholder="text" value={text} onChange={(e)=>setText(e.target.value)}/>
-                    <TextField border placeholder="img url" value={img} onChange={(e)=>setImg(e.target.value)}/>
-                </>
-            }
-        </FieldContainer>
-        <BaseActionCard><Button onClick={del} style={{background:"var(--Error-color)", color:"var(--On-error-color)"}}>delete</Button></BaseActionCard>
+        <EditContent onChange={changeContent} data={content}>
+            <TextField border placeholder="title" value={title} onChange={(e)=>setTitle(e.target.value)}/>
+            <TextField border placeholder="text" value={text} onChange={(e)=>setText(e.target.value)}/>
+            <TextField border placeholder="img url" value={img} onChange={(e)=>setImg(e.target.value)}/>
+        </EditContent>
+        <EditControl data={control} onChange={changeControl}/>
+        <BaseActionCard><Button onClick={deleteComponent} style={{background:"var(--Error-color)", color:"var(--On-error-color)"}}>delete</Button></BaseActionCard>
     </FullScrinTemplateDialog>
     )
 }

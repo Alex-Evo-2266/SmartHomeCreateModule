@@ -3,7 +3,7 @@ import {IOption} from '../optionComponents'
 import { ITable } from './table'
 
 export enum TypeContent {
-	TEXT = "TEXT",
+	MANUAL = "MANUAL",
 	LOAD = "LOAD"
 }
 
@@ -12,6 +12,14 @@ export enum ActionType {
 	DIALOG = "DIALOG",
 	NONE = "NONE",
 	MENU = "MENU",
+}
+
+export enum ControlItemType {
+	ENUM = "ENUM",
+	SWITCH = "SWITCH",
+	SEND_TEXT = "SEND_TEXT",
+	TEXT = "TEXT",
+	RANGE = "RANGE"
 }
 
 //----------------base interface----------------
@@ -24,18 +32,19 @@ interface BaseComponent
 	option?: IOption
 }
 
-interface BaseAction{
+export interface BaseAction{
 	action_type: ActionType
 	action_target?: string
 }
 
-interface ComponentAction extends BaseComponent, BaseAction {}
-
-interface ComponentContent extends BaseComponent
-{
+export interface BaseContent{
 	content_type: TypeContent
 	content_target?: string
 }
+
+export interface ComponentAction extends BaseComponent, BaseAction {}
+
+export interface ComponentContent extends BaseComponent, BaseContent {}
 
 //----------------base interface----------------
 
@@ -43,23 +52,35 @@ interface ComponentContent extends BaseComponent
 
 interface ICardTemplate extends ComponentContent, BaseAction
 {
-	type: TypeComponent.CARD
+	type: TypeComponent.CARD | TypeComponent.CARD_CONTROL
 	text?: string
 	img?: string
 }
 
-export type ICard = ICardTemplate
+export interface ICard extends ICardTemplate{
+	type: TypeComponent.CARD
+}
 
 //----------------card interface----------------
 
 //----------------card control interface----------------
 
-export interface ICardControl extends ComponentContent, BaseAction
+export interface ControlItem 
+{
+	control_item_type: ControlItemType
+	name: string
+}
+
+export interface BaseControl{
+	control_target: string 
+	control: ControlItem[]
+}
+
+export interface ICardControl extends ICardTemplate, BaseControl
 {
 	type: TypeComponent.CARD_CONTROL
-	text?: string
-	img?: string
 }
+	
 
 //----------------card control interface----------------
 

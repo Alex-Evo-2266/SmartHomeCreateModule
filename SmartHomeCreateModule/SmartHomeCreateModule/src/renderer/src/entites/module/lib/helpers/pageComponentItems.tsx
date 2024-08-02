@@ -57,6 +57,11 @@ export const URL_ITEM:ComponentItem<TypeAPI>[] = [
         data: TypeAPI.CARD_CONTROL
     },
     {
+        title: "Card control action",
+        icon: <MousePointerClick/>,
+        data: TypeAPI.CARD_CONTROL_ACTION
+    },
+    {
         title: "Action",
         icon: <MousePointerClick/>,
         data: TypeAPI.ACTION

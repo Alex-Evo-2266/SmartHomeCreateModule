@@ -1,5 +1,5 @@
 import { useURL } from "@renderer/entites/Url"
-import { IPage } from "@renderer/entites/module/models/pageModel"
+import { IPage } from "@renderer/entites/module/models/pageModels/pageModel"
 import { BaseActionCard, BasicTemplateDialog, Button, FilledButton, TextField } from 'alex-evo-sh-ui-kit'
 import { useCallback, useState } from "react"
 import './AddPageDialog.scss'

@@ -1,11 +1,11 @@
-import { ActionType, IComponents, TypeContent } from "@renderer/entites/module/models/pageModels/pageModel"
+import { ActionType, ControlType, IComponents, TypeContent } from "@renderer/entites/module/models/pageModels/pageModel"
 import { TypeComponent } from "@renderer/entites/module/models/types"
 
 export function getInitComponent(type:TypeComponent):IComponents{
     if(type === TypeComponent.TEXT)
         return {
             type:TypeComponent.TEXT,
-            content_type: TypeContent.TEXT,
+            content_type: TypeContent.MANUAL,
             title: "information",
             name: "text_fiald"
         }
@@ -20,7 +20,7 @@ export function getInitComponent(type:TypeComponent):IComponents{
     if(type === TypeComponent.CARD)
         return {
             type: TypeComponent.CARD,
-            content_type: TypeContent.TEXT,
+            content_type: TypeContent.MANUAL,
             text: "",
             name: "card",
             title: "",
@@ -29,11 +29,14 @@ export function getInitComponent(type:TypeComponent):IComponents{
     if(type === TypeComponent.CARD_CONTROL)
         return {
             type: TypeComponent.CARD_CONTROL,
-            content_type: TypeContent.TEXT,
+            content_type: TypeContent.MANUAL,
             text: "",
             name: "card_control",
             title: "",
             action_type: ActionType.NONE,
+            control_type: ControlType.MANUAL,
+            control_target: "",
+            control: []
         }
     if(type === TypeComponent.BUTTON)
         return {
@@ -45,7 +48,7 @@ export function getInitComponent(type:TypeComponent):IComponents{
         }
     return {
         type:TypeComponent.TEXT,
-        content_type: TypeContent.TEXT,
+        content_type: TypeContent.MANUAL,
         title: "information",
         name: "undefined_component"
     }

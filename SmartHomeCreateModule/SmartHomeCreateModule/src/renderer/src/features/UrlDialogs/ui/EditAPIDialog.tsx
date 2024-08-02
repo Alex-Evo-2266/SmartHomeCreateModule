@@ -18,7 +18,7 @@ export const EditAPIDialog = ({onChange, onHide, index, data, typeComponentFixid
 
     const [name, setName] = useState<string>(data?.name ?? "")
     const [url, setUrl] = useState<string>(data?.url ?? "")
-    const [typeComponent, setTypeComponent] = useState<TypeAPI | undefined>(data?.useType ?? typeComponentFixid)
+    const [typeComponent, setTypeComponent] = useState<TypeAPI | undefined>(data?.use_type ?? typeComponentFixid)
     const [urlFocus, setUrlFocus] = useState<boolean>(false)
     const {getFullURL} = useURL()
 
@@ -33,7 +33,7 @@ export const EditAPIDialog = ({onChange, onHide, index, data, typeComponentFixid
             name,
             url,
             type: TypeRequest.GET,
-            useType: typeComponent || TypeAPI.UNDEFINED
+            use_type: typeComponent || TypeAPI.UNDEFINED
         }, index)
         onHide()
     },[onChange, onHide, name, url, typeComponent])
