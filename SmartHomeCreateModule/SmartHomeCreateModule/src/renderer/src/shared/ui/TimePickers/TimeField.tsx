@@ -1,3 +1,4 @@
+import { MODAL_ROOT_ID } from '@renderer/consts'
 import {TimeField as TF} from 'alex-evo-sh-ui-kit'
 
 interface ITimeFieldProps{
@@ -13,6 +14,6 @@ interface ITimeFieldProps{
 export const TimeField = (props:ITimeFieldProps) => {
 
     return(
-        <TF {...{...props, container:document.getElementById('modal-root')}}/>
+        <TF {...{...props, container:document.getElementById(MODAL_ROOT_ID)}}/>
     )
 }

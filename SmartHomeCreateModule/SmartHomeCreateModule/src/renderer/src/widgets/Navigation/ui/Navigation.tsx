@@ -1,6 +1,5 @@
-import { ScreenSize, useScreenSize } from "../../../entites/ScreenSize"
 
-import {NavigationBar, NavigationDrawer, NavigationRail, NavigationButton as NB} from 'alex-evo-sh-ui-kit'
+import {NavigationBar, NavigationDrawer, NavigationRail, NavigationButton as NB, ScreenSize, useScreenSize} from 'alex-evo-sh-ui-kit'
 import { Home, Menu } from "lucide-react"
 import { useState } from "react"
 

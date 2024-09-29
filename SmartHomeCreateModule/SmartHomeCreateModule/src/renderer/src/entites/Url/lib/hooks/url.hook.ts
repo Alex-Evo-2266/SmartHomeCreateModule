@@ -1,11 +1,14 @@
+import { ROOT_URL } from "@renderer/consts"
 import { useAppSelector } from "@renderer/shared/lib/hooks/redux"
+
+
 
 export const useURL = () => {
 
     const module = useAppSelector(state=>state.module)
    
     const SUCCESS_SIMBOL = "1234567890qwertyuiopasdfghjklzxcvbnm/_:"
-    const BASE_API_URL = `api/modules/${module.name}/`
+    const BASE_API_URL = `${ROOT_URL}/${module.name}/`
     const BASE_PAGE_URL = `modules/${module.name}/`
 
     function validURL(url: string): boolean{
@@ -33,6 +36,7 @@ export const useURL = () => {
     return {
         getFullURL,
         getFullPageURL,
-        validURL
+        validURL,
+        BASE_API_URL
     }
 }

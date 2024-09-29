@@ -1,12 +1,12 @@
-import { ActionType, ControlType, IComponents, TypeContent } from "@renderer/entites/module/models/pageModels/pageModel"
-import { TypeComponent } from "@renderer/entites/module/models/types"
+import { IComponents, TypeSrc } from "@renderer/entites/module/models/pageModel"
+import { ActionType, TypeComponent } from "alex-evo-web-constructor"
 
-export function getInitComponent(type:TypeComponent):IComponents{
+export function getInitComponent(type:TypeComponent, src: TypeSrc = TypeSrc.BASE):IComponents{
     if(type === TypeComponent.TEXT)
         return {
             type:TypeComponent.TEXT,
-            content_type: TypeContent.MANUAL,
-            title: "information",
+            src: {typeSrc: src},
+            value: "information",
             name: "text_fiald"
         }
     if(type === TypeComponent.COLUMNS)
@@ -14,42 +14,107 @@ export function getInitComponent(type:TypeComponent):IComponents{
             type: TypeComponent.COLUMNS,
             count: 2,
             value: [],
-            title: "collumn",
+            src: {typeSrc: src},
             name: "collumn"
         }
     if(type === TypeComponent.CARD)
         return {
             type: TypeComponent.CARD,
-            content_type: TypeContent.MANUAL,
-            text: "",
             name: "card",
-            title: "",
-            action_type: ActionType.NONE,
-        }
-    if(type === TypeComponent.CARD_CONTROL)
-        return {
-            type: TypeComponent.CARD_CONTROL,
-            content_type: TypeContent.MANUAL,
-            text: "",
-            name: "card_control",
-            title: "",
-            action_type: ActionType.NONE,
-            control_type: ControlType.MANUAL,
-            control_target: "",
-            control: []
+            label: "",
+            action: {
+                action_type: ActionType.NONE
+            },
+            src: {typeSrc: src}
         }
     if(type === TypeComponent.BUTTON)
         return {
             type: TypeComponent.BUTTON,
-            title: "btn",
+            label: "btn",
             name: "button",
-            action_type: ActionType.GET_REQUEST,
-            action_target: ""
+            action: {
+                action_type: ActionType.NONE
+            },
+            src: {typeSrc: src}
+        }
+    if(type === TypeComponent.DIVIDER)
+        return {
+            type: TypeComponent.DIVIDER,
+            name: "button",
+            label: "test",
+            src: {typeSrc: src}
+        }
+    if(type === TypeComponent.FLEX_CONTAINER)
+        return {
+            type: TypeComponent.FLEX_CONTAINER,
+            name: "button",
+            value:[],
+            src: {typeSrc: src}
+        }
+    if(type === TypeComponent.GRID_LAYOUT)
+        return {
+            type: TypeComponent.GRID_LAYOUT,
+            name: "button",
+            value:[],
+            src: {typeSrc: src}
+        }
+    if(type === TypeComponent.KEY_VALUE)
+        return {
+            type: TypeComponent.KEY_VALUE,
+            name: "button",
+            label: "key",
+            src: {typeSrc: src}
+        }
+    if(type === TypeComponent.LIST)
+        return {
+            type: TypeComponent.LIST,
+            name: "button",
+            value:[],
+            src: {typeSrc: src}
+        }
+    if(type === TypeComponent.PANEL)
+        return {
+            type: TypeComponent.PANEL,
+            name: "button",
+            src: {typeSrc: src}
+        }
+    if(type === TypeComponent.SELECT)
+        return {
+            type: TypeComponent.SELECT,
+            name: "button",
+            action:{ action_type: ActionType.GET_REQUEST, action_target: "/test"},
+            items: ["sd", "dsf"],
+            value: "",
+            src: {typeSrc: src}
+        }
+    if(type === TypeComponent.SEND_TEXT)
+        return {
+            type: TypeComponent.SEND_TEXT,
+            name: "button",
+            action:{ action_type: ActionType.GET_REQUEST, action_target: "/test"},
+            value: "",
+            src: {typeSrc: src}
+        }
+    if(type === TypeComponent.SLIDER)
+        return {
+            type: TypeComponent.SLIDER,
+            name: "button",
+            action:{ action_type: ActionType.GET_REQUEST, action_target: "/test"},
+            value: 4,
+            src: {typeSrc: src}
+        }
+    if(type === TypeComponent.SWITCH)
+        return {
+            type: TypeComponent.SWITCH,
+            name: "button",
+            action:{ action_type: ActionType.GET_REQUEST, action_target: "/test"},
+            value: true,
+            src: {typeSrc: src}
         }
     return {
         type:TypeComponent.TEXT,
-        content_type: TypeContent.MANUAL,
-        title: "information",
-        name: "undefined_component"
+        value: "information",
+        name: "undefined_component",
+        src: {typeSrc: src}
     }
 } 

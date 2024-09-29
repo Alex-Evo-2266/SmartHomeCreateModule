@@ -1,5 +1,4 @@
 import componentReducer from "@renderer/entites/module/lib/reducers/componentReducer";
-import editModeReducer from "@renderer/entites/module/lib/reducers/editComponentReducer";
 import ModuleReducer from "@renderer/entites/module/lib/reducers/moduleReducer";
 import {bottomSheetsReducer} from "@renderer/shared/lib/reducers/bottomSheetsReducer";
 import {menuReducer} from "@renderer/shared/lib/reducers/menuReducer";
@@ -12,5 +11,4 @@ export const rootReducer = combineReducers({
     snackbar: snackbarReducer,
     module: ModuleReducer,
     component: componentReducer,
-    editPageMode: editModeReducer
 })

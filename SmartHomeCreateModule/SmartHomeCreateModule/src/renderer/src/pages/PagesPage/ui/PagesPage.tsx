@@ -30,7 +30,7 @@ export const PagesPage = () => {
                 }} title="The pages have not been created yet" hexColor="#FFF" style={{margin: "0",height: "100dvh"}}/>
             }
         </div>
-        <FAB onClick={()=>setAddPageCardVisible(true)}>+</FAB>
+        <FAB onClick={()=>setAddPageCardVisible(true)} className="fab-in-page">+</FAB>
         {
             (addPageCArdVisible)?
             <DialogPortal>

@@ -1,1 +1,1 @@
-export {PageComponent} from './PageComponents/index'
+export {ConstructorPanel} from './ConstructorPanel'

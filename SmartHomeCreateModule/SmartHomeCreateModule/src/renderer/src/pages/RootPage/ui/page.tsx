@@ -1,19 +1,20 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, useLocation } from "react-router-dom"
 import './rootContainer.scss'
-import { ScreenSize, useScreenSize } from "../../../entites/ScreenSize"
+import { ScreenSize, useScreenSize } from "alex-evo-sh-ui-kit"
+import { useCallback, useEffect } from "react"
 
 export const RootPage = () => {
 
 	const {screen} = useScreenSize()
+	let {pathname} = useLocation();
 
-	const getStyleClass = (screen: ScreenSize) => {
-		if(screen === ScreenSize.BIG_SCREEN)
+	const getStyleClass = useCallback((screen: ScreenSize) => {
+		if(screen === ScreenSize.BIG_SCREEN && pathname !== '/home')
 			return "big"
 		if(screen === ScreenSize.MOBILE)
 			return "mobile"
-		if(screen === ScreenSize.STANDART)
-			return ""
-	}
+		return ""
+	},[pathname])
 
 	return (
 		<>

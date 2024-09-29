@@ -1,36 +1,39 @@
 import { BasicTemplateDialog, ListContainer, ListItem } from 'alex-evo-sh-ui-kit'
 import './AddPageComponentDialog.scss'
 import { useCallback } from 'react'
-import { TypeComponent } from '@renderer/entites/module/models/types'
 import { getInitComponent } from '../lib/helper/getComponent'
-import { useComponent } from '@renderer/entites/module/lib/hooks/addComponent.hook'
 import { COMPONENTS } from '@renderer/entites/module'
+import { TypeComponent } from 'alex-evo-web-constructor'
+import { DialogPortal } from '@renderer/shared/ui'
+import { IComponents } from '@renderer/entites/module/models/pageModel'
 
 
 
 
 interface AddPageComponentDialogProp {
     onHide: ()=>void
+    onSelect: (type: IComponents)=>void
 }
 
-export const AddPageComponentDialog = ({onHide}:AddPageComponentDialogProp) => {
-
-    const {addComponent} = useComponent()
+export const AddPageComponentDialog = ({onHide, onSelect}:AddPageComponentDialogProp) => {
 
     const add = useCallback((type: TypeComponent)=>{
-        addComponent(getInitComponent(type))
+        onSelect(getInitComponent(type))
         onHide()
-    },[])
+    },[onSelect])
 
     return(
-        <BasicTemplateDialog header='add page component' onHide={onHide}>
-            <ListContainer transparent>
-                {
-                    COMPONENTS.map((item, index)=>(
-                        <ListItem hovered key={index} icon={item.icon} header={item.title} onClick={()=>add(item.data)}/>
-                    ))
-                }
-            </ListContainer>
-        </BasicTemplateDialog>
+        <DialogPortal>
+            <BasicTemplateDialog header='add page component' onHide={onHide}>
+                <ListContainer transparent>
+                    {
+                        COMPONENTS.map((item, index)=>(
+                            <ListItem hovered key={index} icon={item.icon} header={item.title} onClick={()=>add(item.data)}/>
+                        ))
+                    }
+                </ListContainer>
+            </BasicTemplateDialog>
+        </DialogPortal>
+        
     )
 }

@@ -16,3 +16,5 @@ export {Snackbar} from './Snackbar/Snackbar'
 export {FilterBtn} from './Filter/Filter'
 
 export {DialogPortal} from './DialogPortal/DialogPortal'
+
+export {ColorField} from './ColorField/ColorField'

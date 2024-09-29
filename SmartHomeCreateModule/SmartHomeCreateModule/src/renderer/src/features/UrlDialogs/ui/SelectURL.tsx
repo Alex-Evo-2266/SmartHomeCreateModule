@@ -6,6 +6,8 @@ import { SelectField } from "@renderer/shared/ui/Select/Select"
 import { useCallback, useState } from "react"
 import { EditAPIDialog } from "./EditAPIDialog"
 import { IAPI } from "@renderer/entites/module/models/APIModels/API"
+import { useURL } from "@renderer/entites/Url"
+import { IOption } from "alex-evo-sh-ui-kit"
 
 export interface ISelectFieldProps{
     onChange?:(value: string)=>void
@@ -27,12 +29,21 @@ export const SelectURL:React.FC<ISelectFieldProps> = (props) => {
     const {api} = useAppSelector(state=>state.module)
     const [editUrlVisible, setEditURLVisible] = useState(false)
     const dispatch = useAppDispatch()
+    const {getFullURL} = useURL()
 
     const getItems = () => {
-        let items:string[] = []
+        let items:IOption[] = []
         if(props.typeAPI)
-            items = api.filter(item=>(item.use_type === props.typeAPI)).map(item=>item.url)
-        items.unshift(ADD_URL)
+            items = api
+            .filter(item=>(item.use_type === props.typeAPI))
+            .map(item=>({
+                title: getFullURL(item.url),
+                value: item.url
+            }))
+        items.unshift({
+            title: ADD_URL,
+            value: ADD_URL
+        })
         return items
     }
 

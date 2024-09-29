@@ -1,14 +1,4 @@
 
-export enum TypeComponent {
-	CARD = "CARD",
-	CARD_CONTROL = "CARD_CONTROL",
-	TABLE = "TABLE",
-	TEXT = "TEXT",
-	BUTTON = "BUTTON",
-	COLUMNS = "COLUMNS",
-	LIST = "LIST"
-}
-
 export enum TypeAPI{
 	UNDEFINED = "UNDEFINED",
 	ACTION = "ACTION",

@@ -1,13 +1,13 @@
-import { IComponents } from '@renderer/entites/module/models/pageModel'
 import './PageCard.scss'
 import { BaseActionCard, Card, FilledButton } from 'alex-evo-sh-ui-kit'
 import { useURL } from '@renderer/entites/Url'
 import { useNavigate } from 'react-router-dom'
+import { IComponents } from '@renderer/entites/module/models/pageModel'
 
 interface PageCardProps{
     name:string
     url:string
-    page: IComponents[]
+    page?: IComponents
     index: number
 }
 
