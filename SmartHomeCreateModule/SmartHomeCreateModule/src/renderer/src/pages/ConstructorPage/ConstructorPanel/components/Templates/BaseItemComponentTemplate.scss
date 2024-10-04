@@ -1,0 +1,33 @@
+.add-component-button{
+    width: calc(100% - 10px);
+    margin: 5px 0;
+}
+
+.delete-component-button{
+    width: calc(100% - 10px);
+    margin: 5px 0;
+    background-color: var(--Error-color);
+    color: var(--On-error-color);
+}
+
+.list-item-component{
+    height: 54px;
+    border-radius: 10px;
+    border: 2px solid var(--Outline-color);
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    margin: 5px 0;
+    justify-content: space-between;
+    &:hover{
+        cursor: pointer;
+    }
+    .action-block{
+        width: 56px;
+        height: 56px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 32px;
+    }
+}

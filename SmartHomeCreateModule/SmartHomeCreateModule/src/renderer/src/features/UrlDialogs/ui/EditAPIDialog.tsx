@@ -3,8 +3,9 @@ import { BaseActionCard, BasicTemplateDialog, Button, FilledButton, TextField } 
 import { useCallback, useState } from "react"
 import { SelectField } from "@renderer/shared/ui"
 import { URL_ITEM } from "@renderer/entites/module"
-import { TypeAPI, TypeComponent } from "@renderer/entites/module/models/types"
+import { TypeAPI } from "@renderer/entites/module/models/types"
 import { IAPI, TypeRequest } from "@renderer/entites/module/models/APIModels/API"
+import { TypeComponent } from "alex-evo-web-constructor"
 
 interface AddPageDialogProps{
     onChange:(data:IAPI, index?: number)=>void

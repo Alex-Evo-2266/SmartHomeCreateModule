@@ -1,11 +1,10 @@
-import { IComponents, TypeSrc } from "@renderer/entites/module/models/pageModel"
+import { IComponents, TypeSrc } from "@renderer/entites/module/models/components"
 import { ActionType, TypeComponent } from "alex-evo-web-constructor"
 
 export function getInitComponent(type:TypeComponent, src: TypeSrc = TypeSrc.BASE):IComponents{
     if(type === TypeComponent.TEXT)
         return {
             type:TypeComponent.TEXT,
-            src: {typeSrc: src},
             value: "information",
             name: "text_fiald"
         }
@@ -14,7 +13,6 @@ export function getInitComponent(type:TypeComponent, src: TypeSrc = TypeSrc.BASE
             type: TypeComponent.COLUMNS,
             count: 2,
             value: [],
-            src: {typeSrc: src},
             name: "collumn"
         }
     if(type === TypeComponent.CARD)
@@ -25,7 +23,6 @@ export function getInitComponent(type:TypeComponent, src: TypeSrc = TypeSrc.BASE
             action: {
                 action_type: ActionType.NONE
             },
-            src: {typeSrc: src}
         }
     if(type === TypeComponent.BUTTON)
         return {
@@ -35,48 +32,43 @@ export function getInitComponent(type:TypeComponent, src: TypeSrc = TypeSrc.BASE
             action: {
                 action_type: ActionType.NONE
             },
-            src: {typeSrc: src}
         }
     if(type === TypeComponent.DIVIDER)
         return {
             type: TypeComponent.DIVIDER,
-            name: "button",
-            label: "test",
-            src: {typeSrc: src}
+            name: "button"
         }
     if(type === TypeComponent.FLEX_CONTAINER)
         return {
             type: TypeComponent.FLEX_CONTAINER,
             name: "button",
             value:[],
-            src: {typeSrc: src}
+            src: src
         }
     if(type === TypeComponent.GRID_LAYOUT)
         return {
             type: TypeComponent.GRID_LAYOUT,
             name: "button",
             value:[],
-            src: {typeSrc: src}
+            src: src
         }
     if(type === TypeComponent.KEY_VALUE)
         return {
             type: TypeComponent.KEY_VALUE,
             name: "button",
             label: "key",
-            src: {typeSrc: src}
         }
     if(type === TypeComponent.LIST)
         return {
             type: TypeComponent.LIST,
             name: "button",
             value:[],
-            src: {typeSrc: src}
+            src: src
         }
     if(type === TypeComponent.PANEL)
         return {
             type: TypeComponent.PANEL,
             name: "button",
-            src: {typeSrc: src}
         }
     if(type === TypeComponent.SELECT)
         return {
@@ -85,7 +77,6 @@ export function getInitComponent(type:TypeComponent, src: TypeSrc = TypeSrc.BASE
             action:{ action_type: ActionType.GET_REQUEST, action_target: "/test"},
             items: ["sd", "dsf"],
             value: "",
-            src: {typeSrc: src}
         }
     if(type === TypeComponent.SEND_TEXT)
         return {
@@ -93,7 +84,6 @@ export function getInitComponent(type:TypeComponent, src: TypeSrc = TypeSrc.BASE
             name: "button",
             action:{ action_type: ActionType.GET_REQUEST, action_target: "/test"},
             value: "",
-            src: {typeSrc: src}
         }
     if(type === TypeComponent.SLIDER)
         return {
@@ -101,7 +91,6 @@ export function getInitComponent(type:TypeComponent, src: TypeSrc = TypeSrc.BASE
             name: "button",
             action:{ action_type: ActionType.GET_REQUEST, action_target: "/test"},
             value: 4,
-            src: {typeSrc: src}
         }
     if(type === TypeComponent.SWITCH)
         return {
@@ -109,12 +98,10 @@ export function getInitComponent(type:TypeComponent, src: TypeSrc = TypeSrc.BASE
             name: "button",
             action:{ action_type: ActionType.GET_REQUEST, action_target: "/test"},
             value: true,
-            src: {typeSrc: src}
         }
     return {
         type:TypeComponent.TEXT,
         value: "information",
         name: "undefined_component",
-        src: {typeSrc: src}
     }
 } 
