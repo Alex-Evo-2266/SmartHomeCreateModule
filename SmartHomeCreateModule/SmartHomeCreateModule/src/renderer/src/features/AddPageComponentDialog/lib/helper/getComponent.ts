@@ -75,7 +75,7 @@ export function getInitComponent(type:TypeComponent, src: TypeSrc = TypeSrc.BASE
             type: TypeComponent.SELECT,
             name: "button",
             action:{ action_type: ActionType.GET_REQUEST, action_target: "/test"},
-            items: ["sd", "dsf"],
+            items: [],
             value: "",
         }
     if(type === TypeComponent.SEND_TEXT)

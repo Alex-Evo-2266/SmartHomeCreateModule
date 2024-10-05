@@ -4,6 +4,11 @@ import { TypeComponent } from "alex-evo-web-constructor"
 export type ActionComponent = ICard | IButton
 export type FatchComponent = ISelect | ISendText | ISlider | ISwitch
 
+export type SelectItens = (string | {
+    label: string;
+    data: string;
+})[]
+
 const containersOneComponentType = [
     TypeComponent.KEY_VALUE, 
     TypeComponent.PANEL,
@@ -51,4 +56,31 @@ export function isAction(component:IComponents): component is (ActionComponent){
 
 export function isFetch(component:IComponents): component is (FatchComponent){
     return fetchComponentsType.includes(component.type)
+}
+
+export function splitItems(items: string){
+    return items.split(',').map(item=>item.trim())
+}
+
+export function joinItems(items: SelectItens):string{
+    if(items.length === 0)
+        return ""
+    if(items.length === 1){
+        if(typeof items[0] !== 'string')
+            return items[0].data
+        return items[0]
+    }
+    return items.reduce((prev, curr):string=>{
+        let prev2: string
+        let curr2: string
+        if(typeof prev !== 'string')
+            prev2 = prev.data
+        else
+            prev2 = prev
+        if(typeof curr !== 'string')
+            curr2 = curr.data
+        else
+            curr2 = curr
+        return [prev2, curr2].join(', ')
+    }) as string
 }

@@ -11,6 +11,10 @@ import { GridBox } from "./Grid"
 import { KeyValueBox } from "./KeyValue"
 import { ListBox } from "./List"
 import { PanelBox } from "./Panel"
+import { SelectBox } from "./Select"
+import { SwitchBox } from "./Switch"
+import { SendTextBox } from "./SendText"
+import { SliderBox } from "./Slider"
 
 export const ComponentBox = ({component, onChange, onDelete}:BasePropsComponent<IComponents>) => {
 
@@ -25,10 +29,10 @@ export const ComponentBox = ({component, onChange, onDelete}:BasePropsComponent<
         [TypeComponent.KEY_VALUE]: KeyValueBox,
         [TypeComponent.LIST]: ListBox,
         [TypeComponent.PANEL]: PanelBox,
-        [TypeComponent.SELECT]: TextBox,
-        [TypeComponent.SEND_TEXT]: TextBox,
-        [TypeComponent.SLIDER]: TextBox,
-        [TypeComponent.SWITCH]: TextBox,
+        [TypeComponent.SELECT]: SelectBox,
+        [TypeComponent.SEND_TEXT]: SendTextBox,
+        [TypeComponent.SLIDER]: SliderBox,
+        [TypeComponent.SWITCH]: SwitchBox,
         [TypeComponent.TABLE]: TextBox
     }
 

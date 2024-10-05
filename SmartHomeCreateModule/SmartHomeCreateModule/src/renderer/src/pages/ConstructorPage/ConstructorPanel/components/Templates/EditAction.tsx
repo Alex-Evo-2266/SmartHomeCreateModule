@@ -5,6 +5,7 @@ import { ActionFetchTarget, ActionNoTarget, ActionSystemTarget, ActionTarget, Ac
 interface EditActionDialogProps{
     data: BaseAction,
     onChange: (data:BaseAction)=>void
+    fetchAction?: boolean
 }
 
 const actionNone: ActionNoTarget = {action_type:ActionType.NONE}
@@ -25,7 +26,7 @@ const actions:{[key in ActionType]:BaseAction} = {
 
 const targetIncludeType = [ActionType.DIALOG, ActionType.GET_REQUEST, ActionType.LINK, ActionType.MENU, ActionType.SYSTEM]
 
-export const EditActionDialog = ({onChange, data}:EditActionDialogProps) => {
+export const EditActionDialog = ({onChange, data, fetchAction}:EditActionDialogProps) => {
 
     const getOption = () => Object.values(ActionType)
 
@@ -62,13 +63,16 @@ export const EditActionDialog = ({onChange, data}:EditActionDialogProps) => {
 
     return(
         <ContentBox label='action'>
-            <SelectField
-                border
-                container={document.getElementById('menu-root')}
-                items={getOption()}
-                value={data.action_type}
-                onChange={changeTypeHanler}
-            />
+            {
+                !fetchAction && <SelectField
+                    border
+                    container={document.getElementById('menu-root')}
+                    items={getOption()}
+                    value={data.action_type}
+                    onChange={changeTypeHanler}
+                />
+            }
+            
             {
                 targetIncludeType.includes(data.action_type) &&
                 <TextField value={data.action_target} name='action_target' onChange={changeHanler} border placeholder='target'/>
