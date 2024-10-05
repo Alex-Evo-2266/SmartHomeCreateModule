@@ -33,7 +33,7 @@ export const EditOptionDialog = ({onChange, data, option}:EditActionDialogProps)
     },[onChange, data])
 
     return(
-        <ContentBox label='option'>
+        <ContentBox label='option' hiding border style={{margin: "0 10px"}}>
             {
                 (!option || option?.backgroundColor) && <ColorField border value={data.backgroundColor} onChange={changeBackgroundColor}/>
             }

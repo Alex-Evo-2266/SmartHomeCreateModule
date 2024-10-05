@@ -15,6 +15,7 @@ import { SelectBox } from "./Select"
 import { SwitchBox } from "./Switch"
 import { SendTextBox } from "./SendText"
 import { SliderBox } from "./Slider"
+import { TableBox } from "./Table"
 
 export const ComponentBox = ({component, onChange, onDelete}:BasePropsComponent<IComponents>) => {
 
@@ -33,7 +34,7 @@ export const ComponentBox = ({component, onChange, onDelete}:BasePropsComponent<
         [TypeComponent.SEND_TEXT]: SendTextBox,
         [TypeComponent.SLIDER]: SliderBox,
         [TypeComponent.SWITCH]: SwitchBox,
-        [TypeComponent.TABLE]: TextBox
+        [TypeComponent.TABLE]: TableBox
     }
 
     const Component = Componsnts[component.type]

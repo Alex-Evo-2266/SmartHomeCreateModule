@@ -1,7 +1,7 @@
 import { IComponents, TypeSrc } from "@renderer/entites/module/models/components"
 import { ActionType, TypeComponent } from "alex-evo-web-constructor"
 
-export function getInitComponent(type:TypeComponent, src: TypeSrc = TypeSrc.BASE):IComponents{
+export function getInitComponent(type:TypeComponent, src: TypeSrc = TypeSrc.MANUAL):IComponents{
     if(type === TypeComponent.TEXT)
         return {
             type:TypeComponent.TEXT,
@@ -98,6 +98,15 @@ export function getInitComponent(type:TypeComponent, src: TypeSrc = TypeSrc.BASE
             name: "button",
             action:{ action_type: ActionType.GET_REQUEST, action_target: "/test"},
             value: true,
+        }
+    if(type === TypeComponent.TABLE)
+        return {
+            type: TypeComponent.TABLE,
+            name: "table",
+            action:{ action_type: ActionType.NONE },
+            cols:[],
+            row:[],
+            src: src
         }
     return {
         type:TypeComponent.TEXT,

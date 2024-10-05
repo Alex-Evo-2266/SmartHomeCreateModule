@@ -1,8 +1,9 @@
-import { IOption, ITable, TypeComponent } from "alex-evo-web-constructor"
+import { IOption, TypeComponent } from "alex-evo-web-constructor"
+import { ITable } from "./table"
 
 export enum TypeSrc{
-	BASE = 'BASE',
-	LOAD = "LOAD"
+	MANUAL = 'MANUAL',
+	SERVER_GENERATE = "SERVER_GENERATE"
 }
 
 export enum ActionType {
@@ -32,6 +33,7 @@ interface BaseComponent
 }
 
 export interface LayoutComponent extends BaseComponent{
+	src_key?: string
     src?: TypeSrc
 }
 
@@ -203,7 +205,7 @@ export interface ISendText extends FetchComponent{
 export type OneValueComponent = IPanel | IKeyValue | ICard
 export type MoreValueComponent = IFlexContainer | IGridLayout | IList
 
-export type IComponents = OneValueComponent | MoreValueComponent | ITextField | ITable | IButton | IColumns | IDivider | ISlider | ISelect | ISwitch | ISendText
+export type IComponents = OneValueComponent | MoreValueComponent | ITextField | IButton | IColumns | IDivider | ISlider | ISelect | ISwitch | ISendText | ITable
 
 export interface IPage{
 	page: IComponents[]

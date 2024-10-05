@@ -28,6 +28,7 @@ const containersColumnComponentType = [
 const actionComponentsType = [
     TypeComponent.BUTTON,
     TypeComponent.CARD,
+    TypeComponent.TABLE
 ]
 
 const fetchComponentsType = [
