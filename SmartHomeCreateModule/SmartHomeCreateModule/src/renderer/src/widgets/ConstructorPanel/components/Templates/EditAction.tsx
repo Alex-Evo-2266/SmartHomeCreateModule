@@ -1,6 +1,9 @@
-import { BaseType, ContentBox, JsonContainer, JsonData, SelectField, TextField } from 'alex-evo-sh-ui-kit'
+import { BaseType, ContentBox, JsonContainer, JsonData, SelectField } from 'alex-evo-sh-ui-kit'
 import { useCallback } from 'react'
 import { ActionFetchTarget, ActionNoTarget, ActionSystemTarget, ActionTarget, ActionType, BaseAction } from '@renderer/entites/module/models/components'
+import { SelectURL } from '@renderer/features/UrlDialogs'
+import { TypeAPI } from '@renderer/entites/module/models/types'
+import { SelectDialog } from '@renderer/features/DialogSelect'
 
 interface EditActionDialogProps{
     data: BaseAction,
@@ -24,8 +27,6 @@ const actions:{[key in ActionType]:BaseAction} = {
     [ActionType.SYSTEM]: actionSystem
 }
 
-const targetIncludeType = [ActionType.DIALOG, ActionType.GET_REQUEST, ActionType.LINK, ActionType.MENU, ActionType.SYSTEM]
-
 export const EditActionDialog = ({onChange, data, fetchAction}:EditActionDialogProps) => {
 
     const getOption = () => Object.values(ActionType)
@@ -34,8 +35,8 @@ export const EditActionDialog = ({onChange, data, fetchAction}:EditActionDialogP
         onChange(actions[(value as ActionType)])
     },[onChange])
 
-    const changeHanler = useCallback((e:React.ChangeEvent<HTMLInputElement>)=>{
-        onChange({...data, action_target:e.target.value})
+    const changeTargetHanler = useCallback((value:string)=>{
+        onChange({...data, action_target:value})
     },[data, onChange])
 
     const argHandler = useCallback((arg:JsonData) => {
@@ -61,6 +62,12 @@ export const EditActionDialog = ({onChange, data, fetchAction}:EditActionDialogP
             onChange({...data as ActionFetchTarget, query})
     },[data, onChange])
 
+    const queryListType = [ActionType.LINK, ActionType.GET_REQUEST, ActionType.MENU, ActionType.DIALOG]
+
+    function isActionWithQuery(data:BaseAction): data is ActionTarget | ActionFetchTarget{
+        return queryListType.includes(data.action_type)
+    }
+
     return(
         <ContentBox label='action'>
             {
@@ -72,17 +79,19 @@ export const EditActionDialog = ({onChange, data, fetchAction}:EditActionDialogP
                     onChange={changeTypeHanler}
                 />
             }
-            
             {
-                targetIncludeType.includes(data.action_type) &&
-                <TextField value={data.action_target} name='action_target' onChange={changeHanler} border placeholder='target'/>
+                data.action_type === ActionType.GET_REQUEST?
+                <SelectURL border placeholder='target' typeAPI={TypeAPI.ACTION} value={data.action_target} onChange={changeTargetHanler}/>:
+                data.action_type === ActionType.DIALOG?
+                <SelectDialog border placeholder='target' typeAPI={TypeAPI.ACTION} value={data.action_target} onChange={changeTargetHanler}/>:
+                null
             }
             {
                 data.action_type === ActionType.SYSTEM &&
                 <JsonContainer onlyStringValue baseType={BaseType.ARRAY} name='args' data={data.arg ?? []} onChange={argHandler}/>
             }
             {
-                data.action_type === ActionType.GET_REQUEST &&
+                isActionWithQuery(data) &&
                 <JsonContainer onlyStringValue baseType={BaseType.OBJECT} name='query' data={data.query ?? {}} onChange={queryHandler}/>
             }
         </ContentBox>

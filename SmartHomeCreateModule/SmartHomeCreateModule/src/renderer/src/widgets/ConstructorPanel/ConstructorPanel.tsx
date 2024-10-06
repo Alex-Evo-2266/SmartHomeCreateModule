@@ -30,7 +30,6 @@ export const ConstructorPanel:React.FC<ConstructorPanelProps> = ({component, onC
                 <Typography type='title'>Constructor</Typography>
                 <TextButton onClick={()=>{window.location.pathname = '/home'}}>Save</TextButton>
             </div>
-            {!component && <Button onClick={()=>{window.location.pathname = '/home'}}>exit</Button>}
             {
                 (!component)?
                 <Button onClick={()=>setAddDialogVisible(true)}>add</Button>:

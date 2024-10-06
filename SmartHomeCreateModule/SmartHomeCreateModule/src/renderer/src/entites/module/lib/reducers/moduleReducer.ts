@@ -1,12 +1,13 @@
 import { IAPI } from "../../models/APIModels/API"
 import { IModuleState } from "../../models/module"
-import { IPage } from "../../models/pageModel"
+import { IDialog, IPage } from "../../models/pageModel"
 
 const LOCAL_STORAGE_KEY = "create-module-state"
 
 export enum ModuleActionType{
     SET_NAME = "SET_NAME",
     SET_PAGE = "SET_PAGE",
+    SET_DIALOG = "SET_DIALOG",
     SET_API = "SET_API",
     SAVE_MODULE = "SAVE_MODULE",
     LOAD_MODULE = "LOAD_MODULE"
@@ -19,6 +20,10 @@ export interface ModuleNameAction{
 export interface ModulePageAction{
     type: ModuleActionType.SET_PAGE
     payload: IPage[]
+}
+export interface ModuleDialogAction{
+    type: ModuleActionType.SET_DIALOG
+    payload: IDialog[]
 }
 export interface ModuleAPIAction{
     type: ModuleActionType.SET_API
@@ -33,23 +38,25 @@ export interface ModuleLoadAction{
     type: ModuleActionType.LOAD_MODULE
 }
 
-export type ModuleAction = ModuleNameAction | ModulePageAction | ModuleAPIAction | ModuleSaveAction | ModuleLoadAction
+export type ModuleAction = ModuleNameAction | ModulePageAction | ModuleAPIAction | ModuleSaveAction | ModuleLoadAction | ModuleDialogAction
 
 const initState: IModuleState = {
     name: "",
     pages: [],
-    api: []
+    api: [],
+    dialog: []
 }
 
 const _saveModule = (state:IModuleState):IModuleState => {
     window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state))
+    console.log("save",state)
     return state
 }
 
 const _loadModule = (state:IModuleState):IModuleState => {
     const newData = window.localStorage.getItem(LOCAL_STORAGE_KEY)
     if(!newData) return state
-    return JSON.parse(newData)
+    return {...initState, ...JSON.parse(newData)}
 }
 
 export const ModuleReducer = (state:IModuleState = initState, action:ModuleAction) => {
@@ -60,6 +67,8 @@ export const ModuleReducer = (state:IModuleState = initState, action:ModuleActio
             return _saveModule({...state, api: action.payload})
         case ModuleActionType.SET_PAGE:
             return _saveModule({...state, pages: action.payload})
+        case ModuleActionType.SET_DIALOG:
+            return _saveModule({...state, dialog: action.payload})
         case ModuleActionType.SAVE_MODULE:
             return _saveModule(state)
         case ModuleActionType.LOAD_MODULE:
@@ -72,6 +81,7 @@ export const ModuleReducer = (state:IModuleState = initState, action:ModuleActio
 export default ModuleReducer
 export const setNameModule = (payload: string):ModuleNameAction => ({type:ModuleActionType.SET_NAME, payload})
 export const setPageModule = (payload: IPage[]):ModulePageAction => ({type:ModuleActionType.SET_PAGE, payload})
+export const setDialogModule = (payload: IDialog[]):ModuleDialogAction => ({type:ModuleActionType.SET_DIALOG, payload})
 export const setAPIModule = (payload: IAPI[]):ModuleAPIAction => ({type:ModuleActionType.SET_API, payload})
 export const saveModule = ():ModuleSaveAction => ({type:ModuleActionType.SAVE_MODULE})
 export const loadModule = ():ModuleLoadAction => ({type:ModuleActionType.LOAD_MODULE})

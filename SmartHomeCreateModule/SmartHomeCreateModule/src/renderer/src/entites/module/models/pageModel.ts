@@ -5,3 +5,12 @@ export interface IPage{
 	url: string
 	name: string
 } 
+
+export interface IDialog{
+	components: IComponents | undefined
+	title: string
+	name: string
+	query?: {
+        [key: string]: string;
+    };
+} 

@@ -8,6 +8,7 @@ import { DialogPortal } from "@renderer/shared/ui"
 import { APICard } from "@renderer/widgets/APICard"
 import { EditAPIDialog } from "@renderer/features/UrlDialogs"
 import { IAPI } from "@renderer/entites/module/models/APIModels/API"
+import { TypeAPI } from "@renderer/entites/module/models/types"
 
 interface EditAPIData{
     index: number
@@ -17,7 +18,7 @@ interface EditAPIData{
 export const URLPage = () => {
 
     const {api} = useAppSelector(state=>state.module)
-    const [addAPICard, setEditAPICard] = useState<EditAPIData | null | "add">(null)
+    const [editAPICard, setEditAPICard] = useState<EditAPIData | null | "add">(null)
 
     const dispatch = useAppDispatch()
 
@@ -31,6 +32,10 @@ export const URLPage = () => {
         setEditAPICard(null)
     },[api, dispatch])
 
+    const APIDeleteDialogHandler = useCallback((index?: number) => {
+        dispatch(setAPIModule(api.filter((_, index2)=>index !== index2)))
+    },[api, dispatch])
+
     return(
         <>
 		<Navigation/>
@@ -41,7 +46,7 @@ export const URLPage = () => {
                 {
                     api.map((item, index)=>(
                         <GridLayoutItem key={index}>
-                            <APICard data={item} onEdit={()=>setEditAPICard({index, data:item})}/>
+                            <APICard data={item} onEdit={()=>setEditAPICard({index, data:item})} onDelete={()=>APIDeleteDialogHandler(index)}/>
                         </GridLayoutItem>
                     ))
                 }
@@ -54,13 +59,15 @@ export const URLPage = () => {
         </div>
         <FAB onClick={()=>setEditAPICard("add")}>+</FAB>
         {
-            (addAPICard)?
+            (editAPICard)?
             <DialogPortal>
                 <EditAPIDialog 
-                data={(addAPICard && addAPICard != "add")?addAPICard.data:undefined} 
-                index={(addAPICard && addAPICard != "add")?addAPICard.index:undefined} 
+                data={(editAPICard && editAPICard != "add")?editAPICard.data:undefined} 
+                index={(editAPICard && editAPICard != "add")?editAPICard.index:undefined} 
                 onHide={()=>setEditAPICard(null)} 
-                onChange={APIDialogHandler}/>
+                onChange={APIDialogHandler}
+                typeComponentFixidDefault={TypeAPI.ACTION}
+                />
             </DialogPortal>
             :null
         }

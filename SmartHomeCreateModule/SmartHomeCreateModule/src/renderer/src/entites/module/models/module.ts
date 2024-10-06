@@ -1,10 +1,11 @@
 import { IAPI } from "./APIModels/API"
-import { IPage } from "./pageModel"
+import { IDialog, IPage } from "./pageModel"
 
 export interface IModuleState{
 	name: string
 	pages: IPage[]
 	api: IAPI[]
+	dialog: IDialog[]
 }
 
 export interface ComponentItem<T> {

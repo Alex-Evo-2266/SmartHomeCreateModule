@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import './FunctionPage.scss'
 import { Button, Card, GridLayout, GridLayoutItem } from 'alex-evo-sh-ui-kit'
-import { useCallback, useEffect } from 'react'
+import { useCallback } from 'react'
 import { useAppSelector } from '@renderer/shared/lib/hooks/redux'
 import { IComponents, TypeSrc } from '@renderer/entites/module/models/components'
 import { isContainerColumn, isContainerMoreComponents, isContainerOneComponents, isGenerateContent } from '@renderer/entites/module/lib/helpers/utils'
@@ -36,14 +36,8 @@ export const FunctionPage = () => {
     }
 
     const getFunctionbyPages = useCallback(() => {
-        return pages.map(page=>{
-            return getFunction(page.page)
-        }).flat()
+        return pages.map(page=>getFunction(page.page)).flat()
     },[pages])
-
-    useEffect(()=>{
-        console.log(getFunctionbyPages())
-    },[getFunctionbyPages])
 
     return(
         <div className='home-page'>

@@ -1,16 +1,15 @@
-import { APICardPreview } from "@renderer/entites/APIVis"
 import { useURL } from "@renderer/entites/Url"
 import { getAPIItem } from "@renderer/entites/module"
 import { IAPI } from "@renderer/entites/module/models/APIModels/API"
-import { TypeAPI } from "@renderer/entites/module/models/types"
 import { BaseActionCard, Card, FilledButton } from "alex-evo-sh-ui-kit"
 
 interface APICardProps{
     data:IAPI
     onEdit:()=>void
+    onDelete:()=>void
 }
 
-export const APICard = ({data, onEdit}:APICardProps) => {
+export const APICard = ({data, onEdit, onDelete}:APICardProps) => {
 
     const {getFullURL} = useURL()
 
@@ -23,16 +22,15 @@ export const APICard = ({data, onEdit}:APICardProps) => {
             url: ${getFullURL(data.url)}`} 
             action={<BaseActionCard>
                 <FilledButton onClick={onEdit}>edit</FilledButton>
+                <FilledButton onClick={onDelete} style={{
+                    backgroundColor: "var(--Error-color)",
+                    color: "var(--On-error-color)"
+                }}>delete</FilledButton>
             </BaseActionCard>}
         >
             {
                 (data.use_type)?
                 <>type: {getAPIItem(data.use_type)?.icon}</>:
-                null
-            }
-            {
-                (data.use_type === TypeAPI.CARD)?
-                <APICardPreview url={getFullURL(data.url)}/>:
                 null
             }
         </Card>

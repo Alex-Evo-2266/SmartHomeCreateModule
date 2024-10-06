@@ -1,11 +1,10 @@
 import { useAppDispatch, useAppSelector } from '@renderer/shared/lib/hooks/redux'
-import  './ConstructorPage.scss'
-import { ConstructorPanel } from './ConstructorPanel/ConstructorPanel'
+import { ConstructorPanel } from '../../../widgets/ConstructorPanel/ConstructorPanel'
 import { useParams } from 'react-router-dom'
 import { useCallback, useEffect, useMemo } from 'react'
 import { IComponents } from '@renderer/entites/module/models/components'
 import { setPageModule } from '@renderer/entites/module/lib/reducers/moduleReducer'
-import { Preview } from './Preview/Preview'
+import { Preview } from './Preview'
 
 export const ConstructorPage:React.FC = () => {
 
@@ -19,7 +18,7 @@ export const ConstructorPage:React.FC = () => {
         let arrPages = pages.slice()
         arrPages[index] = {...arrPages[index], page: data}
         dispatch(setPageModule(arrPages))
-    },[dispatch, index])
+    },[dispatch, index, pages])
 
     useEffect(()=>{
         console.log(page)

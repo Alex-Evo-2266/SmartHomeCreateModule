@@ -13,13 +13,14 @@ interface AddPageDialogProps{
     index?: number
     data?: IAPI
     typeComponentFixid?: TypeAPI
+    typeComponentFixidDefault?: TypeAPI
 }
 
-export const EditAPIDialog = ({onChange, onHide, index, data, typeComponentFixid}:AddPageDialogProps) => {
+export const EditAPIDialog = ({onChange, onHide, index, data, typeComponentFixid, typeComponentFixidDefault}:AddPageDialogProps) => {
 
     const [name, setName] = useState<string>(data?.name ?? "")
     const [url, setUrl] = useState<string>(data?.url ?? "")
-    const [typeComponent, setTypeComponent] = useState<TypeAPI | undefined>(data?.use_type ?? typeComponentFixid)
+    const [typeComponent, setTypeComponent] = useState<TypeAPI | undefined>(data?.use_type ?? typeComponentFixid ?? typeComponentFixidDefault)
     const [urlFocus, setUrlFocus] = useState<boolean>(false)
     const {getFullURL} = useURL()
 

@@ -1,28 +1,26 @@
-import './PageCard.scss'
 import { BaseActionCard, Card, FilledButton } from 'alex-evo-sh-ui-kit'
-import { useURL } from '@renderer/entites/Url'
 import { useNavigate } from 'react-router-dom'
 import { IComponents } from '@renderer/entites/module/models/components'
+import './DialogCard.scss'
 
-interface PageCardProps{
+interface DialogCardProps{
     name:string
-    url:string
-    page?: IComponents
+    title:string
+    components?: IComponents
     index: number
 }
 
-export const PageCard = ({name, url, index}:PageCardProps) => {
+export const DialogCard = ({name, title, index}:DialogCardProps) => {
 
-    const {getFullPageURL} = useURL()
     const navigate = useNavigate()
 
     return(
         <Card 
             className='page-card' 
             header={name} 
-            text={`url: ${getFullPageURL(url)}`} 
+            text={`title: ${title}`} 
             action={<BaseActionCard>
-                <FilledButton onClick={()=>navigate(`/page/constructor/${index}`)}>edit</FilledButton>
+                <FilledButton onClick={()=>navigate(`/dialog/constructor/${index}`)}>edit</FilledButton>
             </BaseActionCard>}
         />
     )
