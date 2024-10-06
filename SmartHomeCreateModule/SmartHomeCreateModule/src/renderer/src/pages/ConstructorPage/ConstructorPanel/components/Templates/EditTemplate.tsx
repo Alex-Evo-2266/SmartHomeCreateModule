@@ -5,7 +5,7 @@ import { ActionFetchTarget, ActionType, BaseAction, IComponents, TypeSrc } from 
 import { OptionVisible } from '../types'
 import { EditActionDialog } from '../Templates/EditAction'
 import { IOption } from 'alex-evo-web-constructor'
-import { isAction, isFetch, isGenerateContent } from '@renderer/pages/ConstructorPage/utils'
+import { isAction, isFetch, isGenerateContent } from '@renderer/entites/module/lib/helpers/utils'
 import { EditOptionDialog } from './EditOption'
 import { getSrcKey, ServerGenerateContentOption } from './SrcGenerateOption'
 

@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react'
 import { ActionType, ISelect } from '@renderer/entites/module/models/components'
 import { EditDialogProps } from '../types'
 import { EditComponentTemplateDialog, Options } from '../Templates/EditTemplate'
-import { joinItems, SelectItens, splitItems } from '@renderer/pages/ConstructorPage/utils'
+import { joinItems, SelectItens, splitItems } from '@renderer/entites/module/lib/helpers/utils'
 
 export const EditSelectComponentDialog = ({onHide, onChange, data}:EditDialogProps<ISelect>) => {
 

@@ -28,6 +28,7 @@ export const HomePage = () => {
                 <ListContainer transparent>
                     <ListItem header='Pages' hovered className='home-page-card-item' onClick={()=>navigate("/page")}/>
                     <ListItem header='API' hovered className='home-page-card-item' onClick={()=>navigate("/apiPage")}/>
+                    <ListItem header='Function' hovered className='home-page-card-item' onClick={()=>navigate("/function")}/>
                 </ListContainer>
                 <FilledButton>Save</FilledButton>
             </Card>

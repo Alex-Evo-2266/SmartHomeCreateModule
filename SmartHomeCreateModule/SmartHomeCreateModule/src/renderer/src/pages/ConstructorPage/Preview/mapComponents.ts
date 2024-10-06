@@ -18,7 +18,7 @@ import {
 } from "@renderer/entites/module/models/components";
 import { IButton, ICard, IColumns, IComponents, IDivider, IFlexContainer, IGridLayout, IKeyValue, IList, IPanel, ISelect, ISendText, ISlider, ISwitch, ITextField, TypeComponent } from "alex-evo-web-constructor";
 import { IColumnElement, ITable } from "alex-evo-web-constructor/dist/models";
-import { isContainerColumn, isContainerMoreComponents, isContainerOneComponents } from "../utils";
+import { isContainerColumn, isContainerMoreComponents, isContainerOneComponents } from "../../../entites/module/lib/helpers/utils";
 import { ITable as ConstructorTable } from "@renderer/entites/module/models/table";
 
 const mapColumn = (component: ConstructorColumns):IColumns => component
