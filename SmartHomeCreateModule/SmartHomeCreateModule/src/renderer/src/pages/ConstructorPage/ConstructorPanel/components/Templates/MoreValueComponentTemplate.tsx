@@ -1,11 +1,12 @@
-import { IComponents, MoreValueComponent } from "@renderer/entites/module/models/components"
+import { IComponents, MoreValueComponent, TypeSrc } from "@renderer/entites/module/models/components"
 import { AddPageComponentDialog } from "@renderer/features/AddPageComponentDialog/ui/AddPageComponentDialog"
-import { BaseDialog, Button, ContentBox, FilledButton, OutlineButton } from "alex-evo-sh-ui-kit"
+import { BaseDialog, Button, ContentBox, OutlineButton } from "alex-evo-sh-ui-kit"
 import { useCallback, useState } from "react"
 
 import { DialogPortal } from "@renderer/shared/ui"
 import { EditDialogProps } from "../types"
 import { ComponentBox } from "../Components"
+import { Trash2 } from "lucide-react"
 
 interface ConstructorComponentProps<T extends IComponents>{
     component: T, 
@@ -48,7 +49,10 @@ export const MoreValueComponentTemplate = <T extends MoreValueComponent,>({compo
     const EditDialog = editDialog
 
     return(
-        <ContentBox hiding border label={component.type}>
+        <ContentBox hiding border label={component.type} action={{
+            icon: <Trash2 color="var(--Error-color)"/>,
+            onClick: ()=>setDeleteDialogVisible(true)
+        }}>
         {editDialog && <OutlineButton className="add-component-button" onClick={clickHandler}>edit</OutlineButton>}    
         {
             component.value.map((item, index)=>(
@@ -60,12 +64,7 @@ export const MoreValueComponentTemplate = <T extends MoreValueComponent,>({compo
                 />
             ))
         }
-            <Button styleType='filled' className="add-component-button" onClick={()=>setAddDialogVisible(true)}>add</Button>
-            <FilledButton 
-                style={{backgroundColor:'var(--Error-color)', color: 'var(--On-error-color)'}} 
-                className="delete-component-button" 
-                onClick={()=>setDeleteDialogVisible(true)}
-            >delete</FilledButton>
+        {component.src === TypeSrc.MANUAL && <Button styleType='filled' className="add-component-button" onClick={()=>setAddDialogVisible(true)}>add</Button>}
         {
             addDialogVisible && <AddPageComponentDialog onHide={()=>setAddDialogVisible(false)} onSelect={addComponent}/>
         }

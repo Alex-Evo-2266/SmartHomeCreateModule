@@ -1,17 +1,25 @@
 import { FullScrinTemplateDialog } from 'alex-evo-sh-ui-kit'
 import { useCallback, useState } from 'react'
 import { DialogPortal } from '@renderer/shared/ui'
-import { ActionFetchTarget, ActionType, BaseAction, IComponents } from '@renderer/entites/module/models/components'
+import { ActionFetchTarget, ActionType, BaseAction, IComponents, TypeSrc } from '@renderer/entites/module/models/components'
 import { OptionVisible } from '../types'
 import { EditActionDialog } from '../Templates/EditAction'
 import { IOption } from 'alex-evo-web-constructor'
-import { isAction, isFetch } from '@renderer/pages/ConstructorPage/utils'
+import { isAction, isFetch, isGenerateContent } from '@renderer/pages/ConstructorPage/utils'
 import { EditOptionDialog } from './EditOption'
+import { getSrcKey, ServerGenerateContentOption } from './SrcGenerateOption'
+
+export type Options = {
+    option: IOption,
+    action: BaseAction | ActionFetchTarget,
+    src?: TypeSrc,
+    src_key: string | undefined
+}
 
 interface EditComponentTemplateDialogProps<T extends IComponents>{
         optionVisible?: OptionVisible
         children?: React.ReactNode
-        onSave: (option: IOption, action: BaseAction | ActionFetchTarget)=>void
+        onSave: (data:Options)=>void
         data: T
         onHide: ()=>void
         fetchAction?: boolean
@@ -20,6 +28,11 @@ interface EditComponentTemplateDialogProps<T extends IComponents>{
 export const EditComponentTemplateDialog = <T extends IComponents,>({onHide, onSave, data, optionVisible, children, fetchAction}:EditComponentTemplateDialogProps<T>) => {
 
     const [option, setOption] = useState<IOption>(data.option ?? {})
+    const [src, setSrc] = useState<TypeSrc | undefined>(function(data: T){
+        if(isGenerateContent(data))
+            return data.src ?? TypeSrc.MANUAL
+        return 
+    }(data))
     const [action, setAction] = useState<BaseAction>(function(data: T, fetchAction:boolean){
         if(isFetch(data) || isAction(data))
             return data.action
@@ -29,8 +42,8 @@ export const EditComponentTemplateDialog = <T extends IComponents,>({onHide, onS
     }(data, fetchAction ?? false))
 
     const save = useCallback(()=>{
-        onSave(option, action)
-    },[onSave, action, option])
+        onSave({option, action, src, src_key:getSrcKey(src)})
+    },[onSave, action, option, src])
 
     const actionHanler = (data: BaseAction) => {
         setAction(data)
@@ -43,7 +56,10 @@ export const EditComponentTemplateDialog = <T extends IComponents,>({onHide, onS
     return(
         <DialogPortal>
             <FullScrinTemplateDialog onHide={onHide} onSave={save}>
-                {children}
+                {
+                    (isGenerateContent(data)) && <ServerGenerateContentOption onChange={setSrc} data={src ?? TypeSrc.MANUAL}/>
+                }
+                {src === TypeSrc.MANUAL && children}
                 {
                     (isFetch(data) || isAction(data)) && <EditActionDialog data={action} onChange={actionHanler} fetchAction={fetchAction}/>
                 }

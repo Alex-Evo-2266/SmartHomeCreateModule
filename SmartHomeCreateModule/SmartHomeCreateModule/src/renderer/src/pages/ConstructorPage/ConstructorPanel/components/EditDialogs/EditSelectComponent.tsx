@@ -1,16 +1,16 @@
 import { ContentBox, MoreText } from 'alex-evo-sh-ui-kit'
 import { useCallback, useState } from 'react'
-import { ActionFetchTarget, ActionType, BaseAction, ISelect } from '@renderer/entites/module/models/components'
+import { ActionType, ISelect } from '@renderer/entites/module/models/components'
 import { EditDialogProps } from '../types'
-import { EditComponentTemplateDialog } from '../Templates/EditTemplate'
-import { IOption } from 'alex-evo-web-constructor'
+import { EditComponentTemplateDialog, Options } from '../Templates/EditTemplate'
 import { joinItems, SelectItens, splitItems } from '@renderer/pages/ConstructorPage/utils'
 
 export const EditSelectComponentDialog = ({onHide, onChange, data}:EditDialogProps<ISelect>) => {
 
     const [items, setItem] = useState<SelectItens>(data.items)
 
-    const save = useCallback((option: IOption, action: BaseAction | ActionFetchTarget)=>{
+    const save = useCallback((options: Options)=>{
+        const {option, action} = options
         if(action.action_type === ActionType.GET_REQUEST)
         {
             onChange({...data, action, option, items})

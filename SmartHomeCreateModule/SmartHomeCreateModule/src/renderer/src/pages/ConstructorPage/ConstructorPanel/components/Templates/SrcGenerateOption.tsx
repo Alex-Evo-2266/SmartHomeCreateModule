@@ -25,7 +25,7 @@ export const ServerGenerateContentOption = ({onChange, data}:ServerGenerateConte
     )
 }
 
-export function getSrcKey(src: TypeSrc):string | undefined{
+export function getSrcKey(src?: TypeSrc):string | undefined{
     if(src === TypeSrc.SERVER_GENERATE)
         return crypto.randomUUID()
     return

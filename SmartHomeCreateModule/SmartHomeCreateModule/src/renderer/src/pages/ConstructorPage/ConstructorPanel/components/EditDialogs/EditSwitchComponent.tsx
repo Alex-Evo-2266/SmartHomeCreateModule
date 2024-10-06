@@ -1,12 +1,12 @@
 import { useCallback } from 'react'
-import { ActionFetchTarget, ActionType, BaseAction, ISwitch } from '@renderer/entites/module/models/components'
+import { ActionType, ISwitch } from '@renderer/entites/module/models/components'
 import { EditDialogProps } from '../types'
-import { EditComponentTemplateDialog } from '../Templates/EditTemplate'
-import { IOption } from 'alex-evo-web-constructor'
+import { EditComponentTemplateDialog, Options } from '../Templates/EditTemplate'
 
 export const EditSwitchComponentDialog = ({onHide, onChange, data}:EditDialogProps<ISwitch>) => {
 
-    const save = useCallback((option: IOption, action: BaseAction | ActionFetchTarget)=>{
+    const save = useCallback((options: Options)=>{
+        const {option, action} = options
         if(action.action_type === ActionType.GET_REQUEST)
         {
             onChange({...data, action, option})

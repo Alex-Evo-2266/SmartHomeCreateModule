@@ -1,11 +1,12 @@
 import { IComponents, OneValueComponent } from "@renderer/entites/module/models/components"
 import { AddPageComponentDialog } from "@renderer/features/AddPageComponentDialog/ui/AddPageComponentDialog"
-import { BaseDialog, Button, ContentBox, FilledButton, OutlineButton } from "alex-evo-sh-ui-kit"
+import { BaseDialog, Button, ContentBox, OutlineButton } from "alex-evo-sh-ui-kit"
 import { useCallback, useState } from "react"
 import { ComponentBox } from "../Components"
 
 import { DialogPortal } from "@renderer/shared/ui"
 import { EditDialogProps } from "../types"
+import { Trash2 } from "lucide-react"
 
 interface ConstructorComponentProps<T extends IComponents>{
     component: T, 
@@ -41,7 +42,10 @@ export const OneValueComponentTemplate = <T extends OneValueComponent,>({compone
     const EditDialog = editDialog
 
     return(
-        <ContentBox hiding border label={component.type}>
+        <ContentBox hiding border label={component.type} action={{
+            icon: <Trash2 color="var(--Error-color)"/>,
+            onClick: ()=>setDeleteDialogVisible(true)
+        }}>
         {editDialog && <OutlineButton className="add-component-button" onClick={clickHandler}>edit</OutlineButton>}    
         {
             component.value?
@@ -52,11 +56,6 @@ export const OneValueComponentTemplate = <T extends OneValueComponent,>({compone
             />:
             <Button styleType='filled' className="add-component-button" onClick={()=>setAddDialogVisible(true)}>add</Button>
         }
-            <FilledButton 
-                style={{backgroundColor:'var(--Error-color)', color: 'var(--On-error-color)'}} 
-                className="delete-component-button" 
-                onClick={()=>setDeleteDialogVisible(true)}
-            >delete</FilledButton>
         {
             addDialogVisible && <AddPageComponentDialog onHide={()=>setAddDialogVisible(false)} onSelect={changeHanler}/>
         }

@@ -1,5 +1,5 @@
 
-import { Button } from 'alex-evo-sh-ui-kit'
+import { Button, TextButton, Typography } from 'alex-evo-sh-ui-kit'
 import './ConstructorPanel.scss'
 import { IComponents } from 'alex-evo-web-constructor'
 import { AddPageComponentDialog } from '@renderer/features/AddPageComponentDialog/ui/AddPageComponentDialog'
@@ -26,6 +26,10 @@ export const ConstructorPanel:React.FC<ConstructorPanelProps> = ({component, onC
     return(
         <>
         <div className="constructor-panel">
+            <div className='head-panel'>
+                <Typography type='title'>Constructor</Typography>
+                <TextButton onClick={()=>{window.location.pathname = '/home'}}>Save</TextButton>
+            </div>
             {!component && <Button onClick={()=>{window.location.pathname = '/home'}}>exit</Button>}
             {
                 (!component)?

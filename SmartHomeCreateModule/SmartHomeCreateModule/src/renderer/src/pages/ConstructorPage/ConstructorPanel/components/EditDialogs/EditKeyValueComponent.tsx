@@ -2,14 +2,14 @@ import { ContentBox, TextField } from 'alex-evo-sh-ui-kit'
 import { useCallback, useState } from 'react'
 import { EditDialogProps } from '../types'
 import { IKeyValue } from '@renderer/entites/module/models/components'
-import { IOption } from 'alex-evo-web-constructor'
-import { EditComponentTemplateDialog } from '../Templates/EditTemplate'
+import { EditComponentTemplateDialog, Options } from '../Templates/EditTemplate'
 
 export const EditKeyValueComponentDialog = ({onHide, onChange, data}:EditDialogProps<IKeyValue>) => {
 
     const [label, setLabel] = useState<string>(data.label)
 
-    const save = useCallback((option: IOption)=>{
+    const save = useCallback((options: Options)=>{
+        const {option} = options
         onChange({...data, option, label})
         onHide()
     },[onChange, data, label])

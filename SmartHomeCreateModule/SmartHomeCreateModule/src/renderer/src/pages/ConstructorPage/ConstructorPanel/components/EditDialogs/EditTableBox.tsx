@@ -1,27 +1,23 @@
 import { ContentBox } from 'alex-evo-sh-ui-kit'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { EditDialogProps } from '../types'
-import { IOption } from 'alex-evo-web-constructor'
-import { EditComponentTemplateDialog } from '../Templates/EditTemplate'
-import { BaseAction, TypeSrc } from '@renderer/entites/module/models/components'
+import { EditComponentTemplateDialog, Options } from '../Templates/EditTemplate'
 import { ITable } from '@renderer/entites/module/models/table'
-import { getSrcKey, ServerGenerateContentOption } from './SrcGenerateOption'
+import { getSrcKey } from '../Templates/SrcGenerateOption'
 
 export const EditTableComponentDialog = ({onHide, onChange, data}:EditDialogProps<ITable>) => {
 
-    const [src, setSrc] = useState<TypeSrc>(data.src ?? TypeSrc.MANUAL)
-
-    const save = useCallback((option: IOption, action: BaseAction)=>{
-        onChange({...data, option, action, src, src_key:getSrcKey(src)})
+    const save = useCallback((options:Options)=>{
+        const {option, action, src} = options
+        onChange({...data, option, action, src_key:getSrcKey(src)})
         onHide()
-    },[onChange, data, src])
+    },[onChange, data])
 
     return(
         <EditComponentTemplateDialog onHide={onHide} onSave={save} data={data}>
             <ContentBox label='base settings'>
                 <div></div>
             </ContentBox>
-            <ServerGenerateContentOption onChange={setSrc} data={src}/>
         </EditComponentTemplateDialog>
     )
 }

@@ -2,7 +2,9 @@ import { Card, FilledButton, ListContainer, ListItem, TextField } from 'alex-evo
 import './HomePage.scss'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@renderer/shared/lib/hooks/redux'
-import { setNameModule } from '@renderer/entites/module/lib/reducers/moduleReducer'
+import { loadModule, setNameModule } from '@renderer/entites/module/lib/reducers/moduleReducer'
+import { useEffect } from 'react'
+
 
 export const HomePage = () => {
 
@@ -14,6 +16,10 @@ export const HomePage = () => {
         dispatch(setNameModule(e.target.value))
     }
 
+    useEffect(()=>{
+        dispatch(loadModule())
+    },[dispatch])
+
     return(
         <>
         <div className='home-page'>
@@ -22,7 +28,6 @@ export const HomePage = () => {
                 <ListContainer transparent>
                     <ListItem header='Pages' hovered className='home-page-card-item' onClick={()=>navigate("/page")}/>
                     <ListItem header='API' hovered className='home-page-card-item' onClick={()=>navigate("/apiPage")}/>
-                    <ListItem header='time test'/>
                 </ListContainer>
                 <FilledButton>Save</FilledButton>
             </Card>

@@ -1,6 +1,6 @@
 import { IColumns, IComponents } from "@renderer/entites/module/models/components"
 import { AddPageComponentDialog } from "@renderer/features/AddPageComponentDialog/ui/AddPageComponentDialog"
-import { BaseDialog, Button, ContentBox, FilledButton, OutlineButton } from "alex-evo-sh-ui-kit"
+import { BaseDialog, Button, ContentBox, OutlineButton } from "alex-evo-sh-ui-kit"
 import { useCallback, useState } from "react"
 import { ComponentBox } from "./Components"
 
@@ -8,6 +8,7 @@ import './Columns.scss'
 import { EditColumnComponentDialog } from "./EditDialogs/EditColumnComponent"
 import { BasePropsComponent } from "./types"
 import { DialogPortal } from "@renderer/shared/ui"
+import { Trash2 } from "lucide-react"
 
 export const ColumnBox:React.FC<BasePropsComponent<IColumns>> = ({component, onChange, onDelete}) => {
 
@@ -42,7 +43,10 @@ export const ColumnBox:React.FC<BasePropsComponent<IColumns>> = ({component, onC
     },[onChange, component])
 
     return(
-        <ContentBox hiding border label={component.type}>
+        <ContentBox hiding border label={component.type} action={{
+            onClick: ()=>setDeleteDialogVisible(true),
+            icon: <Trash2 color="var(--Error-color)"/>
+        }}>
             <OutlineButton className="add-component-button" onClick={()=>setEditDialog(true)}>edit</OutlineButton>
         {
             Array(component.count).fill("").map((_, index)=>(
@@ -61,13 +65,6 @@ export const ColumnBox:React.FC<BasePropsComponent<IColumns>> = ({component, onC
                 </ContentBox>
             ))
         }
-            <FilledButton 
-                style={{backgroundColor:'var(--Error-color)', color: 'var(--On-error-color)'}} 
-                className="delete-component-button" 
-                onClick={()=>setDeleteDialogVisible(true)}
-            >
-                delete
-            </FilledButton>
         {
             addDialog !== null && <AddPageComponentDialog onHide={()=>setAddDialog(null)} onSelect={(data)=>addComponent(data, addDialog)}/>
         }
