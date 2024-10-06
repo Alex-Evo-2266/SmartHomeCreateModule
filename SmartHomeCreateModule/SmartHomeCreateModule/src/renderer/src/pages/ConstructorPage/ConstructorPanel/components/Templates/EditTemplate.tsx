@@ -17,7 +17,7 @@ export type Options = {
 }
 
 interface EditComponentTemplateDialogProps<T extends IComponents>{
-        optionVisible?: OptionVisible
+        optionVisible?: OptionVisible | null
         children?: React.ReactNode
         onSave: (data:Options)=>void
         data: T
@@ -59,11 +59,15 @@ export const EditComponentTemplateDialog = <T extends IComponents,>({onHide, onS
                 {
                     (isGenerateContent(data)) && <ServerGenerateContentOption onChange={setSrc} data={src ?? TypeSrc.MANUAL}/>
                 }
-                {src === TypeSrc.MANUAL && children}
+                {
+                    (!src || src === TypeSrc.MANUAL) && children
+                }
                 {
                     (isFetch(data) || isAction(data)) && <EditActionDialog data={action} onChange={actionHanler} fetchAction={fetchAction}/>
                 }
-                <EditOptionDialog option={optionVisible} data={option} onChange={optionHanler}/>
+                {
+                    optionVisible !== null && <EditOptionDialog option={optionVisible} data={option} onChange={optionHanler}/>
+                }
             </FullScrinTemplateDialog>
         </DialogPortal>
         

@@ -19,7 +19,7 @@ export const EditButtonComponentDialog = ({onHide, onChange, data}:EditDialogPro
     }
 
     return(
-        <EditComponentTemplateDialog onHide={onHide} onSave={save} data={data} optionVisible={{}}>
+        <EditComponentTemplateDialog onHide={onHide} onSave={save} data={data}>
             <ContentBox label='base settings'>
                 <TextField border placeholder='label' value={label} onChange={changeHanler}/>
             </ContentBox>

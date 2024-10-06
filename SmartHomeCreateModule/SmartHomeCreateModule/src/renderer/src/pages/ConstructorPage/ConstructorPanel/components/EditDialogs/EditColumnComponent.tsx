@@ -15,7 +15,7 @@ export const EditColumnComponentDialog = ({onHide, onChange, data}:EditDialogPro
     },[onChange, data, count])
 
     return(
-        <EditComponentTemplateDialog onHide={onHide} onSave={save} data={data} optionVisible={{}}>
+        <EditComponentTemplateDialog onHide={onHide} onSave={save} data={data} optionVisible={null}>
             <ContentBox label='base settings'>
                 <NumberField border min={1} max={10} value={count} onChange={setCount}/>
             </ContentBox>
