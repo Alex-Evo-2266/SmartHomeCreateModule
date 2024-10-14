@@ -10,7 +10,7 @@ interface PreviewProps{
 
 export const Preview = ({page}:PreviewProps) => {
 
-    const {dialog} = useAppSelector(state=>state.module)
+    const {dialog, menu} = useAppSelector(state=>state.module)
 
     const fetchFunc = (...arg) => {
         console.log(arg)
@@ -25,6 +25,7 @@ export const Preview = ({page}:PreviewProps) => {
             containerMenu={document.getElementById('menu-root')}
             containerModal={document.getElementById('modal-root')}
             dialogs={dialog.map(item=>mapDialog(item))}
+            menu={menu}
             data={mapComponent(page)}
         />
     )

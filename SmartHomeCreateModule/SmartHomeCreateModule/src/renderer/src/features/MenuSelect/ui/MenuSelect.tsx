@@ -15,18 +15,18 @@ export interface ISelectFieldProps{
     onBlur?: (e:React.FocusEvent<HTMLInputElement>)=>void
 }
 
-export const SelectDialog:React.FC<ISelectFieldProps> = (props) => {
+export const MenuSelect:React.FC<ISelectFieldProps> = (props) => {
 
-    const {dialog} = useAppSelector(state=>state.module)
+    const {menu} = useAppSelector(state=>state.module)
 
     const getItems = useCallback(() => {
-        const items:IOption[] = dialog
+        const items:IOption[] = menu
         .map(item=>({
             title: item.name,
             value: item.name
         }))
         return items
-    },[dialog])
+    },[menu])
 
     const changeHandler = useCallback((value:string) => {
         props.onChange && props.onChange(value)

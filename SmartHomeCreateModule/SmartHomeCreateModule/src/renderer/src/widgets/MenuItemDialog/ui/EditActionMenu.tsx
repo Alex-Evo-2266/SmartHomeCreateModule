@@ -4,7 +4,6 @@ import { ActionFetchTarget, ActionNoTarget, ActionSystemTarget, ActionTarget, Ac
 import { SelectURL } from '@renderer/features/UrlDialogs'
 import { TypeAPI } from '@renderer/entites/module/models/types'
 import { SelectDialog } from '@renderer/features/DialogSelect'
-import { MenuSelect } from '@renderer/features/MenuSelect'
 
 interface EditActionDialogProps{
     data: BaseAction,
@@ -85,8 +84,6 @@ export const EditActionDialog = ({onChange, data, fetchAction}:EditActionDialogP
                 <SelectURL border placeholder='target' typeAPI={TypeAPI.ACTION} value={data.action_target} onChange={changeTargetHanler}/>:
                 data.action_type === ActionType.DIALOG?
                 <SelectDialog border placeholder='target' value={data.action_target} onChange={changeTargetHanler}/>:
-                data.action_type === ActionType.MENU?
-                <MenuSelect border placeholder='target' value={data.action_target} onChange={changeTargetHanler}/>:
                 data.action_type === ActionType.LINK?
                 <TextField border placeholder='target' value={data.action_target} onChange={(e)=>changeTargetHanler(e.target.value)}/>:
                 null

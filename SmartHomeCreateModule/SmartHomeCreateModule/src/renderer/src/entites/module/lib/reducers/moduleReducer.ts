@@ -1,3 +1,4 @@
+import { IMenu } from "alex-evo-web-constructor"
 import { IAPI } from "../../models/APIModels/API"
 import { IModuleState } from "../../models/module"
 import { IDialog, IPage } from "../../models/pageModel"
@@ -8,6 +9,7 @@ export enum ModuleActionType{
     SET_NAME = "SET_NAME",
     SET_PAGE = "SET_PAGE",
     SET_DIALOG = "SET_DIALOG",
+    SET_MENU = "SET_MENU",
     SET_API = "SET_API",
     SAVE_MODULE = "SAVE_MODULE",
     LOAD_MODULE = "LOAD_MODULE"
@@ -25,6 +27,11 @@ export interface ModuleDialogAction{
     type: ModuleActionType.SET_DIALOG
     payload: IDialog[]
 }
+
+export interface ModuleMenuAction{
+    type: ModuleActionType.SET_MENU
+    payload: IMenu[]
+}
 export interface ModuleAPIAction{
     type: ModuleActionType.SET_API
     payload: IAPI[]
@@ -38,18 +45,18 @@ export interface ModuleLoadAction{
     type: ModuleActionType.LOAD_MODULE
 }
 
-export type ModuleAction = ModuleNameAction | ModulePageAction | ModuleAPIAction | ModuleSaveAction | ModuleLoadAction | ModuleDialogAction
+export type ModuleAction = ModuleNameAction | ModulePageAction | ModuleAPIAction | ModuleSaveAction | ModuleLoadAction | ModuleDialogAction | ModuleMenuAction
 
 const initState: IModuleState = {
     name: "",
     pages: [],
     api: [],
-    dialog: []
+    dialog: [],
+    menu: []
 }
 
 const _saveModule = (state:IModuleState):IModuleState => {
     window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state))
-    console.log("save",state)
     return state
 }
 
@@ -69,6 +76,8 @@ export const ModuleReducer = (state:IModuleState = initState, action:ModuleActio
             return _saveModule({...state, pages: action.payload})
         case ModuleActionType.SET_DIALOG:
             return _saveModule({...state, dialog: action.payload})
+        case ModuleActionType.SET_MENU:
+            return _saveModule({...state, menu: action.payload})
         case ModuleActionType.SAVE_MODULE:
             return _saveModule(state)
         case ModuleActionType.LOAD_MODULE:
@@ -82,6 +91,7 @@ export default ModuleReducer
 export const setNameModule = (payload: string):ModuleNameAction => ({type:ModuleActionType.SET_NAME, payload})
 export const setPageModule = (payload: IPage[]):ModulePageAction => ({type:ModuleActionType.SET_PAGE, payload})
 export const setDialogModule = (payload: IDialog[]):ModuleDialogAction => ({type:ModuleActionType.SET_DIALOG, payload})
+export const setMenuModule = (payload: IMenu[]):ModuleMenuAction => ({type:ModuleActionType.SET_MENU, payload})
 export const setAPIModule = (payload: IAPI[]):ModuleAPIAction => ({type:ModuleActionType.SET_API, payload})
 export const saveModule = ():ModuleSaveAction => ({type:ModuleActionType.SAVE_MODULE})
 export const loadModule = ():ModuleLoadAction => ({type:ModuleActionType.LOAD_MODULE})

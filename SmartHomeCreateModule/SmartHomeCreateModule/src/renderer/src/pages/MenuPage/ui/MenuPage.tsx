@@ -1,30 +1,30 @@
-import { setPageModule } from "@renderer/entites/module/lib/reducers/moduleReducer"
-import { AddPageDialog } from "@renderer/features/AddPageDialog/ui/AddPageDialog"
+import { setMenuModule } from "@renderer/entites/module/lib/reducers/moduleReducer"
 import { useAppDispatch, useAppSelector } from "@renderer/shared/lib/hooks/redux"
 import { FAB, EmptyPage } from 'alex-evo-sh-ui-kit'
-import { PageCard } from "@renderer/widgets/PageCard/ui/PageCard"
 import { useCallback, useState } from "react"
-import './PagesPage.scss'
 import { Navigation } from "@renderer/widgets/Navigation"
+import { MenuCard } from '@renderer/widgets/MenuCard'
+import { AddMenuDialog } from "@renderer/features/AddMenuDialog"
 
-export const PagesPage = () => {
 
-    const {pages} = useAppSelector(state=>state.module)
+export const MenuPage = () => {
+
+    const {menu} = useAppSelector(state=>state.module)
     const dispatch = useAppDispatch()
     const [addPageCArdVisible, setAddPageCardVisible] = useState<boolean>(false)
 
     const deleteHandler = useCallback((index:number) => {
-        dispatch(setPageModule(pages.filter((_, indexDialog)=>indexDialog !== index)))
-    },[pages, dispatch])
+        dispatch(setMenuModule(menu.filter((_, indexDialog)=>indexDialog !== index)))
+    },[menu, dispatch])
 
     return(
         <>
 		<Navigation/>
         <div className="page-container">
             {
-                (pages.length > 0)?
-                pages.map((item, index)=>(
-                    <PageCard name={item.name} url={item.url} page={item.page} key={index} index={index} onDelete={deleteHandler}/>
+                (menu.length > 0)?
+                menu.map((item, index)=>(
+                    <MenuCard name={item.name} components={item.components} key={index} index={index} onDelete={deleteHandler}/>
                 )):
                 <EmptyPage btn={{
                     text: "create",
@@ -34,10 +34,10 @@ export const PagesPage = () => {
         </div>
         <FAB onClick={()=>setAddPageCardVisible(true)} className="fab-in-page">+</FAB>
         {
-            (addPageCArdVisible) && <AddPageDialog onHide={()=>setAddPageCardVisible(false)} onCreate={(data)=>{
-                let page = pages.slice()
-                page.push(data)
-                dispatch(setPageModule(page))
+            addPageCArdVisible && <AddMenuDialog onHide={()=>setAddPageCardVisible(false)} onCreate={(data)=>{
+                let menus = menu.slice()
+                menus.push(data)
+                dispatch(setMenuModule(menus))
                 setAddPageCardVisible(false)
             }}/>
         }

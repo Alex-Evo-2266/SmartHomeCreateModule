@@ -1,10 +1,15 @@
 import { BaseActionCard, BasicTemplateDialog, Button, FilledButton, TextField } from 'alex-evo-sh-ui-kit'
 import React, { useCallback, useState } from "react"
-import { IDialog } from '../../../entites/module/models/pageModel'
+import { IMenu } from 'alex-evo-web-constructor'
 import { DialogPortal } from '@renderer/shared/ui'
 
-interface AddPageDialogProps{
-    onCreate:(data:IDialog)=>void
+interface AddMenuDialogProps{
+    onCreate:(data:IMenu)=>void
+    onHide:()=>void
+}
+
+interface AddPageDialogActionProps{
+    onSave:()=>void
     onHide:()=>void
 }
 
@@ -17,10 +22,9 @@ function ButtonsAction({onSave, onHide}:AddPageDialogActionProps){
     )
 }
 
-export const AddDialogDialog = ({onCreate, onHide}:AddPageDialogProps) => {
+export const AddMenuDialog = ({onCreate, onHide}:AddMenuDialogProps) => {
 
     const [name, setName] = useState<string>("")
-    const [title, setTitle] = useState<string>("")
 
     const nameHeandler = useCallback((event:React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value)
@@ -29,10 +33,9 @@ export const AddDialogDialog = ({onCreate, onHide}:AddPageDialogProps) => {
     const save = useCallback(()=>{
         onCreate({
             name,
-            title,
-            components: undefined
+            components: []
         })
-    },[onCreate, name, title])
+    },[onCreate, name])
 
     return(
         <DialogPortal>
@@ -40,17 +43,8 @@ export const AddDialogDialog = ({onCreate, onHide}:AddPageDialogProps) => {
                 <div className="add-page-dialog-container">
                     <TextField placeholder="name" border value={name} onChange={nameHeandler}/>
                 </div>
-                <div className="add-page-dialog-container">
-                    <TextField placeholder="title" border value={title} onChange={(e)=>setTitle(e.target.value)}/>
-                </div>
             </BasicTemplateDialog>
         </DialogPortal>
         
     )
 }
-
-interface AddPageDialogActionProps{
-    onSave:()=>void
-    onHide:()=>void
-}
-

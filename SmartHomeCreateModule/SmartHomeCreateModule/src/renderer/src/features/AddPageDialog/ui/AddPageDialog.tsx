@@ -3,6 +3,7 @@ import { IPage } from "@renderer/entites/module/models/pageModel"
 import { BaseActionCard, BasicTemplateDialog, Button, FilledButton, TextField } from 'alex-evo-sh-ui-kit'
 import { useCallback, useState } from "react"
 import './AddPageDialog.scss'
+import { DialogPortal } from "@renderer/shared/ui"
 
 interface AddPageDialogProps{
     onCreate:(data:IPage)=>void
@@ -31,14 +32,17 @@ export const AddPageDialog = ({onCreate, onHide}:AddPageDialogProps) => {
     },[onCreate, name, url])
 
     return(
-        <BasicTemplateDialog header="Add page" onHide={onHide} action={<ButtonsAction onHide={onHide} onSave={save}/>}>
-            <div className="add-page-dialog-container">
-                <TextField placeholder="name" border value={name} onChange={nameHeandler}/>
-            </div>
-            <div className="add-page-dialog-container">
-                <TextField placeholder="url" border onFocus={()=>setUrlFocus(true)} onBlur={()=>setUrlFocus(false)} value={(urlFocus)?url:getFullPageURL(url)} onChange={(e)=>setUrl(e.target.value)}/>
-            </div>
-        </BasicTemplateDialog>
+        <DialogPortal>
+            <BasicTemplateDialog header="Add page" onHide={onHide} action={<ButtonsAction onHide={onHide} onSave={save}/>}>
+                <div className="add-page-dialog-container">
+                    <TextField placeholder="name" border value={name} onChange={nameHeandler}/>
+                </div>
+                <div className="add-page-dialog-container">
+                    <TextField placeholder="url" border onFocus={()=>setUrlFocus(true)} onBlur={()=>setUrlFocus(false)} value={(urlFocus)?url:getFullPageURL(url)} onChange={(e)=>setUrl(e.target.value)}/>
+                </div>
+            </BasicTemplateDialog>
+        </DialogPortal>
+        
     )
 }
 

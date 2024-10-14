@@ -1,19 +1,17 @@
 import { BaseActionCard, BaseDialog, Card, FilledButton } from 'alex-evo-sh-ui-kit'
 import { useNavigate } from 'react-router-dom'
-import { IComponents } from '@renderer/entites/module/models/components'
-import './DialogCard.scss'
 import { useState } from 'react'
 import { DialogPortal } from '@renderer/shared/ui'
+import { IMenuItem } from 'alex-evo-web-constructor'
 
-interface DialogCardProps{
+interface MenuCardProps{
     name:string
-    title:string
-    components?: IComponents
+    components?: IMenuItem[]
     index: number
     onDelete:(index: number)=>void
 }
 
-export const DialogCard = ({name, title, index, onDelete}:DialogCardProps) => {
+export const MenuCard = ({name, index, onDelete}:MenuCardProps) => {
 
     const navigate = useNavigate()
     const [deleteDialogVisible, setDeleteDialogVisible] = useState(false)
@@ -23,9 +21,8 @@ export const DialogCard = ({name, title, index, onDelete}:DialogCardProps) => {
         <Card 
             className='page-card' 
             header={name} 
-            text={`title: ${title}`} 
             action={<BaseActionCard>
-                <FilledButton onClick={()=>navigate(`/dialog/constructor/${index}`)}>edit</FilledButton>
+                <FilledButton onClick={()=>navigate(`/menu/constructor/${index}`)}>edit</FilledButton>
                 <FilledButton style={{backgroundColor: "var(--Error-color)"}} onClick={()=>setDeleteDialogVisible(true)}>delete</FilledButton>
             </BaseActionCard>}
         />

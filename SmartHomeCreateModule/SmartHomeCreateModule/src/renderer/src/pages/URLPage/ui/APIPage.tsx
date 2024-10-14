@@ -57,7 +57,7 @@ export const URLPage = () => {
                 }} title="The API have not been created yet" hexColor="#FFF" style={{margin: "0",height: "100dvh"}}/>
             }
         </div>
-        <FAB onClick={()=>setEditAPICard("add")}>+</FAB>
+        <FAB onClick={()=>setEditAPICard("add")} className="fab-in-page">+</FAB>
         {
             (editAPICard)?
             <DialogPortal>
