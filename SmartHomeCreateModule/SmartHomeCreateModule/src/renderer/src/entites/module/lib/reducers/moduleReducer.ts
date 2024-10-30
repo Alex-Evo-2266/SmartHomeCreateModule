@@ -1,5 +1,5 @@
 import { IMenu } from "alex-evo-web-constructor"
-import { IAPI } from "../../models/APIModels/API"
+import { IAPI } from "../../models/API"
 import { IModuleState } from "../../models/module"
 import { IDialog, IPage } from "../../models/pageModel"
 

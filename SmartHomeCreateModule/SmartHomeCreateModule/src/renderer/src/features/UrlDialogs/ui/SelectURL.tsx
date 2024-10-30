@@ -5,7 +5,7 @@ import { DialogPortal } from "@renderer/shared/ui"
 import { SelectField } from "@renderer/shared/ui/Select/Select"
 import { useCallback, useState } from "react"
 import { EditAPIDialog } from "./EditAPIDialog"
-import { IAPI } from "@renderer/entites/module/models/APIModels/API"
+import { IAPI } from "@renderer/entites/module/models/API"
 import { useURL } from "@renderer/entites/Url"
 import { IOption } from "alex-evo-sh-ui-kit"
 

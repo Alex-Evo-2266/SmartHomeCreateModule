@@ -7,7 +7,7 @@ import { Navigation } from "@renderer/widgets/Navigation"
 import { DialogPortal } from "@renderer/shared/ui"
 import { APICard } from "@renderer/widgets/APICard"
 import { EditAPIDialog } from "@renderer/features/UrlDialogs"
-import { IAPI } from "@renderer/entites/module/models/APIModels/API"
+import { IAPI } from "@renderer/entites/module/models/API"
 import { TypeAPI } from "@renderer/entites/module/models/types"
 
 interface EditAPIData{

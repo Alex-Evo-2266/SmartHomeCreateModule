@@ -1,4 +1,4 @@
-import { TypeAPI } from "../types"
+import { TypeAPI } from "./types"
 
 export enum TypeRequest {
 	GET = "GET",

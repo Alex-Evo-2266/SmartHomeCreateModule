@@ -1,6 +1,6 @@
 import { useURL } from "@renderer/entites/Url"
 import { getAPIItem } from "@renderer/entites/module"
-import { IAPI } from "@renderer/entites/module/models/APIModels/API"
+import { IAPI } from "@renderer/entites/module/models/API"
 import { BaseActionCard, Card, FilledButton } from "alex-evo-sh-ui-kit"
 
 interface APICardProps{

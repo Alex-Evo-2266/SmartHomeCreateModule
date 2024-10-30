@@ -4,7 +4,7 @@ import { useCallback, useState } from "react"
 import { SelectField } from "@renderer/shared/ui"
 import { URL_ITEM } from "@renderer/entites/module"
 import { TypeAPI } from "@renderer/entites/module/models/types"
-import { IAPI, TypeRequest } from "@renderer/entites/module/models/APIModels/API"
+import { IAPI, TypeRequest } from "@renderer/entites/module/models/API"
 import { TypeComponent } from "alex-evo-web-constructor"
 
 interface AddPageDialogProps{

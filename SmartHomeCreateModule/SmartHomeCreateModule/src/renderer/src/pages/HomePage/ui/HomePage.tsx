@@ -9,7 +9,7 @@ import { useEffect } from 'react'
 export const HomePage = () => {
 
     const navigate = useNavigate()
-    const {name} = useAppSelector(state=>state.module)
+    const module = useAppSelector(state=>state.module)
     const dispatch = useAppDispatch()
 
     const nameHandler = (e:React.ChangeEvent<HTMLInputElement>)=>{
@@ -24,7 +24,7 @@ export const HomePage = () => {
         <>
         <div className='home-page'>
             <Card header='Module Creater' className='home-card'>
-                <TextField border placeholder='name module' onChange={nameHandler} value={name}/>
+                <TextField border placeholder='name module' onChange={nameHandler} value={module.name}/>
                 <ListContainer transparent>
                     <ListItem header='Pages' hovered className='home-page-card-item' onClick={()=>navigate("/page")}/>
                     <ListItem header='API' hovered className='home-page-card-item' onClick={()=>navigate("/apiPage")}/>
@@ -32,7 +32,7 @@ export const HomePage = () => {
                     <ListItem header='Dialogs' hovered className='home-page-card-item' onClick={()=>navigate("/dialog")}/>
                     <ListItem header='Menu' hovered className='home-page-card-item' onClick={()=>navigate("/menu")}/>
                 </ListContainer>
-                <FilledButton>Save</FilledButton>
+                <FilledButton onClick={()=>window.api.saveModule(module)}>Save</FilledButton>
             </Card>
         </div>
         </>

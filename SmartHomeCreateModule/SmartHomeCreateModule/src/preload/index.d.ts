@@ -1,9 +1,14 @@
 import { ElectronAPI } from '@electron-toolkit/preload'
+import {IModuleState} from '../main/schemas/models/module'
+
+interface API {
+  saveModule: (data:IModuleState)=>void
+}
 
 declare global {
   interface Window {
     electron: ElectronAPI
-    api: unknown
+    api: API
   }
   declare type RootState = import('../renderer/src/app/store/appStore').RootState
   declare type AppDispatch = import('../renderer/src/app/store/appStore').AppDispatch
