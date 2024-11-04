@@ -15,6 +15,6 @@ ${ROUTER_HEAD}
 		
 @router.get("/${api.url}")
 async def ${api.name}():
-	pass
+	return "ok"
 `
 }

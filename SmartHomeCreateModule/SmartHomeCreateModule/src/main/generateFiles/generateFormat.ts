@@ -16,8 +16,8 @@ export const mainFormater = (data:{[key:string]:string}) => {
 	let formaters = 'formaters = {\n\t'
 	for(const key in data)
 	{
-		file = file + MAIN_FORMATER_IMPORT + key + '\n'
-		formaters = formaters + key + ": " + data[key] + ',\n\t'
+		file = file + MAIN_FORMATER_IMPORT + "f" + data[key] + '\n'
+		formaters = formaters + "\"" + key + "\": f" + data[key] + '.formater,\n\t'
 	}
 	file = file + '\n\n' + formaters + "}"
 	return file

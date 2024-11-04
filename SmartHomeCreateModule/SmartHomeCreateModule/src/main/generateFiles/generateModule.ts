@@ -4,6 +4,7 @@ import JSZip from 'jszip'
 
 import {IModuleState} from '../schemas/models/module'
 import {generateAPI} from './generateAPI'
+import {generateModuleFile} from './generateModuleFile'
 import {generateformater, mainFormater} from './generateFormat'
 import { dialog } from 'electron';
 
@@ -46,10 +47,11 @@ export function generateModule(data: IModuleState)
 
     let formaters = {}
     for(let item of data.functions){
-        apiFormaters.file(`${deletetire(item.key)}.py`, generateformater())
-        formaters[item.key] = `${deletetire(item.key)}.formater`
+        apiFormaters.file(`f${deletetire(item.key)}.py`, generateformater())
+        formaters[item.key] = `${deletetire(item.key)}`
     }
     apiFormaters.file('__init__.py', mainFormater(formaters))
+    baseFolder.file('__init__.py', generateModuleFile())
 
     dialog.showSaveDialog({
         title: "Select the File Path to save",
