@@ -52,7 +52,8 @@ const initState: IModuleState = {
     pages: [],
     api: [],
     dialog: [],
-    menu: []
+    menu: [],
+    functions: []
 }
 
 const _saveModule = (state:IModuleState):IModuleState => {

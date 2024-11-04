@@ -7,10 +7,5 @@ export const URL_ITEM:ComponentItem<TypeAPI>[] = [
         title: "Action",
         icon: <MousePointerClick/>,
         data: TypeAPI.ACTION
-    },
-    {
-        title: "",
-        icon: <X/>,
-        data: TypeAPI.UNDEFINED
     }
 ]

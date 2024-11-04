@@ -1,5 +1,5 @@
 import { IAPI } from "./API"
-import { IDialog, IPage } from "./pageModel"
+import { IDialog, IPage, IFunction } from "./pageModel"
 import { IMenu as WebConstructorMenu } from "alex-evo-web-constructor"
 
 
@@ -9,4 +9,5 @@ export interface IModuleState{
 	api: IAPI[]
 	dialog: IDialog[]
 	menu: WebConstructorMenu[]
+	functions: IFunction[]
 }

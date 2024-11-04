@@ -3,7 +3,8 @@ import './HomePage.scss'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@renderer/shared/lib/hooks/redux'
 import { loadModule, setNameModule } from '@renderer/entites/module/lib/reducers/moduleReducer'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
+import { getFunction } from '@renderer/entites/module/lib/helpers/getFunction'
 
 
 export const HomePage = () => {
@@ -15,6 +16,13 @@ export const HomePage = () => {
     const nameHandler = (e:React.ChangeEvent<HTMLInputElement>)=>{
         dispatch(setNameModule(e.target.value))
     }
+
+    const {pages} = useAppSelector(state=>state.module)
+
+    const save = useCallback(() => {
+        const functions = pages.map(page=>getFunction(page.page)).flat()
+        window.api.saveModule({...module, functions})
+    },[pages])
 
     useEffect(()=>{
         dispatch(loadModule())
@@ -32,7 +40,7 @@ export const HomePage = () => {
                     <ListItem header='Dialogs' hovered className='home-page-card-item' onClick={()=>navigate("/dialog")}/>
                     <ListItem header='Menu' hovered className='home-page-card-item' onClick={()=>navigate("/menu")}/>
                 </ListContainer>
-                <FilledButton onClick={()=>window.api.saveModule(module)}>Save</FilledButton>
+                <FilledButton onClick={save}>Save</FilledButton>
             </Card>
         </div>
         </>

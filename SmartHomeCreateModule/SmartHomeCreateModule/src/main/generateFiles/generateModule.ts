@@ -1,11 +1,19 @@
 
-import path from 'path'
 import fs from 'fs'
 import JSZip from 'jszip'
 
 import {IModuleState} from '../schemas/models/module'
+import {generateAPI} from './generateAPI'
+import {generateformater, mainFormater} from './generateFormat'
 import { dialog } from 'electron';
 
+function escapeRegExp(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+  }
+
+function deletetire (str:string){
+    return str.replace(new RegExp(escapeRegExp('-'), 'g'), '')
+}
 
 export function generateModule(data: IModuleState)
 {
@@ -16,10 +24,9 @@ export function generateModule(data: IModuleState)
 	const pagesFolder = baseFolder.folder(`pages`)
 	const dialogsFolder = baseFolder.folder(`dialogs`)
 	const menuFolder = baseFolder.folder(`menu`)
-    if(!schemesFolder || !pagesFolder || !dialogsFolder || !menuFolder) return;
-
-
-
+	const apiFolder = baseFolder.folder(`api`)
+	const apiFormaters = baseFolder.folder(`formaters`)
+    if(!schemesFolder || !pagesFolder || !dialogsFolder || !menuFolder || !apiFolder || !apiFormaters) return;
 
     for(let item of data.pages){
         pagesFolder.file(`${item.name}.json`, JSON.stringify(item))
@@ -32,6 +39,17 @@ export function generateModule(data: IModuleState)
     for(let item of data.menu){
         menuFolder.file(`${item.name}.json`, JSON.stringify(item))
     }
+
+    for(let item of data.api){
+        apiFolder.file(`${item.name}.py`, generateAPI(item))
+    }
+
+    let formaters = {}
+    for(let item of data.functions){
+        apiFormaters.file(`${deletetire(item.key)}.py`, generateformater())
+        formaters[item.key] = `${deletetire(item.key)}.formater`
+    }
+    apiFormaters.file('__init__.py', mainFormater(formaters))
 
     dialog.showSaveDialog({
         title: "Select the File Path to save",

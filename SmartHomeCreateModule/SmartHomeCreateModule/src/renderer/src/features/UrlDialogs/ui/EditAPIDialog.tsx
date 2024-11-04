@@ -22,7 +22,7 @@ export const EditAPIDialog = ({onChange, onHide, index, data, typeComponentFixid
     const [url, setUrl] = useState<string>(data?.url ?? "")
     const [typeComponent, setTypeComponent] = useState<TypeAPI | undefined>(data?.use_type ?? typeComponentFixid ?? typeComponentFixidDefault)
     const [urlFocus, setUrlFocus] = useState<boolean>(false)
-    const {getFullURL} = useURL()
+    const {getFullURL, validURL} = useURL()
 
     const nameHeandler = useCallback((event:React.ChangeEvent<HTMLInputElement>) => {
         if (url == name)
@@ -31,18 +31,25 @@ export const EditAPIDialog = ({onChange, onHide, index, data, typeComponentFixid
     },[name, url])
 
     const save = useCallback(()=>{
-        onChange({
+        const api: IAPI = {
             name,
             url,
             type: TypeRequest.GET,
-            use_type: typeComponent || TypeAPI.UNDEFINED
-        }, index)
+            use_type: typeComponent || TypeAPI.ACTION
+        }
+        if(!isValidData(api)) return;
+        onChange(api, index)
         onHide()
     },[onChange, onHide, name, url, typeComponent])
 
-    function getSelectItem():{value: TypeComponent | string, title: string}[]{
-        const items:{value: TypeAPI | string, title: string}[] = URL_ITEM.map(item=>({value: item.data, title: item.title}))
-        return items
+    function isValidData(data:IAPI) {
+        if(!validURL(data.url))
+            return false
+        return true
+    }
+
+    function getSelectItem(): {value: TypeComponent | string, title: string}[] {
+        return URL_ITEM.map(item=>({value: item.data, title: item.title}))
     }
 
     const useHandler = (value:string) => {
@@ -58,7 +65,7 @@ export const EditAPIDialog = ({onChange, onHide, index, data, typeComponentFixid
                 <TextField placeholder="name" border value={name} onChange={nameHeandler}/>
             </div>
             <div className="add-page-dialog-container">
-                <TextField placeholder="url" border onFocus={()=>setUrlFocus(true)} onBlur={()=>setUrlFocus(false)} value={(urlFocus)?url:getFullURL(url)} onChange={(e)=>setUrl(e.target.value)}/>
+                <TextField error={!validURL(url)} placeholder="url" border onFocus={()=>setUrlFocus(true)} onBlur={()=>setUrlFocus(false)} value={(urlFocus)?url:getFullURL(url)} onChange={(e)=>setUrl(e.target.value)}/>
             </div>
             {
                 (!typeComponentFixid)?

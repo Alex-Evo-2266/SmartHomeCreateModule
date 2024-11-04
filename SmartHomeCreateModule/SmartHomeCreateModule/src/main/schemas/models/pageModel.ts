@@ -1,3 +1,4 @@
+import { TypeComponent } from "alex-evo-web-constructor"
 import { IComponents } from "./components"
 
 export interface IPage{
@@ -14,3 +15,9 @@ export interface IDialog{
         [key: string]: string;
     };
 } 
+
+export interface IFunction{
+    key: string
+    type: TypeComponent
+    name?: string
+}
