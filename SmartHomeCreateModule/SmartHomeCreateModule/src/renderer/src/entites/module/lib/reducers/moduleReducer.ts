@@ -1,5 +1,6 @@
 import { IMenu } from "alex-evo-web-constructor"
 import { IAPI } from "../../models/API"
+import { IDevice } from "../../models/device"
 import { IModuleState } from "../../models/module"
 import { IDialog, IPage } from "../../models/pageModel"
 
@@ -11,10 +12,20 @@ export enum ModuleActionType{
     SET_DIALOG = "SET_DIALOG",
     SET_MENU = "SET_MENU",
     SET_API = "SET_API",
+    SET_DEVICE = "SET_DEVICE",
     SAVE_MODULE = "SAVE_MODULE",
-    LOAD_MODULE = "LOAD_MODULE"
+    LOAD_MODULE = "LOAD_MODULE",
+    LOAD_FILE_MODULE = "LOAD_FILE_MODULE",
+    CLEAR = "CLEAR"
 }
 
+export interface ModuleClearAction{
+    type: ModuleActionType.CLEAR
+}
+export interface ModuleFileLoadAction{
+    type: ModuleActionType.LOAD_FILE_MODULE
+    payload: IModuleState
+}
 export interface ModuleNameAction{
     type: ModuleActionType.SET_NAME
     payload: string
@@ -36,6 +47,10 @@ export interface ModuleAPIAction{
     type: ModuleActionType.SET_API
     payload: IAPI[]
 }
+export interface ModuleDeviceAction{
+    type: ModuleActionType.SET_DEVICE
+    payload: IDevice[]
+}
 
 export interface ModuleSaveAction{
     type: ModuleActionType.SAVE_MODULE
@@ -45,7 +60,7 @@ export interface ModuleLoadAction{
     type: ModuleActionType.LOAD_MODULE
 }
 
-export type ModuleAction = ModuleNameAction | ModulePageAction | ModuleAPIAction | ModuleSaveAction | ModuleLoadAction | ModuleDialogAction | ModuleMenuAction
+export type ModuleAction = ModuleNameAction | ModulePageAction | ModuleAPIAction | ModuleSaveAction | ModuleLoadAction | ModuleDialogAction | ModuleMenuAction | ModuleDeviceAction | ModuleClearAction | ModuleFileLoadAction
 
 const initState: IModuleState = {
     name: "",
@@ -53,7 +68,8 @@ const initState: IModuleState = {
     api: [],
     dialog: [],
     menu: [],
-    functions: []
+    functions: [],
+    devices: []
 }
 
 const _saveModule = (state:IModuleState):IModuleState => {
@@ -79,6 +95,12 @@ export const ModuleReducer = (state:IModuleState = initState, action:ModuleActio
             return _saveModule({...state, dialog: action.payload})
         case ModuleActionType.SET_MENU:
             return _saveModule({...state, menu: action.payload})
+        case ModuleActionType.SET_DEVICE:
+            return _saveModule({...state, devices: action.payload})
+        case ModuleActionType.LOAD_FILE_MODULE:
+            return _saveModule(action.payload)
+        case ModuleActionType.CLEAR:
+            return _saveModule(initState)
         case ModuleActionType.SAVE_MODULE:
             return _saveModule(state)
         case ModuleActionType.LOAD_MODULE:
@@ -93,6 +115,9 @@ export const setNameModule = (payload: string):ModuleNameAction => ({type:Module
 export const setPageModule = (payload: IPage[]):ModulePageAction => ({type:ModuleActionType.SET_PAGE, payload})
 export const setDialogModule = (payload: IDialog[]):ModuleDialogAction => ({type:ModuleActionType.SET_DIALOG, payload})
 export const setMenuModule = (payload: IMenu[]):ModuleMenuAction => ({type:ModuleActionType.SET_MENU, payload})
+export const setDeviceModule = (payload: IDevice[]):ModuleDeviceAction => ({type:ModuleActionType.SET_DEVICE, payload})
 export const setAPIModule = (payload: IAPI[]):ModuleAPIAction => ({type:ModuleActionType.SET_API, payload})
 export const saveModule = ():ModuleSaveAction => ({type:ModuleActionType.SAVE_MODULE})
 export const loadModule = ():ModuleLoadAction => ({type:ModuleActionType.LOAD_MODULE})
+export const loadFileModule = (payload: IModuleState):ModuleFileLoadAction => ({type:ModuleActionType.LOAD_FILE_MODULE, payload})
+export const clearModule = ():ModuleClearAction => ({type:ModuleActionType.CLEAR})

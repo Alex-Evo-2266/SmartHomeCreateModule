@@ -3,6 +3,7 @@ import {IModuleState} from '../main/schemas/models/module'
 
 interface API {
   saveModule: (data:IModuleState)=>void
+  loadModule: ()=>Promise<IModuleState>
 }
 
 declare global {

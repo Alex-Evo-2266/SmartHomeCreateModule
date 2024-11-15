@@ -5,7 +5,8 @@ import {IModuleState} from '../main/schemas/models/module'
 
 // Custom APIs for renderer
 const api = {
-  saveModule: (data:IModuleState) => ipcRenderer.send('save-module', data)
+  saveModule: (data:IModuleState) => ipcRenderer.send('save-module', data),
+  loadModule: () => ipcRenderer.invoke('load-module')
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

@@ -7,6 +7,7 @@ import {generateAPI} from './generateAPI'
 import {generateModuleFile} from './generateModuleFile'
 import {generateformater, mainFormater} from './generateFormat'
 import { dialog } from 'electron';
+import { generateDeviceClass, generateDeviceModule } from './generateDeviceClass'
 
 function escapeRegExp(str) {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
@@ -19,15 +20,21 @@ function deletetire (str:string){
 export function generateModule(data: IModuleState)
 {
     const zip = new JSZip();
-	const baseFolder = zip.folder(`${data.name}_module`)
-    if(!baseFolder) return;
-	const schemesFolder = baseFolder.folder(`schemes`)
-	const pagesFolder = baseFolder.folder(`pages`)
-	const dialogsFolder = baseFolder.folder(`dialogs`)
-	const menuFolder = baseFolder.folder(`menu`)
-	const apiFolder = baseFolder.folder(`api`)
-	const apiFormaters = baseFolder.folder(`formaters`)
-    if(!schemesFolder || !pagesFolder || !dialogsFolder || !menuFolder || !apiFolder || !apiFormaters) return;
+	const pageModulFolder = zip.folder(`${data.name}_module`)
+	const deviceModulFolder = zip.folder(`${data.name}_device_module`)
+    if(!pageModulFolder || !deviceModulFolder) return;
+	const schemesFolder = pageModulFolder.folder(`schemes`)
+	const pagesFolder = pageModulFolder.folder(`pages`)
+	const dialogsFolder = pageModulFolder.folder(`dialogs`)
+	const menuFolder = pageModulFolder.folder(`menu`)
+	const apiFolder = pageModulFolder.folder(`api`)
+	const apiFormaters = pageModulFolder.folder(`formaters`)
+	const moduleData = pageModulFolder.folder(`createModuleData`)
+
+	const devicesFormaters = deviceModulFolder.folder(`devices`)
+    if(!schemesFolder || !pagesFolder || !dialogsFolder || !menuFolder || !apiFolder || !apiFormaters || !devicesFormaters || !moduleData) return;
+
+    moduleData.file('data.json', JSON.stringify(data))
 
     for(let item of data.pages){
         pagesFolder.file(`${item.name}.json`, JSON.stringify(item))
@@ -45,13 +52,18 @@ export function generateModule(data: IModuleState)
         apiFolder.file(`${item.name}.py`, generateAPI(item))
     }
 
+    for(let item of data.devices){
+        devicesFormaters.file(`${item.name}.py`, generateDeviceClass(item))
+    }
+    deviceModulFolder.file('__init__.py', generateDeviceModule())
+
     let formaters = {}
     for(let item of data.functions){
         apiFormaters.file(`f${deletetire(item.key)}.py`, generateformater())
         formaters[item.key] = `${deletetire(item.key)}`
     }
     apiFormaters.file('__init__.py', mainFormater(formaters))
-    baseFolder.file('__init__.py', generateModuleFile())
+    pageModulFolder.file('__init__.py', generateModuleFile())
 
     dialog.showSaveDialog({
         title: "Select the File Path to save",

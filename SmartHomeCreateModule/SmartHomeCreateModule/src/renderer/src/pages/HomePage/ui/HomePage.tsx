@@ -1,8 +1,8 @@
-import { Card, FilledButton, ListContainer, ListItem, TextField } from 'alex-evo-sh-ui-kit'
+import { Button, Card, FilledButton, ListContainer, ListItem, TextField } from 'alex-evo-sh-ui-kit'
 import './HomePage.scss'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@renderer/shared/lib/hooks/redux'
-import { loadModule, setNameModule } from '@renderer/entites/module/lib/reducers/moduleReducer'
+import { clearModule, loadFileModule, loadModule, setNameModule } from '@renderer/entites/module/lib/reducers/moduleReducer'
 import { useCallback, useEffect } from 'react'
 import { getFunction } from '@renderer/entites/module/lib/helpers/getFunction'
 
@@ -24,6 +24,20 @@ export const HomePage = () => {
         window.api.saveModule({...module, functions})
     },[pages])
 
+    const load = useCallback(() => {
+        window.api.loadModule()
+        .then(data=>{
+            if(!data)
+                return
+            dispatch(loadFileModule(data))
+        })
+        .catch(e=>console.error(e))
+    },[pages])
+
+    const newModule = useCallback(() => {
+        dispatch(clearModule())
+    },[pages])
+
     useEffect(()=>{
         dispatch(loadModule())
     },[dispatch])
@@ -39,7 +53,10 @@ export const HomePage = () => {
                     <ListItem header='Function' hovered className='home-page-card-item' onClick={()=>navigate("/function")}/>
                     <ListItem header='Dialogs' hovered className='home-page-card-item' onClick={()=>navigate("/dialog")}/>
                     <ListItem header='Menu' hovered className='home-page-card-item' onClick={()=>navigate("/menu")}/>
+                    <ListItem header='Devices' hovered className='home-page-card-item' onClick={()=>navigate("/devices")}/>
                 </ListContainer>
+                <Button onClick={newModule}>New</Button>
+                <Button onClick={load}>Load</Button>
                 <FilledButton onClick={save}>Save</FilledButton>
             </Card>
         </div>

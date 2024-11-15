@@ -9,6 +9,7 @@ import { ConstructorPage } from "@renderer/pages/ConstructorPage/indes"
 import { ConstructorDialog } from "@renderer/pages/ConstructorDialogPage"
 import { MenuPage } from "@renderer/pages/MenuPage/ui/MenuPage"
 import { ConstructorMenu } from "@renderer/pages/MenuConstructorPage"
+import { DevicesPage } from "@renderer/pages/DevicesPage"
 
 
 export const useRoutes = ()=>{
@@ -24,6 +25,7 @@ export const useRoutes = ()=>{
 				<Route path="dialog" element={<DialogsPage/>}/>
 				<Route path="menu/constructor/:index" element={<ConstructorMenu/>}/>
 				<Route path="menu" element={<MenuPage/>}/>
+				<Route path="devices" element={<DevicesPage/>}/>
 				<Route path="apiPage" element={<URLPage/>}/>
 				<Route path="function" element={<FunctionPage/>}/>
 				<Route path="/*" element={<Navigate replace to="/home" />} />

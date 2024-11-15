@@ -1,4 +1,5 @@
 import { IAPI } from "./API"
+import { IDevice } from "./device"
 import { IDialog, IPage, IFunction } from "./pageModel"
 import { IMenu as WebConstructorMenu } from "alex-evo-web-constructor"
 
@@ -10,6 +11,7 @@ export interface IModuleState{
 	functions: IFunction[]
 	dialog: IDialog[]
 	menu: WebConstructorMenu[]
+	devices: IDevice[]
 }
 
 export interface ComponentItem<T> {

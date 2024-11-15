@@ -1,4 +1,4 @@
-import { IComponents } from "../../models/pageModel"
+import { IComponents } from "../../models/components"
 
 export interface IAddComponentState{
     component: IComponents | undefined

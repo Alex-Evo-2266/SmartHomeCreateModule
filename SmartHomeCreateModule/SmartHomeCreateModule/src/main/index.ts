@@ -4,6 +4,7 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
 import {generateModule} from './generateFiles/generateModule'
+import { loadModule } from './loadModule/loadModule'
 
 function createWindow(): void {
   // Create the browser window.
@@ -59,6 +60,10 @@ app.whenReady().then(() => {
   ipcMain.on('save-module', (event, arg) => {
     console.log(event, arg)
     generateModule(arg)
+  })
+
+  ipcMain.handle('load-module', () => {
+    return loadModule()
   })
 
   createWindow()
