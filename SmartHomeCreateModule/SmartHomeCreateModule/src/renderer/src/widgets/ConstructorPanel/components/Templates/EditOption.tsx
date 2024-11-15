@@ -4,6 +4,8 @@ import { OptionVisible } from '../types'
 import { ColorField } from '@renderer/shared/ui'
 import { ContentBox, NumberField, SigmentedButton, TextField } from 'alex-evo-sh-ui-kit'
 
+const NONE_COLOR = 'none_color'
+
 interface EditActionDialogProps{
     data: IOption,
     onChange: (data:IOption)=>void
@@ -13,10 +15,14 @@ interface EditActionDialogProps{
 export const EditOptionDialog = ({onChange, data, option}:EditActionDialogProps) => {
 
     const changeBackgroundColor = useCallback((value) => {
+        if (value === NONE_COLOR)
+            value = undefined
         onChange({...data, backgroundColor: value})
     },[onChange, data])
 
     const changeColor = useCallback((value) => {
+        if (value === NONE_COLOR)
+            value = undefined
         onChange({...data, color: value})
     },[onChange, data])
 
@@ -35,10 +41,10 @@ export const EditOptionDialog = ({onChange, data, option}:EditActionDialogProps)
     return(
         <ContentBox label='option' hiding border style={{margin: "0 10px"}}>
             {
-                (!option || option?.backgroundColor) && <ColorField border value={data.backgroundColor} onChange={changeBackgroundColor}/>
+                (!option || option?.backgroundColor) && <ColorField placeholder='background' def={NONE_COLOR} border value={data.backgroundColor} onChange={changeBackgroundColor}/>
             }
             {
-                (!option || option?.color) && <ColorField border value={data.color} onChange={changeColor}/>
+                (!option || option?.color) && <ColorField def={NONE_COLOR} placeholder='text' border value={data.color} onChange={changeColor}/>
             }
             {
                 (!option || option?.borderRadius) && <NumberField placeholder='borderRadius' name='borderRadius' border value={data.borderRadius} onChange={changeNumber}/>

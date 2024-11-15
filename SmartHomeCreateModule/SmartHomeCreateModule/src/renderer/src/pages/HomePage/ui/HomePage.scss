@@ -4,11 +4,19 @@
     align-items: center;
     height: 100dvh;
     .home-card{
+        ul{
+            margin-block: 0;
+        }
         min-width: calc(80dvw - 80px);
         li.home-page-card-item{
-            .header{
-                font-size: 24px;
-            }
+            // .header{
+            //     font-size: 24px;
+            // }
         }
+    }
+    .home-page-flex{
+        display: flex;
+        font-size: 100%;
+        justify-content: space-around;
     }
 }

@@ -18,3 +18,5 @@ export {FilterBtn} from './Filter/Filter'
 export {DialogPortal} from './DialogPortal/DialogPortal'
 
 export {ColorField} from './ColorField/ColorField'
+
+export {IconButtonMenu} from './IconButtonMenu/IconButtonMenu'

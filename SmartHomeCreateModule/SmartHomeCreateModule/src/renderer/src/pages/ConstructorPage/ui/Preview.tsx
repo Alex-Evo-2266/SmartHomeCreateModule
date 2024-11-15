@@ -20,13 +20,16 @@ export const Preview = ({page}:PreviewProps) => {
         return (null)
 
     return(
-        <WebConstructor 
-            fetchFunction={fetchFunc}
-            containerMenu={document.getElementById('menu-root')}
-            containerModal={document.getElementById('modal-root')}
-            dialogs={dialog.map(item=>mapDialog(item))}
-            menu={menu}
-            data={mapComponent(page)}
-        />
+        <div style={{overflowY: 'scroll'}}>
+            <WebConstructor 
+                fetchFunction={fetchFunc}
+                containerMenu={document.getElementById('menu-root')}
+                containerModal={document.getElementById('modal-root')}
+                dialogs={dialog.map(item=>mapDialog(item))}
+                menu={menu}
+                data={mapComponent(page)}
+            />
+        </div>
+        
     )
 }

@@ -1,13 +1,12 @@
-import { useNavigate } from 'react-router-dom'
 import './FunctionPage.scss'
-import { Button, Card, GridLayout, GridLayoutItem } from 'alex-evo-sh-ui-kit'
+import { Card, GridLayout, GridLayoutItem } from 'alex-evo-sh-ui-kit'
 import { useCallback } from 'react'
 import { useAppSelector } from '@renderer/shared/lib/hooks/redux'
 import { getFunction } from '@renderer/entites/module/lib/helpers/getFunction'
+import { Navigation } from '@renderer/widgets/Navigation'
 
 export const FunctionPage = () => {
 
-    const navigate = useNavigate()
     const {pages} = useAppSelector(state=>state.module)
 
     const getFunctionbyPages = useCallback(() => {
@@ -15,17 +14,19 @@ export const FunctionPage = () => {
     },[pages])
 
     return(
-        <div className='home-page'>
-            <Button onClick={()=>navigate('/home')}>home</Button>
-            <GridLayout>
-            {
-                getFunctionbyPages().map((item, index)=>(
-                    <GridLayoutItem key={index}>
-                        <Card header={item.type} subhead={item.key}></Card>
-                    </GridLayoutItem>
-                ))
-            }
-            </GridLayout>
-        </div>
+        <>
+            <Navigation/>
+            <div className='page-container'>
+                <GridLayout>
+                {
+                    getFunctionbyPages().map((item, index)=>(
+                        <GridLayoutItem key={index}>
+                            <Card header={item.type} subhead={item.key}></Card>
+                        </GridLayoutItem>
+                    ))
+                }
+                </GridLayout>
+            </div>
+        </>
     )
 }

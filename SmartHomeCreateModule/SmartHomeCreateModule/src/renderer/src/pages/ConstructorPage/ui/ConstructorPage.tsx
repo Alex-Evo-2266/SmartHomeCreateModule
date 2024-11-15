@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo } from 'react'
 import { IComponents } from '@renderer/entites/module/models/components'
 import { setPageModule } from '@renderer/entites/module/lib/reducers/moduleReducer'
 import { Preview } from './Preview'
+import './ConstructorPage.scss'
 
 export const ConstructorPage:React.FC = () => {
 
@@ -25,7 +26,7 @@ export const ConstructorPage:React.FC = () => {
     },[page])
 
     return(
-        <div>
+        <div className='constructor-page'>
             <ConstructorPanel component={page} onChange={changeHandler}/>
             <Preview page={page}/>
         </div>

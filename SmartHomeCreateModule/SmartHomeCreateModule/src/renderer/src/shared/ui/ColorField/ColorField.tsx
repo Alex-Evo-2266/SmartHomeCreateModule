@@ -8,6 +8,8 @@ interface IColorFieldProps{
     transparent?: boolean
     userColor?: string[]
     onAddColor?: (colors: string[])=>void
+    placeholder?: string
+    def?: string
 }
 
 export const ColorField = (props:IColorFieldProps) => {
