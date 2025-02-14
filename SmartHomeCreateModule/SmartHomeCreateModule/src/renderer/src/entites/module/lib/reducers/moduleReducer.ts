@@ -2,7 +2,7 @@ import { IMenu } from "alex-evo-web-constructor"
 import { IAPI } from "../../models/API"
 import { IDevice } from "../../models/device"
 import { IModuleState } from "../../models/module"
-import { IDialog, IPage } from "../../models/pageModel"
+import { IDialog, IFunction, IPage } from "../../models/pageModel"
 
 const LOCAL_STORAGE_KEY = "create-module-state"
 
@@ -13,6 +13,7 @@ export enum ModuleActionType{
     SET_MENU = "SET_MENU",
     SET_API = "SET_API",
     SET_DEVICE = "SET_DEVICE",
+    SET_FUNCTION = "SET_FUNCTION",
     SAVE_MODULE = "SAVE_MODULE",
     LOAD_MODULE = "LOAD_MODULE",
     LOAD_FILE_MODULE = "LOAD_FILE_MODULE",
@@ -52,6 +53,11 @@ export interface ModuleDeviceAction{
     payload: IDevice[]
 }
 
+export interface ModuleFunctionAction{
+    type: ModuleActionType.SET_FUNCTION
+    payload: IFunction[]
+}
+
 export interface ModuleSaveAction{
     type: ModuleActionType.SAVE_MODULE
 }
@@ -60,7 +66,7 @@ export interface ModuleLoadAction{
     type: ModuleActionType.LOAD_MODULE
 }
 
-export type ModuleAction = ModuleNameAction | ModulePageAction | ModuleAPIAction | ModuleSaveAction | ModuleLoadAction | ModuleDialogAction | ModuleMenuAction | ModuleDeviceAction | ModuleClearAction | ModuleFileLoadAction
+export type ModuleAction = ModuleNameAction | ModuleFunctionAction | ModulePageAction | ModuleAPIAction | ModuleSaveAction | ModuleLoadAction | ModuleDialogAction | ModuleMenuAction | ModuleDeviceAction | ModuleClearAction | ModuleFileLoadAction
 
 const initState: IModuleState = {
     name: "",
@@ -97,6 +103,8 @@ export const ModuleReducer = (state:IModuleState = initState, action:ModuleActio
             return _saveModule({...state, menu: action.payload})
         case ModuleActionType.SET_DEVICE:
             return _saveModule({...state, devices: action.payload})
+        case ModuleActionType.SET_FUNCTION:
+            return _saveModule({...state, functions: action.payload})
         case ModuleActionType.LOAD_FILE_MODULE:
             return _saveModule(action.payload)
         case ModuleActionType.CLEAR:
@@ -115,6 +123,7 @@ export const setNameModule = (payload: string):ModuleNameAction => ({type:Module
 export const setPageModule = (payload: IPage[]):ModulePageAction => ({type:ModuleActionType.SET_PAGE, payload})
 export const setDialogModule = (payload: IDialog[]):ModuleDialogAction => ({type:ModuleActionType.SET_DIALOG, payload})
 export const setMenuModule = (payload: IMenu[]):ModuleMenuAction => ({type:ModuleActionType.SET_MENU, payload})
+export const setFunctionModule = (payload: IFunction[]):ModuleFunctionAction => ({type:ModuleActionType.SET_FUNCTION, payload})
 export const setDeviceModule = (payload: IDevice[]):ModuleDeviceAction => ({type:ModuleActionType.SET_DEVICE, payload})
 export const setAPIModule = (payload: IAPI[]):ModuleAPIAction => ({type:ModuleActionType.SET_API, payload})
 export const saveModule = ():ModuleSaveAction => ({type:ModuleActionType.SAVE_MODULE})

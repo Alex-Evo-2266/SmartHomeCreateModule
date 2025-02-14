@@ -5,9 +5,12 @@ import { ActionFetchTarget, ActionType, BaseAction, IComponents, TypeSrc } from 
 import { OptionVisible } from '../types'
 import { EditActionDialog } from './EditAction'
 import { IOption } from 'alex-evo-web-constructor'
-import { isAction, isFetch, isGenerateContent } from '@renderer/entites/module/lib/helpers/utils'
+import { isAction, isContainerMoreComponents, isFetch, isGenerateContent } from '@renderer/entites/module/lib/helpers/utils'
 import { EditOptionDialog } from './EditOption'
 import { getSrcKey, ServerGenerateContentOption } from './SrcGenerateOption'
+import { useAppDispatch, useAppSelector } from '@renderer/shared/lib/hooks/redux'
+import { setFunctionModule } from '@renderer/entites/module/lib/reducers/moduleReducer'
+import { FORMATER_FILE_TENPLATE } from '@renderer/entites/module/lib/consts/functions'
 
 export type Options = {
     option: IOption,
@@ -28,6 +31,8 @@ interface EditComponentTemplateDialogProps<T extends IComponents>{
 export const EditComponentTemplateDialog = <T extends IComponents,>({onHide, onSave, data, optionVisible, children, fetchAction}:EditComponentTemplateDialogProps<T>) => {
 
     const [option, setOption] = useState<IOption>(data.option ?? {})
+    const {functions} = useAppSelector(state=>state.module)
+    const dispatch = useAppDispatch()
     const [src, setSrc] = useState<TypeSrc | undefined>(function(data: T){
         if(isGenerateContent(data))
             return data.src ?? TypeSrc.MANUAL
@@ -42,8 +47,28 @@ export const EditComponentTemplateDialog = <T extends IComponents,>({onHide, onS
     }(data, fetchAction ?? false))
 
     const save = useCallback(()=>{
-        onSave({option, action, src, src_key:getSrcKey(src)})
-    },[onSave, action, option, src])
+        if(isContainerMoreComponents(data) && src !== data.src){
+            if(data.src_key){
+                dispatch(setFunctionModule(functions.filter(item=>item.key !== data.src_key)))
+            }
+            const src_key = getSrcKey(src)
+            if(src_key){
+                dispatch(setFunctionModule([...functions, {
+                    key: src_key,
+                    type: data.type,
+                    name: data.name,
+                    code: FORMATER_FILE_TENPLATE
+                }]))
+            }
+            onSave({option, action, src, src_key:src_key})
+        }
+        else if(isContainerMoreComponents(data)){
+            onSave({option, action, src, src_key:data.src_key})
+        }
+        else{
+            onSave({option, action, src, src_key:undefined})
+        }
+    },[onSave, action, option, src, data])
 
     const actionHanler = (data: BaseAction) => {
         setAction(data)

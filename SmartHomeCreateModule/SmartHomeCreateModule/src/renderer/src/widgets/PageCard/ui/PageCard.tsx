@@ -1,4 +1,3 @@
-import './PageCard.scss'
 import { BaseActionCard, BaseDialog, Card, FilledButton } from 'alex-evo-sh-ui-kit'
 import { useURL } from '@renderer/entites/Url'
 import { useNavigate } from 'react-router-dom'

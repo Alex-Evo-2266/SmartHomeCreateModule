@@ -5,7 +5,7 @@ import JSZip from 'jszip'
 import {IModuleState} from '../schemas/models/module'
 import {generateAPI} from './generateAPI'
 import {generateModuleFile} from './generateModuleFile'
-import {generateformater, mainFormater} from './generateFormat'
+import { mainFormater} from './generateFormat'
 import { dialog } from 'electron';
 import { generateDeviceClass, generateDeviceModule } from './generateDeviceClass'
 
@@ -59,7 +59,7 @@ export function generateModule(data: IModuleState)
 
     let formaters = {}
     for(let item of data.functions){
-        apiFormaters.file(`f${deletetire(item.key)}.py`, generateformater())
+        apiFormaters.file(`f${deletetire(item.key)}.py`, item.code)
         formaters[item.key] = `${deletetire(item.key)}`
     }
     apiFormaters.file('__init__.py', mainFormater(formaters))

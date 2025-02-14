@@ -10,6 +10,7 @@ import { ConstructorDialog } from "@renderer/pages/ConstructorDialogPage"
 import { MenuPage } from "@renderer/pages/MenuPage/ui/MenuPage"
 import { ConstructorMenu } from "@renderer/pages/MenuConstructorPage"
 import { DevicesPage } from "@renderer/pages/DevicesPage"
+import { FunctionEditPage } from "@renderer/pages/FunctionEditPage"
 
 
 export const useRoutes = ()=>{
@@ -27,6 +28,7 @@ export const useRoutes = ()=>{
 				<Route path="menu" element={<MenuPage/>}/>
 				<Route path="devices" element={<DevicesPage/>}/>
 				<Route path="apiPage" element={<URLPage/>}/>
+				<Route path="function/constructor/:key" element={<FunctionEditPage/>}/>
 				<Route path="function" element={<FunctionPage/>}/>
 				<Route path="/*" element={<Navigate replace to="/home" />} />
 			</Route>

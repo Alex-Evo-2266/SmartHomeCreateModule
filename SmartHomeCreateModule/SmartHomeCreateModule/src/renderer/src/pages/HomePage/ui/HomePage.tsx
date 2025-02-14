@@ -1,10 +1,9 @@
-import { Button, Card, ContentBox, FilledButton, IBlock, ListContainer, ListItem, TextField } from 'alex-evo-sh-ui-kit'
+import { Card, ContentBox, FilledButton, IBlock, ListContainer, ListItem, TextField } from 'alex-evo-sh-ui-kit'
 import './HomePage.scss'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@renderer/shared/lib/hooks/redux'
 import { clearModule, loadFileModule, loadModule, setNameModule } from '@renderer/entites/module/lib/reducers/moduleReducer'
 import { useCallback, useEffect } from 'react'
-import { getFunction } from '@renderer/entites/module/lib/helpers/getFunction'
 import { DotIcon } from 'lucide-react'
 import { IconButtonMenu } from '@renderer/shared/ui'
 
@@ -22,8 +21,7 @@ export const HomePage = () => {
     const {pages} = useAppSelector(state=>state.module)
 
     const save = useCallback(() => {
-        const functions = pages.map(page=>getFunction(page.page)).flat()
-        window.api.saveModule({...module, functions})
+        window.api.saveModule({...module})
     },[pages])
 
     const load = useCallback(() => {
@@ -56,6 +54,10 @@ export const HomePage = () => {
             }
         ]
     }]
+
+    useEffect(()=>{
+        console.log(module)
+    },[module])
 
     return(
         <>

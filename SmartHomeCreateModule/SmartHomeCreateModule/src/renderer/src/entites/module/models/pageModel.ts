@@ -5,6 +5,7 @@ export interface IFunction{
     key: string
     type: TypeComponent
     name?: string
+	code: string
 }
 
 export interface IPage{
