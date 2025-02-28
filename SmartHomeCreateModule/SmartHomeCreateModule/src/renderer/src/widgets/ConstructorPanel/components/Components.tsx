@@ -16,6 +16,8 @@ import { SwitchBox } from "./Switch"
 import { SendTextBox } from "./SendText"
 import { SliderBox } from "./Slider"
 import { TableBox } from "./Table"
+import { JSON } from "./JSON"
+import { ContentBox } from "./ContentBox"
 
 export const ComponentBox = ({component, onChange, onDelete}:BasePropsComponent<IComponents>) => {
 
@@ -34,7 +36,9 @@ export const ComponentBox = ({component, onChange, onDelete}:BasePropsComponent<
         [TypeComponent.SEND_TEXT]: SendTextBox,
         [TypeComponent.SLIDER]: SliderBox,
         [TypeComponent.SWITCH]: SwitchBox,
-        [TypeComponent.TABLE]: TableBox
+        [TypeComponent.TABLE]: TableBox,
+        [TypeComponent.CONTENT_BOX]: ContentBox,
+        [TypeComponent.JSON]: JSON
     }
 
     const Component = Componsnts[component.type]

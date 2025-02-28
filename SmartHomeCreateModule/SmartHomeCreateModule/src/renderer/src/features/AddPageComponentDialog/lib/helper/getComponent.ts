@@ -108,6 +108,18 @@ export function getInitComponent(type:TypeComponent, src: TypeSrc = TypeSrc.MANU
             row:[],
             src: src
         }
+    if(type === TypeComponent.JSON)
+        return {
+            type: TypeComponent.JSON,
+            name: "data",
+            value: ""
+        }
+    if(type === TypeComponent.CONTENT_BOX)
+        return {
+            type: TypeComponent.CONTENT_BOX,
+            name: "content box",
+            label: "content"
+        }
     return {
         type:TypeComponent.TEXT,
         value: "information",

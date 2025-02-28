@@ -14,10 +14,12 @@ import {
     ISendText as ConstructorSendText,
     ISwitch as ConstructorSwitch,
     IComponents as ConstructorComponent,
-    IColumnElement as ConstructorColumnElement
+    IColumnElement as ConstructorColumnElement,
+    IContentBox as ConstructorContentBox,
+    IJSON as ConstructorJSON
 } from "@renderer/entites/module/models/components";
 import { IButton, ICard, IColumns, IComponents, IDivider, IFlexContainer, IGridLayout, IKeyValue, IList, IPanel, ISelect, ISendText, ISlider, ISwitch, ITextField, TypeComponent } from "alex-evo-web-constructor";
-import { IColumnElement, ITable } from "alex-evo-web-constructor/dist/models";
+import { IColumnElement, IContentBox, IJSON, ITable } from "alex-evo-web-constructor/dist/models";
 import { isContainerColumn, isContainerMoreComponents, isContainerOneComponents } from "./utils";
 import { ITable as ConstructorTable } from "@renderer/entites/module/models/table";
 
@@ -36,6 +38,8 @@ const mapSlider = (component: ConstructorSlider):ISlider => component
 const mapSendText = (component: ConstructorSendText):ISendText => component
 const mapSwitch = (component: ConstructorSwitch):ISwitch => component
 const mapTable = (component: ConstructorTable):ITable => component
+const mapContentBox = (component: ConstructorContentBox):IContentBox => component
+const mapJSON = (component: ConstructorJSON):IJSON => component
 
 const mapByType:{[key in TypeComponent]: (component:any)=>any} = {
     [TypeComponent.COLUMNS]: mapColumn,
@@ -52,7 +56,9 @@ const mapByType:{[key in TypeComponent]: (component:any)=>any} = {
     [TypeComponent.SEND_TEXT]: mapSendText,
     [TypeComponent.SLIDER]: mapSlider,
     [TypeComponent.SWITCH]: mapSwitch,
-    [TypeComponent.TABLE]: mapTable
+    [TypeComponent.TABLE]: mapTable,
+    [TypeComponent.CONTENT_BOX]: mapContentBox,
+    [TypeComponent.JSON]: mapJSON
 }
 
 const mapColumnElement = (item:ConstructorColumnElement): IColumnElement => ({

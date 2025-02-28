@@ -79,6 +79,16 @@ export const COMPONENTS:ComponentItem<TypeComponent>[] = [
         icon: <MousePointerClick/>,
         data: TypeComponent.BUTTON
     },
+    {
+        title: "ContentBox",
+        icon: <MousePointerClick/>,
+        data: TypeComponent.CONTENT_BOX
+    },
+    {
+        title: "JSON",
+        icon: <MousePointerClick/>,
+        data: TypeComponent.JSON
+    },
 ]
 
 export const COUNT_VALUE = {

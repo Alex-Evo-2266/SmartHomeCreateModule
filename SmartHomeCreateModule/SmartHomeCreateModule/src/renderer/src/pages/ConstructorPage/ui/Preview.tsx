@@ -3,6 +3,7 @@ import { WebConstructor } from 'alex-evo-web-constructor'
 import { mapComponent } from '../../../entites/module/lib/helpers/mapComponents'
 import { useAppSelector } from '@renderer/shared/lib/hooks/redux'
 import { mapDialog } from '../../../entites/module/lib/helpers/mapDialog'
+import { useEffect } from 'react'
 
 interface PreviewProps{
     page: IComponents | undefined | null
@@ -15,6 +16,12 @@ export const Preview = ({page}:PreviewProps) => {
     const fetchFunc = (...arg) => {
         console.log(arg)
     }
+
+    useEffect(()=>{
+        if(!page)
+            return;
+        console.log(mapComponent(page))
+    },[page])
 
     if(!page)
         return (null)

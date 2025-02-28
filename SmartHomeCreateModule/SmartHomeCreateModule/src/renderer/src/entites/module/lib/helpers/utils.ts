@@ -13,7 +13,8 @@ export type SelectItens = (string | {
 const containersOneComponentType = [
     TypeComponent.KEY_VALUE, 
     TypeComponent.PANEL,
-    TypeComponent.CARD
+    TypeComponent.CARD,
+    TypeComponent.CONTENT_BOX
 ]
 
 const containersMoreComponentType = [

@@ -7,6 +7,8 @@ import { DialogPortal } from "@renderer/shared/ui"
 import { EditDialogProps } from "../types"
 import { ComponentBox } from "../Components"
 import { Trash2 } from "lucide-react"
+import { useAppDispatch, useAppSelector } from "@renderer/shared/lib/hooks/redux"
+import { setFunctionModule } from "@renderer/entites/module/lib/reducers/moduleReducer"
 
 interface ConstructorComponentProps<T extends IComponents>{
     component: T, 
@@ -20,6 +22,8 @@ export const MoreValueComponentTemplate = <T extends MoreValueComponent,>({compo
     const [addDialogVisible, setAddDialogVisible] = useState<boolean>(false)
     const [editDialogVisible, setEditDialogVisible] = useState<boolean>(false)
     const [deleteDialogVisible, setDeleteDialogVisible] = useState<boolean>(false)
+    const dispatch = useAppDispatch()
+    const {functions} = useAppSelector(state=>state.module)
 
     const clickHandler = (e: React.MouseEvent<HTMLElement>) => {
         const element = e.target as HTMLElement
@@ -28,8 +32,11 @@ export const MoreValueComponentTemplate = <T extends MoreValueComponent,>({compo
     }
 
     const deleteHandler = useCallback(() => {
+        if(component.src_key){
+            dispatch(setFunctionModule(functions.filter(item=>item.key !== component.src_key)))
+        }
         onDelete && onDelete()
-    },[onDelete])
+    },[onDelete, component, functions, dispatch])
 
     const addComponent = useCallback((data: IComponents) => {
         onChange({...component, value:[...component.value, data]})
