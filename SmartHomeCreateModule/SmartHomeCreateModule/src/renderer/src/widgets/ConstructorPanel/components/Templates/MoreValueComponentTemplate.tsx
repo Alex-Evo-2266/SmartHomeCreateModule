@@ -9,6 +9,7 @@ import { ComponentBox } from "../Components"
 import { Trash2 } from "lucide-react"
 import { useAppDispatch, useAppSelector } from "@renderer/shared/lib/hooks/redux"
 import { setFunctionModule } from "@renderer/entites/module/lib/reducers/moduleReducer"
+import { getServerGeneratedSrcKeys } from "../../lib/helpers/getServerGeneratedSrcKays"
 
 interface ConstructorComponentProps<T extends IComponents>{
     component: T, 
@@ -32,9 +33,8 @@ export const MoreValueComponentTemplate = <T extends MoreValueComponent,>({compo
     }
 
     const deleteHandler = useCallback(() => {
-        if(component.src_key){
-            dispatch(setFunctionModule(functions.filter(item=>item.key !== component.src_key)))
-        }
+        const keys = getServerGeneratedSrcKeys(component)
+        dispatch(setFunctionModule(functions.filter(item=>!keys.includes(item.key))))
         onDelete && onDelete()
     },[onDelete, component, functions, dispatch])
 

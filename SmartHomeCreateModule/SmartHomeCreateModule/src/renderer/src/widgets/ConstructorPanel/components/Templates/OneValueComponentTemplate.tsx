@@ -7,6 +7,9 @@ import { ComponentBox } from "../Components"
 import { DialogPortal } from "@renderer/shared/ui"
 import { EditDialogProps } from "../types"
 import { Trash2 } from "lucide-react"
+import { getServerGeneratedSrcKeys } from "../../lib/helpers/getServerGeneratedSrcKays"
+import { useAppDispatch, useAppSelector } from "@renderer/shared/lib/hooks/redux"
+import { setFunctionModule } from "@renderer/entites/module/lib/reducers/moduleReducer"
 
 interface ConstructorComponentProps<T extends IComponents>{
     component: T, 
@@ -20,6 +23,8 @@ export const OneValueComponentTemplate = <T extends OneValueComponent,>({compone
     const [addDialogVisible, setAddDialogVisible] = useState<boolean>(false)
     const [editDialogVisible, setEditDialogVisible] = useState<boolean>(false)
     const [deleteDialogVisible, setDeleteDialogVisible] = useState<boolean>(false)
+    const dispatch = useAppDispatch()
+    const {functions} = useAppSelector(state=>state.module)
 
     const clickHandler = (e: React.MouseEvent<HTMLElement>) => {
         const element = e.target as HTMLElement
@@ -32,8 +37,10 @@ export const OneValueComponentTemplate = <T extends OneValueComponent,>({compone
     },[onChange, component])
 
     const deleteHandler = useCallback(() => {
+        const keys = getServerGeneratedSrcKeys(component)
+        dispatch(setFunctionModule(functions.filter(item=>!keys.includes(item.key))))
         onDelete && onDelete()
-    },[onDelete])
+    },[onDelete, component, functions])
 
     const deleteItemHandler = useCallback(()=>{
         onChange({...component, value:undefined})

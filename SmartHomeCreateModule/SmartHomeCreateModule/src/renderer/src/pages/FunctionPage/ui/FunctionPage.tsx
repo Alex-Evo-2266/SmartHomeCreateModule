@@ -1,5 +1,5 @@
 import './FunctionPage.scss'
-import { GridLayout } from 'alex-evo-sh-ui-kit'
+import { GridLayout, GridLayoutItem } from 'alex-evo-sh-ui-kit'
 import { useAppSelector } from '@renderer/shared/lib/hooks/redux'
 import { Navigation } from '@renderer/widgets/Navigation'
 import { FunctionCard } from '@renderer/widgets/FunctionCard'
@@ -15,7 +15,9 @@ export const FunctionPage = () => {
                 <GridLayout>
                 {
                     functions.map((item, index)=>(
-                        <FunctionCard key={index} keyFunction={item.key} name={item.name ?? ""} type={item.type} />
+                        <GridLayoutItem>
+                            <FunctionCard key={index} keyFunction={item.key} name={item.name ?? ""} type={item.type} />
+                        </GridLayoutItem>
                     ))
                 }
                 </GridLayout>

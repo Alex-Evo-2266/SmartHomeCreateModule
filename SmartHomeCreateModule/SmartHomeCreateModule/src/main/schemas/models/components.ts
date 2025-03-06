@@ -205,10 +205,22 @@ export interface ISendText extends FetchComponent{
 	value?: string
 }
 
-export type OneValueComponent = IPanel | IKeyValue | ICard
+export interface IContentBox extends BaseComponent{
+	type: TypeComponent.CONTENT_BOX,
+	label: string,
+	value?: IComponents
+}
+
+export interface IJSON extends ComponentContent
+{
+	type: TypeComponent.JSON
+	value: string
+}
+
+export type OneValueComponent = IPanel | IKeyValue | ICard | IContentBox
 export type MoreValueComponent = IFlexContainer | IGridLayout | IList
 
-export type IComponents = OneValueComponent | MoreValueComponent | ITextField | IButton | IColumns | IDivider | ISlider | ISelect | ISwitch | ISendText | ITable
+export type IComponents = OneValueComponent | MoreValueComponent | ITextField | IButton | IColumns | IDivider | ISlider | ISelect | ISwitch | ISendText | ITable | IJSON
 
 export interface IPage{
 	page: IComponents[]

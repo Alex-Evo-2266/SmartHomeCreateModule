@@ -5,13 +5,16 @@ import { useParams } from 'react-router-dom'
 import MonacoEditor from 'react-monaco-editor'
 import './FunctionEditPage.scss'
 import { editor } from 'monaco-editor'
-import { BaseActionCard, Button, Panel } from 'alex-evo-sh-ui-kit'
+import { Button, IconButton, Panel } from 'alex-evo-sh-ui-kit'
 import { setFunctionModule } from '@renderer/entites/module/lib/reducers/moduleReducer'
+import { DialogPortal } from '@renderer/shared/ui'
+import { FormaterComponents } from '@renderer/widgets/FormatersComponents'
 
 export const FunctionEditPage = () => {
 
     const {key} = useParams()
     const {functions} = useAppSelector(state=>state.module)
+    const [infoVisible, setInfoVisible] = useState(false)
     const curFunction = useMemo(()=>functions.find(item=>item.key === key), [key, functions])
     const dispatch = useAppDispatch()
 
@@ -44,7 +47,10 @@ export const FunctionEditPage = () => {
         <>
             <Navigation/>
                 <Panel className='function-container'>
-                    <BaseActionCard><Button onClick={save}>save</Button></BaseActionCard>
+                    <div className='function-edit-buttons-container'>
+                        <IconButton icon={<i>!</i>} onClick={()=>setInfoVisible(true)}/>
+                        <Button onClick={save}>save</Button>
+                    </div>
                     <MonacoEditor 
                         height="80%"
                         language="python"
@@ -53,6 +59,12 @@ export const FunctionEditPage = () => {
                         onChange={(newValue) => setCode(newValue)}
                     />
                 </Panel>
+                {
+                    infoVisible &&
+                    <DialogPortal>
+                        <FormaterComponents onHide={()=>setInfoVisible(false)}/>
+                    </DialogPortal>
+                }
         </>
     )
 }
