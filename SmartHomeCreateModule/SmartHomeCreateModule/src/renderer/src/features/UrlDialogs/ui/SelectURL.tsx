@@ -8,6 +8,7 @@ import { EditAPIDialog } from "./EditAPIDialog"
 import { IAPI } from "@renderer/entites/module/models/API"
 import { useURL } from "@renderer/entites/Url"
 import { IOption } from "alex-evo-sh-ui-kit"
+import { get_api_template } from "@renderer/entites/module/lib/consts/apiTemplate"
 
 export interface ISelectFieldProps{
     onChange?:(value: string)=>void
@@ -63,7 +64,7 @@ export const SelectURL:React.FC<ISelectFieldProps> = (props) => {
 
     const addUrl = useCallback((data:IAPI)=>{
         let apis = api.slice()
-        apis.push({...data, use_type: props.typeAPI || TypeAPI.UNDEFINED})
+        apis.push({...data, use_type: props.typeAPI || TypeAPI.UNDEFINED, code:get_api_template(data.url)})
         dispatch(setAPIModule(apis))
         props.onChange && props.onChange(data.url)
         setEditURLVisible(false)

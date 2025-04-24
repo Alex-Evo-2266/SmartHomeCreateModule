@@ -12,7 +12,7 @@ export interface IAPI{
 	use_ditail?: string | object
 	use_target?: string
 	type: TypeRequest
-
+	code: string
 }
 
 

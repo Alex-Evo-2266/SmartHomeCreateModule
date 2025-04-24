@@ -3,7 +3,6 @@ import fs from 'fs'
 import JSZip from 'jszip'
 
 import {IModuleState} from '../schemas/models/module'
-import {generateAPI} from './generateAPI'
 import {generateModuleFile} from './generateModuleFile'
 import { mainFormater} from './generateFormat'
 import { dialog } from 'electron';
@@ -49,7 +48,7 @@ export function generateModule(data: IModuleState)
     }
 
     for(let item of data.api){
-        apiFolder.file(`${item.name}.py`, generateAPI(item))
+        apiFolder.file(`f${item.name}.py`, item.code)
     }
 
     for(let item of data.devices){

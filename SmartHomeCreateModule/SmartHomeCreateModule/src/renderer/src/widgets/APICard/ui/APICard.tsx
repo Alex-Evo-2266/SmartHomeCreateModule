@@ -2,6 +2,7 @@ import { useURL } from "@renderer/entites/Url"
 import { getAPIItem } from "@renderer/entites/module"
 import { IAPI } from "@renderer/entites/module/models/API"
 import { BaseActionCard, Card, FilledButton } from "alex-evo-sh-ui-kit"
+import { useNavigate } from "react-router-dom"
 
 interface APICardProps{
     data:IAPI
@@ -12,6 +13,7 @@ interface APICardProps{
 export const APICard = ({data, onEdit, onDelete}:APICardProps) => {
 
     const {getFullURL} = useURL()
+    const navigate = useNavigate()
 
     return(
         <>
@@ -22,6 +24,7 @@ export const APICard = ({data, onEdit, onDelete}:APICardProps) => {
             url: ${getFullURL(data.url)}`} 
             action={<BaseActionCard>
                 <FilledButton onClick={onEdit}>edit</FilledButton>
+                <FilledButton onClick={()=>navigate(`/apiPage/constructor/${data.url}`)}>edit code</FilledButton>
                 <FilledButton onClick={onDelete} style={{
                     backgroundColor: "var(--Error-color)",
                     color: "var(--On-error-color)"

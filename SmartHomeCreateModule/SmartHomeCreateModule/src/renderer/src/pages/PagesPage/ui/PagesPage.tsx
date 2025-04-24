@@ -1,7 +1,7 @@
 import { setPageModule } from "@renderer/entites/module/lib/reducers/moduleReducer"
 import { AddPageDialog } from "@renderer/features/AddPageDialog/ui/AddPageDialog"
 import { useAppDispatch, useAppSelector } from "@renderer/shared/lib/hooks/redux"
-import { FAB, EmptyPage } from 'alex-evo-sh-ui-kit'
+import { FAB, EmptyPage, Plus } from 'alex-evo-sh-ui-kit'
 import { PageCard } from "@renderer/widgets/PageCard/ui/PageCard"
 import { useCallback, useState } from "react"
 import './PagesPage.scss'
@@ -32,7 +32,7 @@ export const PagesPage = () => {
                 }} title="The pages have not been created yet" hexColor="#FFF" style={{margin: "0",height: "100dvh"}}/>
             }
         </div>
-        <FAB onClick={()=>setAddPageCardVisible(true)} className="fab-in-page">+</FAB>
+        <FAB onClick={()=>setAddPageCardVisible(true)} className="fab-in-page" icon={<Plus/>}/>
         {
             (addPageCArdVisible) && <AddPageDialog onHide={()=>setAddPageCardVisible(false)} onCreate={(data)=>{
                 let page = pages.slice()

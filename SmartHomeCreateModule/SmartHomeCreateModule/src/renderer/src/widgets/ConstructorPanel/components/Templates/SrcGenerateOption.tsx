@@ -1,5 +1,5 @@
 import { TypeSrc } from "@renderer/entites/module/models/components"
-import { ContentBox, SigmentedButton } from "alex-evo-sh-ui-kit"
+import { ContentBox, SegmentedButton } from "alex-evo-sh-ui-kit"
 import { useCallback } from "react"
 
 export interface ServerGenerateContentOptionProps{
@@ -20,7 +20,7 @@ export const ServerGenerateContentOption = ({onChange, data}:ServerGenerateConte
 
     return(
         <ContentBox label='server generete content'>
-            <SigmentedButton items={[TypeSrc.MANUAL, TypeSrc.SERVER_GENERATE]} value={data} onChange={changeHandler}/>
+            <SegmentedButton items={[TypeSrc.MANUAL, TypeSrc.SERVER_GENERATE]} value={data} onChange={changeHandler}/>
         </ContentBox>
     )
 }

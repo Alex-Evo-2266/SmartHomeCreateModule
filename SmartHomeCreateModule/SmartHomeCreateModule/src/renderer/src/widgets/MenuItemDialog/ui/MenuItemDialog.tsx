@@ -1,4 +1,4 @@
-import { BaseActionCard, BasicTemplateDialog, Button, ContentBox, FilledButton, SigmentedButton, TextField } from "alex-evo-sh-ui-kit"
+import { BaseActionCard, BasicTemplateDialog, Button, ContentBox, FilledButton, SegmentedButton, TextField } from "alex-evo-sh-ui-kit"
 import { ActionType, IMenuItem, IMenuSubItem } from "alex-evo-web-constructor"
 import { useCallback, useState } from "react"
 import { EditActionDialog } from "./EditActionMenu"
@@ -42,7 +42,7 @@ export const MenuItemDialog = ({onHide, onSelect, data, isSubItem}:AddItemCompon
             <BasicTemplateDialog header="add item" action={<ButtonsAction onHide={onHide} onSave={save}/>}>
                 <ContentBox label="base">
                     <TextField border placeholder="label" value={label} name="label" onChange={e=>setLabel(e.target.value)}/>
-                    {!isSubItem && <SigmentedButton items={["action", "sub item"]} value={getMode(subItem)} onChange={changeMode}/>}
+                    {!isSubItem && <SegmentedButton items={["action", "sub item"]} value={getMode(subItem)} onChange={changeMode}/>}
                     <EditActionDialog onChange={setAction} data={action}/>
                 </ContentBox>
             </BasicTemplateDialog>

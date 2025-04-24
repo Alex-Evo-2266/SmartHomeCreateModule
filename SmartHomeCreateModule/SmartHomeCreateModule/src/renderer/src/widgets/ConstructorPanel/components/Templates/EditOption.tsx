@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { IOption } from 'alex-evo-web-constructor'
 import { OptionVisible } from '../types'
 import { ColorField } from '@renderer/shared/ui'
-import { ContentBox, NumberField, SigmentedButton, TextField } from 'alex-evo-sh-ui-kit'
+import { ContentBox, NumberField, SegmentedButton, TextField } from 'alex-evo-sh-ui-kit'
 
 const NONE_COLOR = 'none_color'
 
@@ -39,7 +39,7 @@ export const EditOptionDialog = ({onChange, data, option}:EditActionDialogProps)
     },[onChange, data])
 
     return(
-        <ContentBox label='option' hiding border style={{margin: "0 10px"}}>
+        <ContentBox label='option' collapsible border style={{margin: "0 10px"}}>
             {
                 (!option || option?.backgroundColor) && <ColorField placeholder='background' def={NONE_COLOR} border value={data.backgroundColor} onChange={changeBackgroundColor}/>
             }
@@ -65,7 +65,7 @@ export const EditOptionDialog = ({onChange, data, option}:EditActionDialogProps)
                 (!option || option?.padding) && <TextField placeholder='padding' name='padding' border value={data.padding} onChange={changeText}/>
             }
             {
-                (!option || option?.pozition) && <SigmentedButton value={data.pozition} items={['right', 'center', 'left']} onChange={changeSegments}/>
+                (!option || option?.pozition) && <SegmentedButton value={data.pozition} items={['right', 'center', 'left']} onChange={changeSegments}/>
             }
         </ContentBox>
     )

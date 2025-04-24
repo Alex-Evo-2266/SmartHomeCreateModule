@@ -1,6 +1,6 @@
 import { setAPIModule } from "@renderer/entites/module/lib/reducers/moduleReducer"
 import { useAppDispatch, useAppSelector } from "@renderer/shared/lib/hooks/redux"
-import { FAB, EmptyPage, GridLayout, GridLayoutItem } from 'alex-evo-sh-ui-kit'
+import { FAB, EmptyPage, GridLayout, GridLayoutItem, Plus } from 'alex-evo-sh-ui-kit'
 import { useCallback, useState } from "react"
 import './APIPage.scss'
 import { Navigation } from "@renderer/widgets/Navigation"
@@ -57,7 +57,7 @@ export const URLPage = () => {
                 }} title="The API have not been created yet" hexColor="#FFF" style={{margin: "0",height: "100dvh"}}/>
             }
         </div>
-        <FAB onClick={()=>setEditAPICard("add")} className="fab-in-page">+</FAB>
+        <FAB onClick={()=>setEditAPICard("add")} className="fab-in-page" icon={<Plus/>}/>
         {
             (editAPICard)?
             <DialogPortal>

@@ -6,6 +6,7 @@ import { URL_ITEM } from "@renderer/entites/module"
 import { TypeAPI } from "@renderer/entites/module/models/types"
 import { IAPI, TypeRequest } from "@renderer/entites/module/models/API"
 import { TypeComponent } from "alex-evo-web-constructor"
+import { get_api_template } from "@renderer/entites/module/lib/consts/apiTemplate"
 
 interface AddPageDialogProps{
     onChange:(data:IAPI, index?: number)=>void
@@ -35,7 +36,8 @@ export const EditAPIDialog = ({onChange, onHide, index, data, typeComponentFixid
             name,
             url,
             type: TypeRequest.GET,
-            use_type: typeComponent || TypeAPI.ACTION
+            use_type: typeComponent || TypeAPI.ACTION,
+            code: get_api_template(url)
         }
         if(!isValidData(api)) return;
         onChange(api, index)

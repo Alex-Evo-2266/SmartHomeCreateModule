@@ -1,4 +1,4 @@
-import { FullScrinTemplateDialog } from 'alex-evo-sh-ui-kit'
+import { FullScreenTemplateDialog } from 'alex-evo-sh-ui-kit'
 import { useCallback, useState } from 'react'
 import { DialogPortal } from '@renderer/shared/ui'
 import { ActionFetchTarget, ActionType, BaseAction, IComponents, TypeSrc } from '@renderer/entites/module/models/components'
@@ -80,7 +80,7 @@ export const EditComponentTemplateDialog = <T extends IComponents,>({onHide, onS
 
     return(
         <DialogPortal>
-            <FullScrinTemplateDialog onHide={onHide} onSave={save}>
+            <FullScreenTemplateDialog onHide={onHide} onSave={save}>
                 {
                     (isGenerateContent(data)) && <ServerGenerateContentOption onChange={setSrc} data={src ?? TypeSrc.MANUAL}/>
                 }
@@ -93,7 +93,7 @@ export const EditComponentTemplateDialog = <T extends IComponents,>({onHide, onS
                 {
                     optionVisible !== null && <EditOptionDialog option={optionVisible} data={option} onChange={optionHanler}/>
                 }
-            </FullScrinTemplateDialog>
+            </FullScreenTemplateDialog>
         </DialogPortal>
         
     )

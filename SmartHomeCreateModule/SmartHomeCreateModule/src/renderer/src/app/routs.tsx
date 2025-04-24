@@ -11,6 +11,7 @@ import { MenuPage } from "@renderer/pages/MenuPage/ui/MenuPage"
 import { ConstructorMenu } from "@renderer/pages/MenuConstructorPage"
 import { DevicesPage } from "@renderer/pages/DevicesPage"
 import { FunctionEditPage } from "@renderer/pages/FunctionEditPage"
+import { APIEditPage } from "@renderer/pages/RouterEditPage/ui/RouterEditPage"
 
 
 export const useRoutes = ()=>{
@@ -27,6 +28,7 @@ export const useRoutes = ()=>{
 				<Route path="menu/constructor/:index" element={<ConstructorMenu/>}/>
 				<Route path="menu" element={<MenuPage/>}/>
 				<Route path="devices" element={<DevicesPage/>}/>
+				<Route path="apiPage/constructor/:key" element={<APIEditPage/>}/>
 				<Route path="apiPage" element={<URLPage/>}/>
 				<Route path="function/constructor/:key" element={<FunctionEditPage/>}/>
 				<Route path="function" element={<FunctionPage/>}/>

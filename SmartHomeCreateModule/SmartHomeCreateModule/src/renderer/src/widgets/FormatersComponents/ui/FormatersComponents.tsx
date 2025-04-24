@@ -1,4 +1,4 @@
-import { FullScrinTemplateDialog } from "alex-evo-sh-ui-kit"
+import { FullScreenTemplateDialog } from "alex-evo-sh-ui-kit"
 import { useState } from "react"
 import { FormaterComponentsBasePage } from "./InformationBasePage"
 import { BasePages } from "../models/basePages"
@@ -29,8 +29,8 @@ export const FormaterComponents:React.FC<FormaterComponentsProps> = ({onHide}) =
     }   
 
     return(
-        <FullScrinTemplateDialog onHide={onHide} header="Formater components">
+        <FullScreenTemplateDialog onHide={onHide} header="Formater components">
             <Component onSetPage={pageClick}/>
-        </FullScrinTemplateDialog>
+        </FullScreenTemplateDialog>
     )
 }
